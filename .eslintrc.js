@@ -18,5 +18,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
+    'react/function-component-definition': [2, { namedComponents: ['arrow-function'] }],
+
   },
 };

@@ -1,0 +1,23 @@
+@import 'vars.scss';
+
+html, body {
+  box-sizing: border-box;
+}
+
+#all {
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  height: $header-height;
+}
+
+#main {
+  min-height: $all-min-height;
+  background-color: #DDD;
+}
+
+#footer {
+  height: $footer-height;
+}
