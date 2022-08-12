@@ -1,7 +1,12 @@
 import { FC } from 'react';
+import Menu from './menu';
 
 const Header: FC = () => (
-  <header id="header">Header</header>
+  <header className="header">
+    Header. Logo component. Auth/login block.
+    {' '}
+    <Menu />
+  </header>
 );
 
 export default Header;

@@ -4,20 +4,27 @@ html, body {
   box-sizing: border-box;
 }
 
-#all {
+.all {
   display: flex;
   flex-direction: column;
 }
 
-#header {
+.header {
   height: $header-height;
+  background-color: #FAB;
 }
 
-#main {
-  min-height: $all-min-height;
+.main {
+  min-height: calc(100vh - $header-height - $footer-height);
   background-color: #DDD;
 }
 
-#footer {
+.game {
+  min-height: calc(100vh - $header-height);
+  background-color: #ABD;
+}
+
+.footer {
   height: $footer-height;
+  background-color: #BBB;
 }
