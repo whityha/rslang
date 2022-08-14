@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import sliceWords from './words/slice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    words: sliceWords,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>
