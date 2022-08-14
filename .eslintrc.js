@@ -19,6 +19,9 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'react/function-component-definition': [2, { namedComponents: ['arrow-function'] }],
+    'no-param-reassign': 'off',
+    'react/button-has-type': 'off',
+    'no-unused-expressions': 'off',
 
   },
 };
