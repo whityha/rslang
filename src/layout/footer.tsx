@@ -14,7 +14,7 @@ const Footer: FC = () => (
     }}
     className="footer"
   >
-    <Box component="a" href="http://rs.school/" width="100px">
+    <Box component="a" href="https://rs.school/js/" width="100px">
       <img alt="RSSchool" src={RSSChool} />
     </Box>
     <ButtonGroup
