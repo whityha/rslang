@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { WordsState } from '../../types/redux';
+import wordsExtraReducers from './extra';
 
 const initialState: WordsState = {
   data: [],
@@ -18,6 +19,7 @@ export const wordsSlice = createSlice({
       state.isLoading = action.payload;
     },
   },
+  extraReducers: wordsExtraReducers,
 });
 
 // Action creators are generated for each case reducer function

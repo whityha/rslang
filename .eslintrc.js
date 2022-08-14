@@ -21,6 +21,7 @@ module.exports = {
     'react/function-component-definition': [2, { namedComponents: ['arrow-function'] }],
     'no-param-reassign': 'off',
     'react/button-has-type': 'off',
+    'no-unused-expressions': 'off',
 
   },
 };
