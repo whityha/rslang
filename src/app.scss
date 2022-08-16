@@ -33,3 +33,13 @@ a {
   height: $footer-height;
   background-color: #BBB;
 }
+
+.active-link::before {
+  content: "";
+  width: 3px;
+  height: 40px;
+  position: absolute;
+  top: 4px;
+  display: block;
+  background-color: rgba(#000000 , 0.5);
+}

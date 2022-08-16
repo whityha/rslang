@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -29,19 +29,19 @@ const buttonsData = [
     id: 2,
     text: 'Textbook',
     icon: <BookOutlinedIcon />,
-    path: '/',
+    path: 'vocabulary',
   },
   {
     id: 3,
     text: 'Game',
     icon: <SportsEsportsOutlinedIcon />,
-    path: '/',
+    path: 'login',
   },
   {
     id: 4,
     text: 'Statistic',
     icon: <QueryStatsIcon />,
-    path: '/',
+    path: 'stat',
   },
 ];
 
@@ -90,7 +90,7 @@ const Menu: FC = () => {
     setOpen((prevState) => !prevState);
   };
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer sx={{ '& .MuiDrawer-paper': { borderWidth: 0 } }} variant="permanent" open={open}>
       <Paper
         sx={{
           minHeight: 70,
@@ -99,7 +99,7 @@ const Menu: FC = () => {
           display: 'flex',
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
-          px: 2.5,
+          px: 3,
         }}
         elevation={0}
       >
@@ -107,12 +107,17 @@ const Menu: FC = () => {
           {open ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Paper>
-      <List>
+      <List sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+      }}
+      >
         {buttonsData.map(({
           id, text, icon, path,
         }) => (
-          <Link to={path} key={id}>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+          <ListItem disablePadding sx={{ display: 'block' }} key={id}>
+            <NavLink className={({ isActive }) => (isActive ? 'active-link' : undefined)} to={path}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -131,22 +136,31 @@ const Menu: FC = () => {
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
-            </ListItem>
-          </Link>
+            </NavLink>
+          </ListItem>
         ))}
+        <ListItem sx={{ display: 'block', mt: 'auto', p: 0 }}>
+          <Link to="reg">
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log out" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </Link>
+        </ListItem>
       </List>
-      <IconButton
-        sx={{
-          minHeight: 48,
-          minWidth: 0,
-          mr: open ? 3 : 'auto',
-          justifyContent: open ? 'initial' : 'center',
-          px: 2.5,
-          borderRadius: 0,
-        }}
-      >
-        <ExitToAppIcon />
-      </IconButton>
     </Drawer>
   );
 };
