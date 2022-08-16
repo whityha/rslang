@@ -1,12 +1,10 @@
+import { Paper } from '@mui/material';
 import { FC } from 'react';
-import Menu from './menu';
 
 const Header: FC = () => (
-  <header className="header">
-    Header. Logo component. Auth/login block.
-    {' '}
-    <Menu />
-  </header>
+  <Paper sx={{ minHeight: 70, px: 2.5 }} elevation={0}>
+    123
+  </Paper>
 );
 
 export default Header;
