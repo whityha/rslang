@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { styled, Theme, CSSObject } from '@mui/material/styles';
+import {
+  styled, Theme, CSSObject, useTheme,
+} from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import IconButton from '@mui/material/IconButton';
@@ -35,7 +38,7 @@ const buttonsData = [
     id: 3,
     text: 'Game',
     icon: <SportsEsportsOutlinedIcon />,
-    path: 'login',
+    path: 'games',
   },
   {
     id: 4,
@@ -84,13 +87,24 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Menu: FC = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleOpen = () => {
     setOpen((prevState) => !prevState);
   };
   return (
-    <Drawer sx={{ '& .MuiDrawer-paper': { borderWidth: 0 } }} variant="permanent" open={open}>
+    <Drawer
+      sx={{
+        '& .MuiDrawer-paper': {
+          borderWidth: 0, bgcolor: '#f6e58d',
+        },
+        display: !matches ? 'none' : 'initial',
+      }}
+      variant="permanent"
+      open={open}
+    >
       <Paper
         sx={{
           minHeight: 70,
@@ -100,6 +114,7 @@ const Menu: FC = () => {
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
           px: 3,
+          bgcolor: '#f6e58d',
         }}
         elevation={0}
       >
