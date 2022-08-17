@@ -66,11 +66,12 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => (
                 minWidth: 0,
                 mr: open ? 3 : 'auto',
                 justifyContent: 'center',
+                color: '#ffffff',
               }}
             >
               {icon}
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
           </ListItemButton>
         </NavLink>
       </ListItem>
@@ -88,11 +89,12 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => (
               minWidth: 0,
               mr: open ? 3 : 'auto',
               justifyContent: 'center',
+              color: '#ffffff',
             }}
           >
             <ExitToAppIcon />
           </ListItemIcon>
-          <ListItemText primary="Log out" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Log out" sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
         </ListItemButton>
       </Link>
     </ListItem>

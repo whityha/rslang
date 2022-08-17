@@ -62,7 +62,9 @@ const Menu: FC = () => {
     <Drawer
       sx={{
         '& .MuiDrawer-paper': {
-          borderWidth: 0, bgcolor: '#f6e58d',
+          borderWidth: 0,
+          color: '#ffffff',
+          bgcolor: '#130f40',
         },
         display: !matches ? 'none' : 'initial',
       }}
@@ -78,11 +80,11 @@ const Menu: FC = () => {
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
           px: 3,
-          bgcolor: '#f6e58d',
+          bgcolor: '#130f40',
         }}
         elevation={0}
       >
-        <IconButton aria-label="open drawer" onClick={handleOpen} edge="start">
+        <IconButton sx={{ color: '#ffffff' }} aria-label="open drawer" onClick={handleOpen} edge="start">
           {open ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Paper>
