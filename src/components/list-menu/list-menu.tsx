@@ -22,7 +22,7 @@ const buttonsData = [
     id: 2,
     text: 'Textbook',
     icon: <BookOutlinedIcon />,
-    path: 'vocabulary',
+    path: 'textbook',
   },
   {
     id: 3,

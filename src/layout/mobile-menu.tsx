@@ -34,7 +34,12 @@ const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu }: MobileMenuPr
   return (
     <Drawer open={state} onClose={toggleDrawer()}>
       <Box
-        sx={{ width: 240 }}
+        sx={{
+          width: 240,
+          display: 'flex',
+          flexGrow: 1,
+          bgcolor: '#dff9fb',
+        }}
         role="presentation"
         onClick={toggleDrawer()}
         onKeyDown={toggleDrawer()}
