@@ -27,7 +27,6 @@ const AllLayout: FC = () => {
           maxWidth="lg"
           sx={{
             py: 4,
-            bgcolor: '#ccc',
             flexGrow: 1,
           }}
         >
