@@ -1,12 +1,69 @@
 import { FC } from 'react';
-import Menu from './menu';
+import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
-const Header: FC = () => (
-  <header className="header">
-    Header. Logo component. Auth/login block.
-    {' '}
-    <Menu />
-  </header>
-);
+const getTitle = (pathname: string): string => {
+  switch (pathname) {
+    case '/':
+      return 'Main';
+    case '/textbook':
+      return 'Textbook';
+    case '/games':
+      return 'Games';
+    case '/stat':
+      return 'Statistic';
+    case '/reg':
+      return 'Registration';
+    default:
+      return '';
+  }
+};
+
+const textColor = 'rgba(0,0,0,0.87)';
+
+interface HeaderProps {
+  // eslint-disable-next-line no-unused-vars
+  setOpen: (value: boolean) => void;
+}
+
+const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
+  const { pathname } = useLocation();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
+
+  return (
+    <AppBar position="static" elevation={0}>
+      <Toolbar sx={{ height: 70, bgcolor: '#ffffff' }}>
+        {!matches && (
+          <IconButton
+            onClick={() => setOpen(true)}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{
+              mr: 2,
+            }}
+          >
+            <MenuIcon sx={{ color: textColor }} />
+          </IconButton>
+        )}
+        <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: textColor }}>
+          {getTitle(pathname)}
+        </Typography>
+        <Button sx={{ color: textColor }}>Login</Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Header;
