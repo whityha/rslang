@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
 import Header from './header';
 import Footer from './footer';
 import Menu from './menu';
@@ -11,7 +10,6 @@ const AllLayout: FC = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <Menu />
       <MobileMenu openMenu={openMobileMenu} setOpenMenu={setOpenMobileMenu} />
       <Box sx={{

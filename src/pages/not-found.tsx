@@ -28,7 +28,6 @@ const NotFoundPage: FC = () => (
         <Typography
           gutterBottom
           variant="h3"
-          color="text.secondary"
           component="h1"
           sx={{ fontWeight: 700 }}
         >
@@ -36,7 +35,6 @@ const NotFoundPage: FC = () => (
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
           sx={{ fontSize: 24, mb: 5 }}
         >
           We couldn&apos;t find what you were looking for.
@@ -47,10 +45,6 @@ const NotFoundPage: FC = () => (
       <Box>
         <Button
           variant="contained"
-          sx={{
-            bgcolor: '#394a8c',
-            '&:hover': { bgcolor: '#6473b9' },
-          }}
         >
           <Link to="/">Go Home</Link>
         </Button>

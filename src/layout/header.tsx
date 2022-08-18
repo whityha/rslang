@@ -28,8 +28,6 @@ const getTitle = (pathname: string): string => {
   }
 };
 
-const textColor = 'rgba(0,0,0,0.87)';
-
 interface HeaderProps {
   // eslint-disable-next-line no-unused-vars
   setOpen: (value: boolean) => void;
@@ -54,13 +52,23 @@ const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
               mr: 2,
             }}
           >
-            <MenuIcon sx={{ color: textColor }} />
+            <MenuIcon sx={{ color: 'text.primary' }} />
           </IconButton>
         )}
-        <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: textColor }}>
+        <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: 'text.primary' }}>
           {getTitle(pathname)}
         </Typography>
-        <Button sx={{ color: textColor }}>Login</Button>
+        <Button
+          sx={{
+            color: 'text.primary',
+            '&:hover': {
+              color: 'text.primary',
+              bgcolor: '#ffffff',
+            },
+          }}
+        >
+          Login
+        </Button>
       </Toolbar>
     </AppBar>
   );
