@@ -11,7 +11,7 @@ interface CardProps {
   path: string;
 }
 
-const CatalogCard: FC<CardProps> = ({ title, description, path }) => (
+const GamesCard: FC<CardProps> = ({ title, description, path }) => (
   <Grid item xs={12} md={6}>
     <Paper
       sx={{
@@ -41,4 +41,4 @@ const CatalogCard: FC<CardProps> = ({ title, description, path }) => (
   </Grid>
 );
 
-export default CatalogCard;
+export default GamesCard;

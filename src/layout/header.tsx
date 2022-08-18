@@ -17,10 +17,12 @@ const getTitle = (pathname: string): string => {
       return 'Главная';
     case '/textbook':
       return 'Учебник';
-    case '/catalog':
-      return 'Каталог';
     case '/games':
       return 'Игры';
+    case '/games/sprint':
+      return ' Спринт';
+    case '/games/call':
+      return 'Вызов';
     case '/stat':
       return 'Статистика';
     case '/reg':

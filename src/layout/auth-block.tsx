@@ -1,5 +1,7 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { logout, testAuth } from '../redux/auth/slice';
 import { useAppDispatch, useAuth } from '../redux/hooks';
 import { toastSuccess } from '../redux/toast/slice';
@@ -13,20 +15,40 @@ const AuthBlock: FC = () => {
     dispatch(toastSuccess('Success login!'));
   };
 
+  const styles = {
+    color: 'text.primary',
+    textTransform: 'capitalize',
+    '&:hover': {
+      color: 'text.primary',
+    },
+  };
+
   return (
     <>
       {' '}
-      {auth.isAuth
-        ? (
-          <>
-            <Button>
-              Login:
-              {auth.userData!.name}
-            </Button>
-            <Button onClick={() => dispatch(logout())}> Logout </Button>
-          </>
-        )
-        : <Button onClick={() => showAuthForm()}>Do Login</Button>}
+      {auth.isAuth ? (
+        <>
+          <Button sx={styles}>
+            Login:
+            {auth.userData!.name}
+          </Button>
+          <Button
+            onClick={() => dispatch(logout())}
+            sx={styles}
+            startIcon={<LockOpenOutlinedIcon />}
+          >
+            Выйти
+          </Button>
+        </>
+      ) : (
+        <Button
+          onClick={() => showAuthForm()}
+          sx={styles}
+          startIcon={<LockOutlinedIcon />}
+        >
+          Войти
+        </Button>
+      )}
     </>
   );
 };
