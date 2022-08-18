@@ -4,12 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   AppBar,
-  Button,
   IconButton,
   Toolbar,
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import AuthBlock from './auth-block';
 
 const getTitle = (pathname: string): string => {
   switch (pathname) {
@@ -60,7 +60,8 @@ const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
         <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: textColor }}>
           {getTitle(pathname)}
         </Typography>
-        <Button sx={{ color: textColor }}>Login</Button>
+        <AuthBlock />
+
       </Toolbar>
     </AppBar>
   );

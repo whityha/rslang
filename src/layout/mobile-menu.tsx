@@ -4,6 +4,7 @@ import React, {
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import ListMenu from '../components/list-menu/list-menu';
+import { colorMenuBg } from '../style/common';
 
 interface MobileMenuProps {
   openMenu: boolean;
@@ -38,7 +39,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu }: MobileMenuPr
           width: 240,
           display: 'flex',
           flexGrow: 1,
-          bgcolor: '#130f40',
+          bgcolor: colorMenuBg,
         }}
         role="presentation"
         onClick={toggleDrawer()}

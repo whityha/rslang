@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { useAppDispatch, useWords } from '../../redux/hooks';
 import getAllWords from '../../redux/words/getall';
 import { setWordsLoading } from '../../redux/words/slice';
+import Loading from '../loading/loading';
 
 const TextBook: FC = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ const TextBook: FC = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <div>
         <button onClick={() => dispatch(getAllWords())}>reload</button>
         <button onClick={() => dispatch(setWordsLoading(true))}>setLoading</button>
@@ -20,7 +21,7 @@ const TextBook: FC = () => {
       </div>
       <h1>Textbook</h1>
       {
-        words.isLoading ? 'Loading...' : words.data.map((word) => (
+        words.isLoading ? <Loading /> : words.data.map((word) => (
           <div key={word.id}>
             <div>{word.word}</div>
             <div>{word.transcription}</div>
@@ -31,7 +32,7 @@ const TextBook: FC = () => {
         ))
       }
 
-    </div>
+    </>
   );
 };
 
