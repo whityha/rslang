@@ -14,15 +14,17 @@ import AuthBlock from './auth-block';
 const getTitle = (pathname: string): string => {
   switch (pathname) {
     case '/':
-      return 'Main';
+      return 'Главная';
     case '/textbook':
-      return 'Textbook';
+      return 'Учебник';
+    case '/catalog':
+      return 'Каталог';
     case '/games':
-      return 'Games';
+      return 'Игры';
     case '/stat':
-      return 'Statistic';
+      return 'Статистика';
     case '/reg':
-      return 'Registration';
+      return 'Регистрация';
     default:
       return '';
   }
