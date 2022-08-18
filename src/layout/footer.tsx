@@ -9,8 +9,8 @@ const Footer: FC = () => (
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      height: 70,
       padding: '0px 5% 0px 5%',
-      bgcolor: 'white',
     }}
     className="footer"
   >

@@ -9,7 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { Paper } from '@mui/material';
 import ListMenu from '../components/list-menu/list-menu';
-import { colorMenuFont, colorMenuBg } from '../style/common';
 
 const drawerWidth = 240;
 
@@ -64,8 +63,8 @@ const Menu: FC = () => {
       sx={{
         '& .MuiDrawer-paper': {
           borderWidth: 0,
-          color: colorMenuFont,
-          bgcolor: colorMenuBg,
+          color: 'primary.contrastText',
+          bgcolor: 'primary.main',
         },
         display: !matches ? 'none' : 'initial',
       }}
@@ -81,11 +80,16 @@ const Menu: FC = () => {
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
           px: 3,
-          bgcolor: colorMenuBg,
+          bgcolor: 'primary.main',
         }}
         elevation={0}
       >
-        <IconButton sx={{ color: colorMenuFont }} aria-label="open drawer" onClick={handleOpen} edge="start">
+        <IconButton
+          sx={{ color: 'primary.contrastText' }}
+          aria-label="open drawer"
+          onClick={handleOpen}
+          edge="start"
+        >
           {open ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Paper>

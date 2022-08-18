@@ -23,7 +23,7 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
     minWidth: 0,
     mr: open ? 3 : 'auto',
     justifyContent: 'center',
-    color: '#ffffff',
+    color: 'primary.contrastText',
   };
 
   return (
@@ -37,7 +37,7 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
         id, text, icon, path,
       }) => (
         <ListItem disablePadding sx={{ display: 'block' }} key={id}>
-          <NavLink className={({ isActive }) => (isActive ? 'active-link' : undefined)} to={path}>
+          <NavLink className={({ isActive }) => (isActive ? 'active-menu-link' : undefined)} to={path}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -50,7 +50,7 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
               >
                 {icon}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
+              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: 'primary.contrastText' }} />
             </ListItemButton>
           </NavLink>
         </ListItem>
@@ -69,7 +69,11 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
             >
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText onClick={() => dispatch(logout())} primary="Logout" sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
+            <ListItemText
+              onClick={() => dispatch(logout())}
+              primary="Log out"
+              sx={{ opacity: open ? 1 : 0, color: 'primary.contrastText' }}
+            />
           </ListItemButton>
         </Link>
       </ListItem>

@@ -39,7 +39,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu }: MobileMenuPr
           width: 240,
           display: 'flex',
           flexGrow: 1,
-          bgcolor: colorMenuBg,
+          bgcolor: 'primary.main',
         }}
         role="presentation"
         onClick={toggleDrawer()}

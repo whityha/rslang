@@ -1,9 +1,5 @@
 @import 'vars.scss';
 
-html, body {
-  box-sizing: border-box;
-}
-
 a {
   text-decoration: none;
   color: inherit;
@@ -14,37 +10,12 @@ img {
   height: auto;
 }
 
-.all {
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
-  height: $header-height;
-  background-color: #FAB;
-}
-
-.main {
-  min-height: calc(100vh - $header-height - $footer-height);
-  background-color: #DDD;
-}
-
-.game {
-  min-height: calc(100vh - $header-height);
-  background-color: #ABD;
-}
-
-.footer {
-  height: $footer-height;
-  background-color: #BBB;
-}
-
-.active-link::before {
+.active-menu-link::before {
   content: "";
   width: 3px;
-  height: 40px;
+  height: 34px;
   position: absolute;
-  top: 4px;
+  top: 7px;
   display: block;
-  background-color: #FFF;
+  background-color: #b3cde0;
 }
