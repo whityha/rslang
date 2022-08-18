@@ -17,6 +17,7 @@ import LoginPage from './pages/login';
 import TextBookPage from './pages/textbook';
 import VocabularyPage from './pages/vocabulary';
 import Toast from './components/toast/toast';
+import ReduxConfirm from './components/confirm/redux-confirm';
 
 const App: FC = () => (
   <ThemeProvider theme={theme}>
@@ -39,6 +40,7 @@ const App: FC = () => (
         </Route>
       </Routes>
       <Toast />
+      <ReduxConfirm />
     </BrowserRouter>
   </ThemeProvider>
 );
