@@ -1,104 +1,81 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DomainIcon from '@mui/icons-material/Domain';
-import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
-import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-const buttonsData = [
-  {
-    id: 1,
-    text: 'Main',
-    icon: <DomainIcon />,
-    path: '/',
-  },
-  {
-    id: 2,
-    text: 'Textbook',
-    icon: <BookOutlinedIcon />,
-    path: 'textbook',
-  },
-  {
-    id: 3,
-    text: 'Game',
-    icon: <SportsEsportsOutlinedIcon />,
-    path: 'games',
-  },
-  {
-    id: 4,
-    text: 'Statistic',
-    icon: <QueryStatsIcon />,
-    path: 'stat',
-  },
-];
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useAppDispatch, useAuth } from '../../redux/hooks';
+import buttonsData from './buttons-data';
+import { logout } from '../../redux/auth/slice';
 
 interface ListMenuProps {
   open: boolean;
 }
 
-const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => (
-  <List sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-  }}
-  >
-    {buttonsData.map(({
-      id, text, icon, path,
-    }) => (
-      <ListItem disablePadding sx={{ display: 'block' }} key={id}>
-        <NavLink className={({ isActive }) => (isActive ? 'active-link' : undefined)} to={path}>
+const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
+  const dispatch = useAppDispatch();
+  const auth = useAuth();
+
+  const iconStyle = {
+    minWidth: 0,
+    mr: open ? 3 : 'auto',
+    justifyContent: 'center',
+    color: '#ffffff',
+  };
+
+  return (
+    <List sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+    }}
+    >
+      {buttonsData.map(({
+        id, text, icon, path,
+      }) => (
+        <ListItem disablePadding sx={{ display: 'block' }} key={id}>
+          <NavLink className={({ isActive }) => (isActive ? 'active-link' : undefined)} to={path}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={iconStyle}
+              >
+                {icon}
+              </ListItemIcon>
+              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
+            </ListItemButton>
+          </NavLink>
+        </ListItem>
+      ))}
+      {auth.isAuth && (
+      <ListItem sx={{ display: 'block', mt: 'auto', p: 0 }}>
+        <Link to="reg">
           <ListItemButton
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
           >
             <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-                color: '#ffffff',
-              }}
+              sx={iconStyle}
             >
-              {icon}
+              <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
+            <ListItemText onClick={() => dispatch(logout())} primary="Logout" sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
           </ListItemButton>
-        </NavLink>
+        </Link>
       </ListItem>
-    ))}
-    <ListItem sx={{ display: 'block', mt: 'auto', p: 0 }}>
-      <Link to="reg">
-        <ListItemButton
-          sx={{
-            minHeight: 48,
-            px: 2.5,
-          }}
-        >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-              color: '#ffffff',
-            }}
-          >
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary="Log out" sx={{ opacity: open ? 1 : 0, color: '#ffffff' }} />
-        </ListItemButton>
-      </Link>
-    </ListItem>
-  </List>
-);
+      )}
+    </List>
+  );
+};
 
 export default ListMenu;
