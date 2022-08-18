@@ -7,13 +7,10 @@ type Props = {
 const TestComponent: FC<Props> = ({ head }) => {
   const test = 5;
   return (
-    <h2>
-      {' '}
-      sad ASDASdas
+    <>
       {head}
       {test}
-      {5}
-    </h2>
+    </>
   );
 };
 
