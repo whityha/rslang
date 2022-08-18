@@ -16,6 +16,7 @@ import RegPage from './pages/reg';
 import LoginPage from './pages/login';
 import TextBookPage from './pages/textbook';
 import VocabularyPage from './pages/vocabulary';
+import Toast from './components/toast/toast';
 
 const App: FC = () => (
   <ThemeProvider theme={theme}>
@@ -37,6 +38,7 @@ const App: FC = () => (
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <Toast />
     </BrowserRouter>
   </ThemeProvider>
 );

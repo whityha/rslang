@@ -1,3 +1,4 @@
+import { AlertColor } from '@mui/material';
 import { User } from './user';
 import { Words } from './word';
 
@@ -10,4 +11,10 @@ export interface AuthState {
   isAuth: boolean;
   userData?: User;
   isLoading: boolean;
+}
+
+export interface ToastState {
+  visible: boolean;
+  message: string;
+  color: AlertColor;
 }
