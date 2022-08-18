@@ -71,7 +71,7 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
             </ListItemIcon>
             <ListItemText
               onClick={() => dispatch(logout())}
-              primary="Log out"
+              primary="Выйти"
               sx={{ opacity: open ? 1 : 0, color: 'primary.contrastText' }}
             />
           </ListItemButton>

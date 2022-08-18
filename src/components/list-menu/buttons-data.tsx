@@ -1,30 +1,37 @@
-import DomainIcon from '@mui/icons-material/Domain';
-import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 const buttonsData = [
   {
     id: 1,
-    text: 'Main',
-    icon: <DomainIcon />,
+    text: 'Главная',
+    icon: <HomeOutlinedIcon />,
     path: '/',
   },
   {
     id: 2,
-    text: 'Textbook',
-    icon: <BookOutlinedIcon />,
+    text: 'Учебник',
+    icon: <LocalLibraryOutlinedIcon />,
     path: 'textbook',
   },
   {
     id: 3,
-    text: 'Game',
+    text: 'Каталог',
+    icon: <CategoryOutlinedIcon />,
+    path: 'catalog',
+  },
+  {
+    id: 4,
+    text: 'Игры',
     icon: <SportsEsportsOutlinedIcon />,
     path: 'games',
   },
   {
-    id: 4,
-    text: 'Statistic',
+    id: 5,
+    text: 'Статистика',
     icon: <QueryStatsIcon />,
     path: 'stat',
   },
