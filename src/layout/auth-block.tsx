@@ -1,14 +1,13 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
-import { testAuth } from '../redux/auth/slice';
-import useConfirm from '../redux/confirm/manage';
+import { logout, testAuth } from '../redux/auth/slice';
+import askConfirm from '../redux/confirm/ask-confirm';
 import { useAppDispatch, useAuth } from '../redux/hooks';
 import { toastSuccess } from '../redux/toast/slice';
 
 const AuthBlock: FC = () => {
   const auth = useAuth();
   const dispatch = useAppDispatch();
-  const confirm = useConfirm();
 
   const showAuthForm = () => {
     dispatch(testAuth());
@@ -16,9 +15,8 @@ const AuthBlock: FC = () => {
   };
 
   const doLogout = async () => {
-    const res = await confirm.showConfirm('Sueree!!!?');
-    console.log('conf', res);
-    // if (res === false) dispatch(logout());
+    const res = await dispatch(askConfirm('Are you sure?'));
+    if (res.payload) dispatch(logout());
   };
 
   return (

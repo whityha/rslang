@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState, store } from '../store';
 import { prepareConfirm } from './slice';
 
-const onConfirm = createAsyncThunk('confirm/show', async (title: string, api) => {
+const askConfirm = createAsyncThunk('confirm/show', async (title: string, api) => {
   api.dispatch(prepareConfirm(title));
   console.log('On Confirm', title);
 
@@ -24,4 +24,4 @@ const onConfirm = createAsyncThunk('confirm/show', async (title: string, api) =>
   });
 });
 
-export default onConfirm;
+export default askConfirm;

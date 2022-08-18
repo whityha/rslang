@@ -32,6 +32,7 @@ export const confirmSlice = createSlice({
       state.visible = false;
     },
     setConfirm: (state) => {
+      console.log('set confirmed');
       state.isConfirmed = true;
       state.visible = false;
     },

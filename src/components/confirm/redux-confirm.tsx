@@ -3,19 +3,19 @@ import Dialog from '@mui/material/Dialog';
 import {
   Button, DialogActions, DialogTitle,
 } from '@mui/material';
-import { useAppDispatch } from '../../redux/hooks';
-import useConfirm from '../../redux/confirm/manage';
+import { useAppDispatch, useConfirm } from '../../redux/hooks';
+import { setConfirm, setDecline } from '../../redux/confirm/slice';
 
 const ReduxConfirm: FC = () => {
   const dispatch = useAppDispatch();
   const confirm = useConfirm();
 
   const doCancel = () => {
-    dispatch(confirm.decline());
+    dispatch(setDecline());
   };
 
   const doConfirm = () => {
-    dispatch(confirm.confirm());
+    dispatch(setConfirm());
   };
 
   return (
