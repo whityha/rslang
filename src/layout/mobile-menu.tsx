@@ -4,6 +4,7 @@ import React, {
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import ListMenu from '../components/list-menu/list-menu';
+import { colorMenuBg } from '../style/common';
 
 interface MobileMenuProps {
   openMenu: boolean;
