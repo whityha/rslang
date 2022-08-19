@@ -1,65 +1,77 @@
 import { FC } from 'react';
 
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
+import { Grid, Card, Box } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { Grid } from '@mui/material';
 import { Word } from '../../types/word';
 
 import image from '../../tmp/01_0001.jpg';
+import IconGroup from './icon-group';
 
-const WordCard: FC<Word> = ({
-  word, transcription, textExample, textMeaning, textMeaningTranslate, textExampleTranslate,
+interface IWordCard extends Word {
+  showTranslation: boolean;
+}
+
+const WordCard: FC<IWordCard> = ({
+  word,
+  transcription,
+  wordTranslate,
+  textExample,
+  textMeaning,
+  textMeaningTranslate,
+  textExampleTranslate,
+  showTranslation,
 }) => (
   <Grid item xs={12}>
     <Card sx={{ display: 'flex' }}>
       <CardMedia
         component="img"
-        sx={{ width: 200 }}
+        sx={{ width: '30%' }}
+        // image="/static/images/cards/live-from-space.jpg"
         src={image}
-        alt="Live from space album cover"
+        alt={`a picture of the word "${word}" to be studied`}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+      }}
+      >
+        <IconGroup />
         <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="span" sx={{ mr: 2 }}>
+          <Typography component="div">
             {word}
           </Typography>
-          <Typography component="span">
+          <Typography component="div">
             { transcription }
           </Typography>
+          { showTranslation && (
+          <Typography component="div">
+            { wordTranslate }
+          </Typography>
+          ) }
         </CardContent>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="body1">
             {textMeaning}
           </Typography>
+          { showTranslation && (
           <Typography component="div">
             { textMeaningTranslate }
           </Typography>
+          ) }
         </CardContent>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="body1">
             {textExample}
           </Typography>
-          <Typography component="span">
+          { showTranslation && (
+          <Typography component="div">
             { textExampleTranslate }
           </Typography>
+          ) }
         </CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            pl: 1,
-            pb: 1,
-          }}
-        >
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-          </IconButton>
-        </Box>
       </Box>
     </Card>
   </Grid>
