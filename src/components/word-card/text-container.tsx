@@ -1,5 +1,5 @@
-import { CardContent, Typography } from '@mui/material';
 import { FC } from 'react';
+import { CardContent, Typography } from '@mui/material';
 
 interface TextContainerProps {
   text: string;
@@ -8,14 +8,10 @@ interface TextContainerProps {
 }
 
 const TextContainer: FC<TextContainerProps> = ({ text, translate, showTranslation }) => (
-  <CardContent sx={{ flex: '1 0 auto' }}>
-    <Typography component="div" variant="body1">
-      {text}
-    </Typography>
+  <CardContent sx={{ flex: '1 0 auto', pl: 4 }}>
+    <Typography component="div" variant="body1" dangerouslySetInnerHTML={{ __html: text }} />
     { showTranslation && (
-      <Typography component="div">
-        { translate }
-      </Typography>
+      <Typography component="div" dangerouslySetInnerHTML={{ __html: translate }} />
     ) }
   </CardContent>
 );

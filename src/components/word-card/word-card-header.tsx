@@ -16,16 +16,15 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   translate,
   showTranslation,
 }) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', pl: 2 }}>
-    <CardMarker color="#cccccc" />
+  <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
+    <CardMarker color="#959393" />
     <CardContent sx={{ flex: '1 0 auto' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', color: '#000000' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', color: '#666666' }}>
         <Typography
           sx={{
             mr: 1,
             fontSize: 24,
-            fontWeight: 500,
-            letterSpacing: 1,
+            fontWeight: 700,
           }}
           component="div"
         >
