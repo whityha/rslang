@@ -1,19 +1,18 @@
 import { FC } from 'react';
 
 import { Grid, Card, Box } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import { Word } from '../../types/word';
 
 import image from '../../tmp/01_0001.jpg';
-import IconGroup from './icon-group';
+import TextContainer from './text-container';
+import WordCardHeader from './word-card-header';
 
-interface IWordCard extends Word {
+interface WordCardProps extends Word {
   showTranslation: boolean;
 }
 
-const WordCard: FC<IWordCard> = ({
+const WordCard: FC<WordCardProps> = ({
   word,
   transcription,
   wordTranslate,
@@ -24,7 +23,7 @@ const WordCard: FC<IWordCard> = ({
   showTranslation,
 }) => (
   <Grid item xs={12}>
-    <Card sx={{ display: 'flex' }}>
+    <Card sx={{ display: 'flex', boxShadow: 2 }}>
       <CardMedia
         component="img"
         sx={{ width: '30%' }}
@@ -36,42 +35,26 @@ const WordCard: FC<IWordCard> = ({
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
+        py: 1,
+        pr: 3,
       }}
       >
-        <IconGroup />
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div">
-            {word}
-          </Typography>
-          <Typography component="div">
-            { transcription }
-          </Typography>
-          { showTranslation && (
-          <Typography component="div">
-            { wordTranslate }
-          </Typography>
-          ) }
-        </CardContent>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="body1">
-            {textMeaning}
-          </Typography>
-          { showTranslation && (
-          <Typography component="div">
-            { textMeaningTranslate }
-          </Typography>
-          ) }
-        </CardContent>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="body1">
-            {textExample}
-          </Typography>
-          { showTranslation && (
-          <Typography component="div">
-            { textExampleTranslate }
-          </Typography>
-          ) }
-        </CardContent>
+        <WordCardHeader
+          word={word}
+          transcription={transcription}
+          translate={wordTranslate}
+          showTranslation={showTranslation}
+        />
+        <TextContainer
+          text={textMeaning}
+          translate={textMeaningTranslate}
+          showTranslation={showTranslation}
+        />
+        <TextContainer
+          text={textExample}
+          translate={textExampleTranslate}
+          showTranslation={showTranslation}
+        />
       </Box>
     </Card>
   </Grid>

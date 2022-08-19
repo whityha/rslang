@@ -9,16 +9,13 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import Zoom from '@mui/material/Zoom';
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} TransitionComponent={Zoom} arrow />
+  <Tooltip {...props} classes={{ popper: className }} TransitionComponent={Zoom} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: '#eceff1',
+    backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
     boxShadow: theme.shadows[3],
     fontSize: 14,
-  },
-  '& .MuiTooltip-arrow': {
-    color: '#eceff1',
   },
 }));
 
