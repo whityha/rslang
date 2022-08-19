@@ -1,4 +1,5 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
@@ -12,18 +13,24 @@ const buttonsData = [
   },
   {
     id: 2,
+    text: 'Список слов',
+    icon: <ReceiptLongOutlinedIcon />,
+    path: 'word-list',
+  },
+  {
+    id: 3,
     text: 'Учебник',
     icon: <LocalLibraryOutlinedIcon />,
     path: 'textbook',
   },
   {
-    id: 3,
+    id: 4,
     text: 'Игры',
     icon: <CategoryOutlinedIcon />,
     path: 'games',
   },
   {
-    id: 4,
+    id: 5,
     text: 'Статистика',
     icon: <QueryStatsIcon />,
     path: 'stat',

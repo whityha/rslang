@@ -1,8 +1,10 @@
 import { FC, useEffect } from 'react';
+import { Grid } from '@mui/material';
 import { useAppDispatch, useWords } from '../../redux/hooks';
 import getAllWords from '../../redux/words/getall';
 import { setWordsLoading } from '../../redux/words/slice';
 import Loading from '../loading/loading';
+import WordCard from '../word-card/word-card';
 
 const TextBook: FC = () => {
   const dispatch = useAppDispatch();
@@ -20,18 +22,13 @@ const TextBook: FC = () => {
         <button onClick={() => dispatch(setWordsLoading(false))}>set No Loading</button>
       </div>
       <h1>Textbook</h1>
-      {
-        words.isLoading ? <Loading /> : words.data.map((word) => (
-          <div key={word.id}>
-            <div>{word.word}</div>
-            <div>{word.transcription}</div>
-            <div>{word.wordTranslate}</div>
-            <div>{word.textMeaningTranslate}</div>
-            <hr />
-          </div>
-        ))
-      }
-
+      <Grid container spacing={2}>
+        {
+          words.isLoading
+            ? <Loading />
+            : words.data.map((word) => <WordCard key={word.id} {...word} />)
+        }
+      </Grid>
     </>
   );
 };
