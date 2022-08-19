@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AuthBlock from './auth-block';
+import AuthBlock from '../components/auth/auth-block';
 
 const getTitle = (pathname: string): string => {
   switch (pathname) {
