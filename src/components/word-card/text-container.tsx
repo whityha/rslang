@@ -11,7 +11,7 @@ const TextContainer: FC<TextContainerProps> = ({ text, translate, showTranslatio
   <CardContent sx={{ flex: '1 0 auto', pl: 4 }}>
     <Typography component="div" variant="body1" dangerouslySetInnerHTML={{ __html: text }} />
     { showTranslation && (
-      <Typography component="div" dangerouslySetInnerHTML={{ __html: translate }} />
+      <Typography component="div" sx={{ opacity: 0.75 }} dangerouslySetInnerHTML={{ __html: translate }} />
     ) }
   </CardContent>
 );

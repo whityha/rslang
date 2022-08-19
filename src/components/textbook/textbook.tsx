@@ -30,14 +30,14 @@ const TextBook: FC = () => {
         </Button>
       </ButtonGroup>
       <Grid container spacing={3}>
-        <Grid item xs={10}>
+        <Grid item md={10} xs={9}>
           {
           words.isLoading
             ? <Loading />
             : <WordList words={words.data} showTranslation={showTranslation} />
         }
         </Grid>
-        <Grid item xs={2}>
+        <Grid item md={2} xs={3}>
           <Paper
             sx={{
               position: 'sticky',
@@ -45,6 +45,7 @@ const TextBook: FC = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: 1,
+              minWidth: 120,
             }}
             elevation={0}
           >

@@ -17,7 +17,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   showTranslation,
 }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
-    <CardMarker color="#959393" />
+    <CardMarker color="#959393" showTranslation={showTranslation} />
     <CardContent sx={{ flex: '1 0 auto' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', color: '#666666' }}>
         <Typography
