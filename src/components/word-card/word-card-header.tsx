@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Box, CardContent, Typography } from '@mui/material';
 import IconGroup from './icon-group';
+import CardMarker from './card-marker';
 
 interface WordCardHeaderProps {
   word: string;
@@ -15,7 +16,8 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   translate,
   showTranslation,
 }) => (
-  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', pl: 2 }}>
+    <CardMarker color="#cccccc" />
     <CardContent sx={{ flex: '1 0 auto' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', color: '#000000' }}>
         <Typography

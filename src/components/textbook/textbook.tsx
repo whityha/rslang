@@ -19,7 +19,7 @@ const TextBook: FC = () => {
 
   return (
     <>
-      <ButtonGroup sx={{ mb: 3 }} variant="outlined" aria-label="outlined button group">
+      <ButtonGroup sx={{ mb: 5 }} variant="outlined" aria-label="outlined button group">
         <Button onClick={() => dispatch(getAllWords())}>reload</Button>
         <Button onClick={() => dispatch(setWordsLoading(true))}>setLoading</Button>
         <Button onClick={() => dispatch(setWordsLoading(false))}>
@@ -41,7 +41,7 @@ const TextBook: FC = () => {
           <Paper
             sx={{
               position: 'sticky',
-              top: 0,
+              top: 20,
               display: 'flex',
               flexDirection: 'column',
               gap: 1,

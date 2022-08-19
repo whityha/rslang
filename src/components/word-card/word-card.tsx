@@ -4,9 +4,10 @@ import { Grid, Card, Box } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import { Word } from '../../types/word';
 
-import image from '../../tmp/01_0001.jpg';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
+
+import image from '../../tmp/01_0001.jpg';
 
 interface WordCardProps extends Word {
   showTranslation: boolean;
@@ -23,7 +24,7 @@ const WordCard: FC<WordCardProps> = ({
   showTranslation,
 }) => (
   <Grid item xs={12}>
-    <Card sx={{ display: 'flex', boxShadow: 2 }}>
+    <Card sx={{ position: 'relative', display: 'flex', boxShadow: 2 }}>
       <CardMedia
         component="img"
         sx={{ width: '30%' }}
