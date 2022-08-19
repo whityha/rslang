@@ -1,10 +1,15 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
+import {
+  Button, ButtonGroup, Grid, Paper,
+} from '@mui/material';
 import { useAppDispatch, useWords } from '../../redux/hooks';
 import getAllWords from '../../redux/words/getall';
 import { setWordsLoading } from '../../redux/words/slice';
 import Loading from '../loading/loading';
+import WordList from '../word-list/word-list';
 
 const TextBook: FC = () => {
+  const [showTranslation, setShowTranslation] = useState(true);
   const dispatch = useAppDispatch();
   const words = useWords();
 
@@ -14,24 +19,46 @@ const TextBook: FC = () => {
 
   return (
     <>
-      <div>
-        <button onClick={() => dispatch(getAllWords())}>reload</button>
-        <button onClick={() => dispatch(setWordsLoading(true))}>setLoading</button>
-        <button onClick={() => dispatch(setWordsLoading(false))}>set No Loading</button>
-      </div>
-      <h1>Textbook</h1>
-      {
-        words.isLoading ? <Loading /> : words.data.map((word) => (
-          <div key={word.id}>
-            <div>{word.word}</div>
-            <div>{word.transcription}</div>
-            <div>{word.wordTranslate}</div>
-            <div>{word.textMeaningTranslate}</div>
-            <hr />
-          </div>
-        ))
-      }
-
+      <ButtonGroup sx={{ mb: 5 }} variant="outlined" aria-label="outlined button group">
+        <Button onClick={() => dispatch(getAllWords())}>reload</Button>
+        <Button onClick={() => dispatch(setWordsLoading(true))}>setLoading</Button>
+        <Button onClick={() => dispatch(setWordsLoading(false))}>
+          set No Loading
+        </Button>
+        <Button onClick={() => setShowTranslation(!showTranslation)}>
+          {showTranslation ? 'Скрыть перевод' : 'Показать перевод'}
+        </Button>
+      </ButtonGroup>
+      <Grid container spacing={3}>
+        <Grid item md={10} xs={9}>
+          {
+          words.isLoading
+            ? <Loading />
+            : <WordList words={words.data} showTranslation={showTranslation} />
+        }
+        </Grid>
+        <Grid item md={2} xs={3}>
+          <Paper
+            sx={{
+              position: 'sticky',
+              top: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+              minWidth: 120,
+            }}
+            elevation={0}
+          >
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 1</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 2</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 3</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 4</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 5</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 6</Button>
+            <Button variant="outlined" sx={{ boxShadow: 1 }}>Сложные</Button>
+          </Paper>
+        </Grid>
+      </Grid>
     </>
   );
 };

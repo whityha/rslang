@@ -40,7 +40,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const matches = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
     <AppBar position="static" elevation={0}>

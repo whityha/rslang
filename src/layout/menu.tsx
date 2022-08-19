@@ -53,7 +53,7 @@ const Drawer = styled(MuiDrawer, {
 const Menu: FC = () => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const matches = useMediaQuery(theme.breakpoints.up('lg'));
 
   const handleOpen = () => {
     setOpen((prevState) => !prevState);
