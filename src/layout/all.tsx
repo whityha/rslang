@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { FC, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
 import Header from './header';
 import Footer from './footer';
@@ -8,6 +8,8 @@ import MobileMenu from './mobile-menu';
 
 const AllLayout: FC = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const { pathname } = useLocation();
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Menu />
@@ -30,7 +32,7 @@ const AllLayout: FC = () => {
         >
           <Outlet />
         </Container>
-        <Footer />
+        { !pathname.includes('games') && <Footer /> }
       </Box>
     </Box>
   );

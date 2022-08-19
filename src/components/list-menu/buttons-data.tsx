@@ -1,7 +1,6 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 const buttonsData = [
@@ -19,18 +18,12 @@ const buttonsData = [
   },
   {
     id: 3,
-    text: 'Каталог',
-    icon: <CategoryOutlinedIcon />,
-    path: 'catalog',
-  },
-  {
-    id: 4,
     text: 'Игры',
-    icon: <SportsEsportsOutlinedIcon />,
+    icon: <CategoryOutlinedIcon />,
     path: 'games',
   },
   {
-    id: 5,
+    id: 4,
     text: 'Статистика',
     icon: <QueryStatsIcon />,
     path: 'stat',
