@@ -1,33 +1,23 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import { logout, testAuth } from '../redux/auth/slice';
-import useAsk from '../redux/confirm/use-ask';
-import { useAppDispatch, useAuth } from '../redux/hooks';
-import { toastSuccess } from '../redux/toast/slice';
+import { logout, testAuth } from '../../redux/auth/slice';
+import useAsk from '../../redux/confirm/use-ask';
+import { useAppDispatch, useAuth } from '../../redux/hooks';
+
+import LoginBlock from './login-block';
+import styles from './button-styles';
+import RegBlock from './reg-block';
+import { toastSuccess } from '../../redux/toast/slice';
 
 const AuthBlock: FC = () => {
   const auth = useAuth();
   const ask = useAsk();
   const dispatch = useAppDispatch();
 
-  const showAuthForm = () => {
-    dispatch(testAuth());
-    dispatch(toastSuccess('Вход выполнен успешно!'));
-  };
-
   const doLogout = async () => {
     const r = await ask('Вы действительно хотите выйти из аккаунта?');
     if (r) dispatch(logout());
-  };
-
-  const styles = {
-    color: 'text.primary',
-    textTransform: 'capitalize',
-    '&:hover': {
-      color: 'text.primary',
-    },
   };
 
   return (
@@ -50,13 +40,19 @@ const AuthBlock: FC = () => {
           </>
         )
         : (
-          <Button
-            onClick={() => showAuthForm()}
-            sx={styles}
-            startIcon={<LockOutlinedIcon />}
-          >
-            Войти
-          </Button>
+          <>
+            <RegBlock />
+            <LoginBlock />
+            <Button onClick={() => {
+              dispatch(testAuth());
+              dispatch(toastSuccess('Вход выполнен успешно!'));
+            }}
+            >
+              Тестовый вход
+
+            </Button>
+
+          </>
         )}
     </>
   );
