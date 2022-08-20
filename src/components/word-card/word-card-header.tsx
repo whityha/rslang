@@ -4,16 +4,20 @@ import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 
 interface WordCardHeaderProps {
+  id: string;
   word: string;
   transcription: string;
   translate: string;
+  playback: any;
   showTranslation: boolean;
 }
 
 const WordCardHeader: FC<WordCardHeaderProps> = ({
+  id,
   word,
   transcription,
   translate,
+  playback,
   showTranslation,
 }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
@@ -35,7 +39,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
 
       {showTranslation && <Typography component="div">{translate}</Typography>}
     </CardContent>
-    <IconGroup />
+    <IconGroup id={id} playback={playback} />
   </Box>
 );
 

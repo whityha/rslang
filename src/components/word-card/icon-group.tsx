@@ -24,28 +24,48 @@ const styles = {
   width: 38,
 };
 
-const IconGroup: FC = () => (
-  <Box
-    sx={{
-      right: 0,
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    <LightTooltip title="Добавить в сложные">
-      <IconButton>
-        <StarIcon sx={styles} />
+interface IconGroupProps {
+  id: string;
+  playback: any;
+}
+
+const IconGroup: FC<IconGroupProps> = ({ id, playback }) => {
+  const playAudio = () => {
+    Object.keys(playback).forEach((key) => {
+      playback[key].forEach((source: HTMLAudioElement) => {
+        source.pause();
+        source.currentTime = 0;
+      });
+    });
+    const [word, meaning, example] = playback[id];
+    word.play();
+    word.addEventListener('ended', () => { meaning.play(); });
+    meaning.addEventListener('ended', () => { example.play(); });
+  };
+
+  return (
+    <Box
+      sx={{
+        right: 0,
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <LightTooltip title="Добавить в сложные">
+        <IconButton>
+          <StarIcon sx={styles} />
+        </IconButton>
+      </LightTooltip>
+      <LightTooltip title="Ещё не изучено">
+        <IconButton>
+          <LightbulbIcon sx={styles} />
+        </IconButton>
+      </LightTooltip>
+      <IconButton onClick={playAudio}>
+        <VolumeUpIcon sx={styles} />
       </IconButton>
-    </LightTooltip>
-    <LightTooltip title="Ещё не изучено">
-      <IconButton>
-        <LightbulbIcon sx={styles} />
-      </IconButton>
-    </LightTooltip>
-    <IconButton>
-      <VolumeUpIcon sx={styles} />
-    </IconButton>
-  </Box>
-);
+    </Box>
+  );
+};
 
 export default IconGroup;

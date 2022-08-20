@@ -15,6 +15,7 @@ import RegPage from './pages/reg';
 import LoginPage from './pages/login';
 import TextBookPage from './pages/textbook';
 import VocabularyPage from './pages/vocabulary';
+import TeamPage from './pages/team-page';
 import GamesPage from './pages/games';
 import Toast from './components/toast/toast';
 import ReduxConfirm from './components/confirm/redux-confirm';
@@ -31,6 +32,7 @@ const App: FC = () => (
           <Route path="reg" element={<RegPage />} />
           <Route path="textbook" element={<TextBookPage />} />
           <Route path="vocabulary" element={<VocabularyPage />} />
+          <Route path="team" element={<TeamPage />} />
           <Route path="games" element={<GamesPage />} />
           <Route path="games/sprint" element={<GameSprintPage />} />
           <Route path="games/call" element={<GameCallPage />} />

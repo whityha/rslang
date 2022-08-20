@@ -2,6 +2,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 const buttonsData = [
@@ -31,6 +32,12 @@ const buttonsData = [
   },
   {
     id: 5,
+    text: 'Наша команда',
+    icon: <GroupsOutlinedIcon />,
+    path: 'team',
+  },
+  {
+    id: 6,
     text: 'Статистика',
     icon: <QueryStatsIcon />,
     path: 'stat',

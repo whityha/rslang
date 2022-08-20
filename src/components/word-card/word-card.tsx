@@ -6,17 +6,19 @@ import { Grid, Card, Box } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import { Word } from '../../types/word';
 
+import { getFilesRoot } from '../../inc/conf';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
 
-import image from '../../assets/images/01_0001.jpg';
-
 interface WordCardProps extends Word {
   showTranslation: boolean;
+  playback: any;
 }
 
 const WordCard: FC<WordCardProps> = ({
+  id,
   word,
+  image,
   transcription,
   wordTranslate,
   textExample,
@@ -24,9 +26,11 @@ const WordCard: FC<WordCardProps> = ({
   textMeaningTranslate,
   textExampleTranslate,
   showTranslation,
+  playback,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const url = getFilesRoot();
 
   return (
     <Grid item xs={12}>
@@ -40,8 +44,7 @@ const WordCard: FC<WordCardProps> = ({
         <CardMedia
           component="img"
           sx={{ width: matches ? '30%' : 'initial' }}
-        // image="/static/images/cards/live-from-space.jpg"
-          src={image}
+          image={url + image}
           alt={word}
         />
         <Box sx={{
@@ -53,9 +56,11 @@ const WordCard: FC<WordCardProps> = ({
         }}
         >
           <WordCardHeader
+            id={id}
             word={word}
             transcription={transcription}
             translate={wordTranslate}
+            playback={playback}
             showTranslation={showTranslation}
           />
           <TextContainer

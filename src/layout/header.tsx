@@ -25,6 +25,8 @@ const getTitle = (pathname: string): string => {
       return 'Вызов';
     case '/stat':
       return 'Статистика';
+    case '/team':
+      return 'Наша команда';
     case '/reg':
       return 'Регистрация';
     default:
@@ -33,7 +35,6 @@ const getTitle = (pathname: string): string => {
 };
 
 interface HeaderProps {
-  // eslint-disable-next-line no-unused-vars
   setOpen: (value: boolean) => void;
 }
 
