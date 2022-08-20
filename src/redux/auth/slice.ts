@@ -4,7 +4,7 @@ import { AuthState } from '../../types/redux';
 import { User, UserRegResponse } from '../../types/user';
 import authExtraReducers from './extra';
 
-const initialState: AuthState = {
+const emptyState: AuthState = {
   isAuth: false,
   userData: {
     name: '',
@@ -17,6 +17,8 @@ const initialState: AuthState = {
   isLastOperationSuccess: false,
 };
 
+const initialState = emptyState;
+
 try {
   const data = localStorage.getItem(authStorageKey);
   if (data) {
@@ -26,6 +28,9 @@ try {
     initialState.userData.email = js.email ?? '';
     initialState.userData.token = js.token ?? '';
     initialState.userData.refreshToken = js.refreshToken ?? '';
+    if (initialState.userData.id.length && initialState.userData.token.length) {
+      initialState.isAuth = true;
+    }
   }
 } catch (e) {
   // Ничего не делаем. Нет доступа к localStorage.
@@ -46,6 +51,8 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.isAuth = false;
+      state = emptyState;
+      localStorage.removeItem(authStorageKey);
     },
 
   },
