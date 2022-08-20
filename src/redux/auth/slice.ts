@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { authStorageKey } from '../../inc/storage-keys';
 import { AuthState } from '../../types/redux';
-import { UserRegResponse } from '../../types/user';
+import { User, UserRegResponse } from '../../types/user';
 import authExtraReducers from './extra';
 
 const initialState: AuthState = {
@@ -12,7 +13,21 @@ const initialState: AuthState = {
     token: '',
   },
   isLoading: false,
+  isLastOperationSuccess: false,
 };
+
+try {
+  const data = localStorage.getItem(authStorageKey);
+  if (data) {
+    const js = JSON.parse(data) as User;
+    initialState.userData.id = js.id ?? '';
+    initialState.userData.name = js.name ?? '';
+    initialState.userData.email = js.email ?? '';
+    initialState.userData.token = js.token ?? '';
+  }
+} catch (e) {
+  // Ничего не делаем. Нет доступа к localStorage.
+}
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -20,6 +35,9 @@ export const authSlice = createSlice({
   reducers: {
     setAuthLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
+    },
+    resetAuthSuccess: (state) => {
+      state.isLastOperationSuccess = false;
     },
     setUserData: (state, action: PayloadAction<UserRegResponse>) => {
       state.userData = { ...action.payload, token: '' };
@@ -40,7 +58,7 @@ export const authSlice = createSlice({
 });
 
 export const {
-  testAuth, logout, setAuthLoading, setUserData,
+  testAuth, logout, setAuthLoading, setUserData, resetAuthSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

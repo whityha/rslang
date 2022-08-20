@@ -1,4 +1,5 @@
 import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
+import { authStorageKey } from '../../inc/storage-keys';
 import { AuthState } from '../../types/redux';
 import { UserRegResponse } from '../../types/user';
 import regUser from './reg';
@@ -17,6 +18,8 @@ const authExtraReducers = (builder: ActionReducerMapBuilder<AuthState>) => {
         name: action.payload.name,
         email: action.payload.email,
       };
+      state.isLastOperationSuccess = true;
+      localStorage.setItem(authStorageKey, JSON.stringify(state.userData));
     }
     state.isLoading = false;
   }),

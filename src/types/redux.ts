@@ -9,8 +9,9 @@ export interface WordsState {
 
 export interface AuthState {
   isAuth: boolean;
-  userData?: User;
+  userData: User;
   isLoading: boolean;
+  isLastOperationSuccess: boolean;
 }
 
 export interface ToastState {

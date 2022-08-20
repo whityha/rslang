@@ -2,9 +2,10 @@ import {
   Button,
   Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import regUser from '../../redux/auth/reg';
+import { resetAuthSuccess } from '../../redux/auth/slice';
 import { useAppDispatch, useAuth } from '../../redux/hooks';
 import { UserAuthDTO } from '../../types/user';
 import Loading from '../loading/loading';
@@ -34,6 +35,13 @@ const ModalForm: FC<ModalProps> = ({
     dispatch(regUser(userData));
   };
 
+  useEffect(() => {
+    if (auth.isLastOperationSuccess) {
+      dispatch(resetAuthSuccess());
+      setVisible(false);
+    }
+  }, [auth.isLastOperationSuccess]);
+
   return (
     <Dialog open={visible} onClose={handleClose}>
       <DialogTitle>{title}</DialogTitle>
@@ -52,7 +60,7 @@ const ModalForm: FC<ModalProps> = ({
             <Controller
               name="email"
               control={control}
-              defaultValue=""
+              defaultValue={auth.userData.email!}
               rules={{ required: true }}
               render={({ field }) => <TextField fullWidth type="email" required label="E-mail" {...field} />}
             />
