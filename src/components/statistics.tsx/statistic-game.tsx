@@ -33,7 +33,7 @@ const GameStatisticCard = ({ name, imageLink }: TGameStatisticCard) => (
         flexDirection: 'column',
       }}
       >
-        <Typography variant="h5" component="p">{name}</Typography>
+        <Typography variant="h6" component="p">{name}</Typography>
         <List disablePadding>
           <ListItem disablePadding>
             <ListItemText>
