@@ -8,7 +8,6 @@ export const loginUser = createAsyncThunk('auth/login', async (authData: UserAut
   try {
     const response: AxiosResponse<UserLoginResponse> = await ax.post('/signin', authData);
     api.dispatch(toastInfo(`Успешный вход! Привет, ${response.data.name}!`));
-    console.log(response.data);
     const d = response.data;
     return {
       id: d.userId,

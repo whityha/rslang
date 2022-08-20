@@ -7,12 +7,10 @@ import regUser from './reg';
 
 const authExtraReducers = (builder: ActionReducerMapBuilder<AuthState>) => {
   builder.addCase(regUser.pending, (state) => {
-    console.info('pending');
     state.isLoading = true;
   // eslint-disable-next-line no-sequences
   }),
   builder.addCase(regUser.fulfilled, (state, action: PayloadAction<UserRegResponse | false>) => {
-    console.info('fullfield', action.payload);
     if (action.payload !== false) {
       state.userData = {
         id: action.payload.id,
@@ -25,11 +23,9 @@ const authExtraReducers = (builder: ActionReducerMapBuilder<AuthState>) => {
     state.isLoading = false;
   }),
   builder.addCase(loginUser.pending, (state) => {
-    console.info('pending');
     state.isLoading = true;
   }),
   builder.addCase(loginUser.fulfilled, (state, action: PayloadAction<User | false>) => {
-    console.info('fullfield', action.payload);
     if (action.payload !== false) {
       state.userData = action.payload;
       state.isLastOperationSuccess = true;

@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import ax from '../../inc/ax';
 import { UserAuthDTO, UserRegResponse } from '../../types/user';
 import { toastError, toastSuccess } from '../toast/slice';
+import loginUser from './login';
 // import { setAuthLoading } from './slice';
 
 type authError = {
@@ -15,6 +16,7 @@ export const regUser = createAsyncThunk('auth/reg', async (authData: UserAuthDTO
   try {
     const response: AxiosResponse<UserRegResponse> = await ax.post('/users', authData);
     api.dispatch(toastSuccess('Регистрация прошла успешно! Выполните вход в систему'));
+    api.dispatch(loginUser(authData));
     return response.data;
   } catch (er) {
     const e = er as Error | AxiosError | string;
