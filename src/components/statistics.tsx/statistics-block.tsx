@@ -9,9 +9,16 @@ import {
 import GameStatisticCard from './statistic-game';
 
 const GeneralStatistics = ({ title }: {title: string}) => {
-  const value = 50;
+  const value = 80;
   const savannahImage = 'https://naked-science.ru/wp-content/uploads/2022/04/1440_SS_savanna_feat-1030x580-1.jpg';
   const sprintImage = 'https://lalafemme.ca/wp-content/uploads/2016/10/run.jpg';
+
+  const getColor = (valueAccurance: number): 'error' | 'warning' | 'success' => {
+    if (valueAccurance <= 30) return 'error';
+    if (valueAccurance > 30 && valueAccurance < 75) return 'warning';
+    return 'success';
+  };
+
   return (
     <Box>
       <Typography variant="h4" mb={5}>{title}</Typography>
@@ -54,7 +61,7 @@ const GeneralStatistics = ({ title }: {title: string}) => {
                     %
                   </Typography>
                 </Box>
-                <CircularProgress color="success" size="100px" variant="determinate" value={value} thickness={5} />
+                <CircularProgress color={getColor(value)} size="100px" variant="determinate" value={value} thickness={5} />
               </Box>
 
               <Typography variant="body2">Сегодня мы выучили 10 слов</Typography>
