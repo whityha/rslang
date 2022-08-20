@@ -1,14 +1,13 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import { logout, testAuth } from '../../redux/auth/slice';
+import { logout } from '../../redux/auth/slice';
 import useAsk from '../../redux/confirm/use-ask';
 import { useAppDispatch, useAuth } from '../../redux/hooks';
 
 import LoginBlock from './login-block';
 import styles from './button-styles';
 import RegBlock from './reg-block';
-import { toastSuccess } from '../../redux/toast/slice';
 
 const AuthBlock: FC = () => {
   const auth = useAuth();
@@ -27,7 +26,6 @@ const AuthBlock: FC = () => {
         ? (
           <>
             <Button sx={styles}>
-              Login:
               {auth.userData!.name}
             </Button>
             <Button
@@ -43,15 +41,6 @@ const AuthBlock: FC = () => {
           <>
             <RegBlock />
             <LoginBlock />
-            <Button onClick={() => {
-              dispatch(testAuth());
-              dispatch(toastSuccess('Вход выполнен успешно!'));
-            }}
-            >
-              Тестовый вход
-
-            </Button>
-
           </>
         )}
     </>

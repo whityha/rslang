@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import ax from '../../inc/ax';
 import { UserAuthDTO, UserRegResponse } from '../../types/user';
-import { toastError, toastInfo } from '../toast/slice';
+import { toastError, toastSuccess } from '../toast/slice';
 // import { setAuthLoading } from './slice';
 
 type authError = {
@@ -14,7 +14,7 @@ type authError = {
 export const regUser = createAsyncThunk('auth/reg', async (authData: UserAuthDTO, api) => {
   try {
     const response: AxiosResponse<UserRegResponse> = await ax.post('/users', authData);
-    api.dispatch(toastInfo('Регистрация прошла успешно! Выполните вход в систему'));
+    api.dispatch(toastSuccess('Регистрация прошла успешно! Выполните вход в систему'));
     return response.data;
   } catch (er) {
     const e = er as Error | AxiosError | string;

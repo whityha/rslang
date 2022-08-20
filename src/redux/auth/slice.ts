@@ -11,6 +11,7 @@ const initialState: AuthState = {
     id: '',
     email: '',
     token: '',
+    refreshToken: '',
   },
   isLoading: false,
   isLastOperationSuccess: false,
@@ -24,6 +25,7 @@ try {
     initialState.userData.name = js.name ?? '';
     initialState.userData.email = js.email ?? '';
     initialState.userData.token = js.token ?? '';
+    initialState.userData.refreshToken = js.refreshToken ?? '';
   }
 } catch (e) {
   // Ничего не делаем. Нет доступа к localStorage.
@@ -42,13 +44,6 @@ export const authSlice = createSlice({
     setUserData: (state, action: PayloadAction<UserRegResponse>) => {
       state.userData = { ...action.payload, token: '' };
     },
-    testAuth: (state) => {
-      state.userData = {
-        id: 'hsjhsfdgasd',
-        name: 'Test',
-      };
-      state.isAuth = true;
-    },
     logout: (state) => {
       state.isAuth = false;
     },
@@ -58,7 +53,7 @@ export const authSlice = createSlice({
 });
 
 export const {
-  testAuth, logout, setAuthLoading, setUserData, resetAuthSuccess,
+  logout, setAuthLoading, setUserData, resetAuthSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

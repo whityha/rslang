@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import loginUser from '../../redux/auth/login';
 import regUser from '../../redux/auth/reg';
 import { resetAuthSuccess } from '../../redux/auth/slice';
 import { useAppDispatch, useAuth } from '../../redux/hooks';
@@ -32,7 +33,7 @@ const ModalForm: FC<ModalProps> = ({
   const dispatch = useAppDispatch();
 
   const onSubmit = (userData: UserAuthDTO) => {
-    dispatch(regUser(userData));
+    regMode ? dispatch(regUser(userData)) : dispatch(loginUser(userData));
   };
 
   useEffect(() => {
