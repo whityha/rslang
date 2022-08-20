@@ -12,10 +12,12 @@ const GeneralStatistics = ({ title }: {title: string}) => {
   const value = 80;
   const savannahImage = 'https://naked-science.ru/wp-content/uploads/2022/04/1440_SS_savanna_feat-1030x580-1.jpg';
   const sprintImage = 'https://lalafemme.ca/wp-content/uploads/2016/10/run.jpg';
+  const minProgress = 30;
+  const maxProgress = 75;
 
   const getColor = (valueAccurance: number): 'error' | 'warning' | 'success' => {
-    if (valueAccurance <= 30) return 'error';
-    if (valueAccurance > 30 && valueAccurance < 75) return 'warning';
+    if (valueAccurance <= minProgress) return 'error';
+    if (valueAccurance > minProgress && valueAccurance < maxProgress) return 'warning';
     return 'success';
   };
 
