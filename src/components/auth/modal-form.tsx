@@ -3,7 +3,11 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField,
 } from '@mui/material';
 import { FC } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import regUser from '../../redux/auth/reg';
+import { useAppDispatch, useAuth } from '../../redux/hooks';
+import { UserAuthDTO } from '../../types/user';
+import Loading from '../loading/loading';
 
 type ModalProps = {
   title: string;
@@ -11,18 +15,6 @@ type ModalProps = {
   setVisible: Function;
   regMode: boolean;
 }
-
-interface IFormInputs {
-  name: string;
-  email: string;
-  password: string;
-
-}
-
-/*
-    // dispatch(testAuth());
-    // dispatch(toastSuccess('Вход выполнен успешно!'));
-*/
 
 const ModalForm: FC<ModalProps> = ({
   title,
@@ -34,8 +26,13 @@ const ModalForm: FC<ModalProps> = ({
     setVisible(false);
   };
 
-  const { handleSubmit, control } = useForm<IFormInputs>();
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
+  const { handleSubmit, control } = useForm<UserAuthDTO>();
+  const auth = useAuth();
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (userData: UserAuthDTO) => {
+    dispatch(regUser(userData));
+  };
 
   return (
     <Dialog open={visible} onClose={handleClose}>
@@ -71,7 +68,8 @@ const ModalForm: FC<ModalProps> = ({
 
         <DialogActions>
           <Button variant="text" onClick={handleClose}>Отмена</Button>
-          <Button variant="contained" type="submit">{title}</Button>
+          {auth.isLoading ? <Loading />
+            : <Button variant="contained" type="submit">{title}</Button>}
         </DialogActions>
       </form>
 

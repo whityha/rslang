@@ -5,6 +5,15 @@ export interface BasicAuthInfo {
 
 export interface User extends BasicAuthInfo {
   email?: string;
-  password?: string;
   token?: string;
+}
+
+export interface UserRegResponse extends BasicAuthInfo {
+  email: string;
+}
+
+export interface UserAuthDTO {
+  email: string;
+  password: string;
+  name?: string;
 }

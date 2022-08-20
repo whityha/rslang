@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import ax from '../../inc/ax';
 import { Words } from '../../types/word';
 
 export const getAllWords = createAsyncThunk('words/getall', async () => {
-  const response: AxiosResponse<Words> = await axios.get('https://react-learnwords-example.herokuapp.com/words');
+  const response: AxiosResponse<Words> = await ax.get('/words');
   return response.data;
 });
 
