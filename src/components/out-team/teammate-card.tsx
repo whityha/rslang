@@ -8,13 +8,13 @@ const TeammateCard = ({
   name, photoSrc, role, description, ghLink,
 } :
      TTeammate) => (
-
        <Card
          sx={{
            display: 'flex',
            minHeight: '150px',
-           minWidth: '450px',
+           minWidth: { sm: '450px', xs: '250px' },
            width: '40%',
+           flexDirection: { xs: 'column', sm: 'row' },
          }}
        >
          <CardMedia
@@ -22,7 +22,7 @@ const TeammateCard = ({
            image={photoSrc}
            sx={{
              height: 'auto',
-             width: '25%',
+             width: { xs: '100%', sm: '25%' },
              padding: '1em',
              borderRadius: '20px',
            }}
