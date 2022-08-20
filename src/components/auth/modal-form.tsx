@@ -2,8 +2,14 @@ import {
   Button,
   Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField,
 } from '@mui/material';
-import { FC } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { FC, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import loginUser from '../../redux/auth/login';
+import regUser from '../../redux/auth/reg';
+import { resetAuthSuccess } from '../../redux/auth/slice';
+import { useAppDispatch, useAuth } from '../../redux/hooks';
+import { UserAuthDTO } from '../../types/user';
+import Loading from '../loading/loading';
 
 type ModalProps = {
   title: string;
@@ -11,18 +17,6 @@ type ModalProps = {
   setVisible: Function;
   regMode: boolean;
 }
-
-interface IFormInputs {
-  name: string;
-  email: string;
-  password: string;
-
-}
-
-/*
-    // dispatch(testAuth());
-    // dispatch(toastSuccess('Вход выполнен успешно!'));
-*/
 
 const ModalForm: FC<ModalProps> = ({
   title,
@@ -34,8 +28,20 @@ const ModalForm: FC<ModalProps> = ({
     setVisible(false);
   };
 
-  const { handleSubmit, control } = useForm<IFormInputs>();
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
+  const { handleSubmit, control } = useForm<UserAuthDTO>();
+  const auth = useAuth();
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (userData: UserAuthDTO) => {
+    regMode ? dispatch(regUser(userData)) : dispatch(loginUser(userData));
+  };
+
+  useEffect(() => {
+    if (auth.isLastOperationSuccess) {
+      dispatch(resetAuthSuccess());
+      setVisible(false);
+    }
+  }, [auth.isLastOperationSuccess]);
 
   return (
     <Dialog open={visible} onClose={handleClose}>
@@ -55,7 +61,7 @@ const ModalForm: FC<ModalProps> = ({
             <Controller
               name="email"
               control={control}
-              defaultValue=""
+              defaultValue={auth.userData.email!}
               rules={{ required: true }}
               render={({ field }) => <TextField fullWidth type="email" required label="E-mail" {...field} />}
             />
@@ -71,7 +77,8 @@ const ModalForm: FC<ModalProps> = ({
 
         <DialogActions>
           <Button variant="text" onClick={handleClose}>Отмена</Button>
-          <Button variant="contained" type="submit">{title}</Button>
+          {auth.isLoading ? <Loading />
+            : <Button variant="contained" type="submit">{title}</Button>}
         </DialogActions>
       </form>
 

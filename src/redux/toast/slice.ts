@@ -16,24 +16,28 @@ export const toastSlice = createSlice({
       state.message = '';
     },
     toastError(state: ToastState, action: PayloadAction<string>) {
-      state.visible = true;
+      state.visible = false;
       state.message = action.payload;
       state.color = 'error';
+      state.visible = true;
     },
     toastInfo(state: ToastState, action: PayloadAction<string>) {
-      state.visible = true;
+      state.visible = false;
       state.message = action.payload;
       state.color = 'info';
+      state.visible = true;
     },
     toastWarning(state: ToastState, action: PayloadAction<string>) {
-      state.visible = true;
+      state.visible = false;
       state.message = action.payload;
       state.color = 'warning';
+      state.visible = true;
     },
     toastSuccess(state: ToastState, action: PayloadAction<string>) {
-      state.visible = true;
+      state.visible = false;
       state.message = action.payload;
       state.color = 'success';
+      state.visible = true;
     },
   },
 });
