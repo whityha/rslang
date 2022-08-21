@@ -18,9 +18,9 @@ const TestComponent: FC = () => {
 
   return (
     <div>
-      <button onClick={() => oneWord()}>Get one word in console</button>
+      <button onClick={() => oneWord()}>Get one word (console)</button>
       {' '}
-      <button onClick={() => uWord()}>Get User Words in console</button>
+      <button onClick={() => uWord()}>Get User Words (console)</button>
     </div>
   );
 };
