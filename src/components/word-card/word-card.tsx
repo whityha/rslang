@@ -39,7 +39,7 @@ const WordCard: FC<WordCardProps> = ({
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const url = getFilesRoot();
-  const paths = [url + audio, url + audioMeaning, url + audioExample];
+  const paths = [audio, audioMeaning, audioExample].map((path) => url + path);
 
   return (
     <Grid item xs={12}>
