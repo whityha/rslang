@@ -12,11 +12,13 @@ import WordCardHeader from './word-card-header';
 
 interface WordCardProps extends Word {
   showTranslation: boolean;
-  playback: any;
+  currentTracks: NodeListOf<HTMLAudioElement> | null;
+  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
+  currentPlayer: string;
+  setCurrentPlayer: (value: string) => void;
 }
 
 const WordCard: FC<WordCardProps> = ({
-  id,
   word,
   image,
   transcription,
@@ -25,12 +27,19 @@ const WordCard: FC<WordCardProps> = ({
   textMeaning,
   textMeaningTranslate,
   textExampleTranslate,
+  audio,
+  audioMeaning,
+  audioExample,
+  currentTracks,
+  setCurrentTracks,
+  currentPlayer,
+  setCurrentPlayer,
   showTranslation,
-  playback,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const url = getFilesRoot();
+  const paths = [url + audio, url + audioMeaning, url + audioExample];
 
   return (
     <Grid item xs={12}>
@@ -47,21 +56,25 @@ const WordCard: FC<WordCardProps> = ({
           image={url + image}
           alt={word}
         />
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: 1,
-          py: 1,
-          pr: 3,
-        }}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            py: 1,
+            pr: 3,
+          }}
         >
           <WordCardHeader
-            id={id}
             word={word}
             transcription={transcription}
             translate={wordTranslate}
-            playback={playback}
             showTranslation={showTranslation}
+            currentTracks={currentTracks}
+            setCurrentTracks={setCurrentTracks}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            paths={paths}
           />
           <TextContainer
             text={textMeaning}

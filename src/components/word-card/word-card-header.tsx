@@ -4,20 +4,26 @@ import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 
 interface WordCardHeaderProps {
-  id: string;
   word: string;
   transcription: string;
   translate: string;
-  playback: any;
+  paths: string[];
+  currentTracks: NodeListOf<HTMLAudioElement> | null;
+  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
+  currentPlayer: string;
+  setCurrentPlayer: (value: string) => void;
   showTranslation: boolean;
 }
 
 const WordCardHeader: FC<WordCardHeaderProps> = ({
-  id,
   word,
   transcription,
   translate,
-  playback,
+  paths,
+  currentTracks,
+  setCurrentTracks,
+  currentPlayer,
+  setCurrentPlayer,
   showTranslation,
 }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
@@ -39,7 +45,13 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
 
       {showTranslation && <Typography component="div">{translate}</Typography>}
     </CardContent>
-    <IconGroup id={id} playback={playback} />
+    <IconGroup
+      paths={paths}
+      currentTracks={currentTracks}
+      setCurrentTracks={setCurrentTracks}
+      currentPlayer={currentPlayer}
+      setCurrentPlayer={setCurrentPlayer}
+    />
   </Box>
 );
 
