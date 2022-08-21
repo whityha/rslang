@@ -3,8 +3,10 @@ import { AxiosResponse } from 'axios';
 import ax from '../../inc/ax';
 import { Words } from '../../types/word';
 
-export const getAllWords = createAsyncThunk('words/getall', async () => {
-  const response: AxiosResponse<Words> = await ax.get('/words');
+type AllWordsParams = { group?: string | number, page?: string | number }
+
+export const getAllWords = createAsyncThunk('words/getall', async (params: AllWordsParams = {}) => {
+  const response: AxiosResponse<Words> = await ax.get(`/words?group=${params.group ?? ''}&page=${params.page ?? ''}`);
   return response.data;
 });
 
