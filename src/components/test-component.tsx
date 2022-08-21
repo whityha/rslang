@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import api, { getUserWords } from '../inc/api';
+import { getBackendURL } from '../inc/conf';
 
 const TestComponent: FC = () => {
-  // http://185.26.98.232:8089/users/6300bf2a92cce124a4a0a2d5/words/
   async function uWord() {
     getUserWords().then((res) => console.log(res.status, res.data));
   }
@@ -18,6 +18,10 @@ const TestComponent: FC = () => {
 
   return (
     <div>
+      Server:
+      {' '}
+      {getBackendURL()}
+      <br />
       <button onClick={() => oneWord()}>Get one word (console)</button>
       {' '}
       <button onClick={() => uWord()}>Get User Words (console)</button>
