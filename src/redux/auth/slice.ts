@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { setAxiosToken } from '../../inc/ax';
 import { authStorageKey } from '../../inc/storage-keys';
 import { AuthState } from '../../types/redux';
 import { User, UserRegResponse } from '../../types/user';
@@ -30,6 +31,7 @@ try {
     initialState.userData.refreshToken = js.refreshToken ?? '';
     if (initialState.userData.id.length && initialState.userData.token.length) {
       initialState.isAuth = true;
+      setAxiosToken(initialState.userData.token);
     }
   }
 } catch (e) {
@@ -52,6 +54,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       state.isAuth = false;
       state = emptyState;
+      setAxiosToken(' ');
       localStorage.removeItem(authStorageKey);
     },
 
