@@ -43,12 +43,18 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('lg'));
+  const matchesLG = useMediaQuery(theme.breakpoints.up('lg'));
+  const matchesSM = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <AppBar position="static" elevation={0}>
-      <Toolbar sx={{ height: 70, bgcolor: '#ffffff' }}>
-        {!matches && (
+      <Toolbar sx={{
+        height: 70,
+        bgcolor: '#ffffff',
+        justifyContent: !matchesSM ? 'space-between' : 'initial',
+      }}
+      >
+        {!matchesLG && (
           <IconButton
             onClick={() => setOpen(true)}
             size="large"
@@ -62,9 +68,11 @@ const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
             <MenuIcon sx={{ color: 'text.primary' }} />
           </IconButton>
         )}
+        {matchesSM && (
         <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: 'text.primary' }}>
           {getTitle(pathname)}
         </Typography>
+        )}
         <AuthBlock />
       </Toolbar>
     </AppBar>

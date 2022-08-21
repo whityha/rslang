@@ -20,7 +20,7 @@ const AuthBlock: FC = () => {
   };
 
   return (
-    <>
+    <div>
       {' '}
       {auth.isAuth
         ? (
@@ -43,7 +43,7 @@ const AuthBlock: FC = () => {
             <LoginBlock />
           </>
         )}
-    </>
+    </div>
   );
 };
 

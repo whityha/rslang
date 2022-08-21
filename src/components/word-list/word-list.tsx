@@ -1,5 +1,7 @@
 import { FC, useState, useEffect } from 'react';
-import { Button, ButtonGroup, Grid } from '@mui/material';
+import {
+  Button, ButtonGroup, Fab, Grid,
+} from '@mui/material';
 import WordCard from '../word-card/word-card';
 import { Word } from '../../types/word';
 import { useAppDispatch, useWords } from '../../redux/hooks';
@@ -19,11 +21,22 @@ const WordList: FC = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
+      <Fab
+        onClick={() => setShowTranslation(!showTranslation)}
+        size="small"
+        variant="extended"
+        color="primary"
+        aria-label="add"
+        sx={{ position: 'absolute', top: 50 }}
+      >
+        {showTranslation ? 'Скрыть перевод' : 'Показать перевод'}
+      </Fab>
       <ButtonGroup
-        sx={{ mb: 5 }}
+        sx={{ mb: 10 }}
         variant="outlined"
-        aria-label="outlined button group"
+        size="small"
+        aria-label="small button group"
       >
         <Button onClick={() => dispatch(getAllWords())}>reload</Button>
         <Button onClick={() => dispatch(setWordsLoading(true))}>
@@ -31,9 +44,6 @@ const WordList: FC = () => {
         </Button>
         <Button onClick={() => dispatch(setWordsLoading(false))}>
           set No Loading
-        </Button>
-        <Button onClick={() => setShowTranslation(!showTranslation)}>
-          {showTranslation ? 'Скрыть перевод' : 'Показать перевод'}
         </Button>
       </ButtonGroup>
       <Grid container spacing={3}>
@@ -53,7 +63,7 @@ const WordList: FC = () => {
           ))
         )}
       </Grid>
-    </>
+    </div>
   );
 };
 
