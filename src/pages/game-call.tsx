@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
 import { FC } from 'react';
+import GameCall from '../components/game-call/GameCall';
 
 const GameCallPage: FC = () => (
-  <Typography variant="h2" sx={{ textAlign: 'center' }}>Вызов</Typography>
+  <GameCall />
 );
 export default GameCallPage;
