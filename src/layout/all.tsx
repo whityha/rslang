@@ -7,7 +7,7 @@ import Menu from './menu';
 import MobileMenu from './mobile-menu';
 
 const AllLayout: FC = () => {
-  const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
   const { pathname } = useLocation();
 
   return (

@@ -28,5 +28,13 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-undef': 'off',
     'no-unused-vars': 'off',
+    'jsx-a11y/media-has-caption': [
+      2,
+      {
+        audio: ['Audio'],
+        video: ['Video'],
+        track: ['Track'],
+      },
+    ],
   },
 };

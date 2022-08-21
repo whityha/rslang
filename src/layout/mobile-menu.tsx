@@ -7,7 +7,6 @@ import ListMenu from '../components/list-menu/list-menu';
 
 interface MobileMenuProps {
   openMenu: boolean;
-  // eslint-disable-next-line no-unused-vars
   setOpenMenu: (value: boolean) => void;
 }
 

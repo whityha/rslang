@@ -5,11 +5,15 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import StarIcon from '@mui/icons-material/Star';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import Zoom from '@mui/material/Zoom';
+import AudioGroup from './audio-group';
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} TransitionComponent={Zoom} />
+  <Tooltip
+    {...props}
+    classes={{ popper: className }}
+    TransitionComponent={Zoom}
+  />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.common.white,
@@ -20,11 +24,25 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const styles = {
-  height: 38,
-  width: 38,
+  height: 35,
+  width: 35,
 };
 
-const IconGroup: FC = () => (
+export interface IconGroupProps {
+  paths: string[];
+  currentTracks: NodeListOf<HTMLAudioElement> | null;
+  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
+  currentPlayer: string;
+  setCurrentPlayer: (value: string) => void;
+}
+
+const IconGroup: FC<IconGroupProps> = ({
+  paths,
+  currentTracks,
+  setCurrentTracks,
+  currentPlayer,
+  setCurrentPlayer,
+}) => (
   <Box
     sx={{
       right: 0,
@@ -42,9 +60,14 @@ const IconGroup: FC = () => (
         <LightbulbIcon sx={styles} />
       </IconButton>
     </LightTooltip>
-    <IconButton>
-      <VolumeUpIcon sx={styles} />
-    </IconButton>
+    <AudioGroup
+      paths={paths}
+      currentTracks={currentTracks}
+      setCurrentTracks={setCurrentTracks}
+      currentPlayer={currentPlayer}
+      setCurrentPlayer={setCurrentPlayer}
+      styles={styles}
+    />
   </Box>
 );
 

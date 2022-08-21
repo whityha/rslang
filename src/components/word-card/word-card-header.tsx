@@ -7,6 +7,11 @@ interface WordCardHeaderProps {
   word: string;
   transcription: string;
   translate: string;
+  paths: string[];
+  currentTracks: NodeListOf<HTMLAudioElement> | null;
+  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
+  currentPlayer: string;
+  setCurrentPlayer: (value: string) => void;
   showTranslation: boolean;
 }
 
@@ -14,6 +19,11 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   word,
   transcription,
   translate,
+  paths,
+  currentTracks,
+  setCurrentTracks,
+  currentPlayer,
+  setCurrentPlayer,
   showTranslation,
 }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
@@ -35,7 +45,13 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
 
       {showTranslation && <Typography component="div">{translate}</Typography>}
     </CardContent>
-    <IconGroup />
+    <IconGroup
+      paths={paths}
+      currentTracks={currentTracks}
+      setCurrentTracks={setCurrentTracks}
+      currentPlayer={currentPlayer}
+      setCurrentPlayer={setCurrentPlayer}
+    />
   </Box>
 );
 
