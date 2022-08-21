@@ -22,6 +22,16 @@ const AudioGroup: FC<AudioGroupProps> = ({
   const btnRef = useRef<HTMLButtonElement>(null);
   const playAudio = (): void => {
     if (btnRef.current) {
+      if (currentPlayer === paths[0]) {
+        setCurrentPlayer('');
+        if (currentTracks) {
+          currentTracks.forEach((track) => {
+            track.pause();
+            track.currentTime = 0;
+          });
+        }
+        return;
+      }
       setCurrentPlayer(paths[0]);
       const tracks = btnRef.current.querySelectorAll(
         'audio',

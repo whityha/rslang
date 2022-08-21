@@ -16,7 +16,7 @@ const buttonsData = [
     id: 2,
     text: 'Список слов',
     icon: <ReceiptLongOutlinedIcon />,
-    path: 'word-list',
+    path: 'dictionary',
   },
   {
     id: 3,

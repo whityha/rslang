@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -42,33 +43,38 @@ const IconGroup: FC<IconGroupProps> = ({
   setCurrentTracks,
   currentPlayer,
   setCurrentPlayer,
-}) => (
-  <Box
-    sx={{
-      right: 0,
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    <LightTooltip title="Добавить в сложные">
-      <IconButton>
-        <StarIcon sx={styles} />
-      </IconButton>
-    </LightTooltip>
-    <LightTooltip title="Ещё не изучено">
-      <IconButton>
-        <LightbulbIcon sx={styles} />
-      </IconButton>
-    </LightTooltip>
-    <AudioGroup
-      paths={paths}
-      currentTracks={currentTracks}
-      setCurrentTracks={setCurrentTracks}
-      currentPlayer={currentPlayer}
-      setCurrentPlayer={setCurrentPlayer}
-      styles={styles}
-    />
-  </Box>
-);
+}) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        pt: matches ? 1 : 'initial',
+        ml: matches ? 'initial' : -1,
+      }}
+    >
+      <LightTooltip title="Добавить в сложные">
+        <IconButton>
+          <StarIcon sx={styles} />
+        </IconButton>
+      </LightTooltip>
+      <LightTooltip title="Ещё не изучено">
+        <IconButton>
+          <LightbulbIcon sx={styles} />
+        </IconButton>
+      </LightTooltip>
+      <AudioGroup
+        paths={paths}
+        currentTracks={currentTracks}
+        setCurrentTracks={setCurrentTracks}
+        currentPlayer={currentPlayer}
+        setCurrentPlayer={setCurrentPlayer}
+        styles={styles}
+      />
+    </Box>
+  );
+};
 
 export default IconGroup;

@@ -17,6 +17,8 @@ const getTitle = (pathname: string): string => {
       return 'Главная';
     case '/textbook':
       return 'Учебник';
+    case '/dictionary':
+      return 'Список слов';
     case '/games':
       return 'Игры';
     case '/games/sprint':
