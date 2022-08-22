@@ -1,16 +1,31 @@
 import {
-  Box, Button, Typography, Stack,
+  Box, Button, Typography, Stack, Input,
 } from '@mui/material';
+import { useRef } from 'react';
 import theme from '../../../theme/theme';
 import { TGameState } from '../types';
 import ButtonBook from './ButtonBook';
+import GROUP_NAMES from '../constants.tsx/constants';
 
-const GameCallMenu = ({ activeMain, wordPage }:
+const GameCallMenu = ({
+  activeMain, wordGroup, wordsCount, changeWordsCount,
+}:
     {
       activeMain: [TGameState, (state: TGameState) => void],
-      wordPage: [number, (number: number) => void]}) => {
-  const [currentPage, changeCurrentPage] = wordPage;
-  const [active, changeActive] = activeMain;
+      wordGroup: [number, (number: number) => void],
+      wordsCount: number,
+      changeWordsCount: (number: number) => void,
+    }) => {
+  const [currentGroup, changeCurrentGroup] = wordGroup;
+  const [, changeActive] = activeMain;
+  const inputEl = useRef<HTMLDivElement | null>(null);
+  const handlePlay = () => {
+    if (inputEl.current) {
+      const input = inputEl.current?.firstElementChild as HTMLInputElement;
+      changeWordsCount(Number(input.value));
+    }
+    changeActive('game');
+  };
   return (
     <Box sx={{
       bgcolor: theme.palette.grey.A200,
@@ -21,22 +36,34 @@ const GameCallMenu = ({ activeMain, wordPage }:
     }}
     >
       <Typography variant="h2" my="3em">Аудиовызов</Typography>
-      <Typography variant="h5">Выберите книгу</Typography>
-      <Stack direction="row" spacing={2} my={7}>
-        <ButtonBook current={currentPage} id={0} changeCurrent={changeCurrentPage} inner="1" />
-        <ButtonBook current={currentPage} id={1} changeCurrent={changeCurrentPage} inner="2" />
-        <ButtonBook current={currentPage} id={2} changeCurrent={changeCurrentPage} inner="3" />
-        <ButtonBook current={currentPage} id={3} changeCurrent={changeCurrentPage} inner="4" />
-        <ButtonBook current={currentPage} id={4} changeCurrent={changeCurrentPage} inner="5" />
-        <ButtonBook current={currentPage} id={5} changeCurrent={changeCurrentPage} inner="6" />
-        <ButtonBook current={currentPage} id={6} changeCurrent={changeCurrentPage} inner="Сложные" />
+      <Typography variant="h5">Выберите уровень</Typography>
+      <Stack direction="row" spacing={2} mt={3} mb={7}>
+        {GROUP_NAMES.map((item, idx) => (
+          <ButtonBook
+            key={currentGroup + item}
+            current={currentGroup}
+            id={idx}
+            changeCurrent={changeCurrentGroup}
+            inner={item}
+          />
+        ))}
       </Stack>
+      <Typography variant="h5">Количество слов в игре (от 1 до 600)</Typography>
+      <Input
+        type="text"
+        ref={inputEl}
+        size="small"
+        defaultValue={wordsCount}
+        sx={{
+          marginBottom: '1rem',
+        }}
+      />
       <Button
         variant="contained"
         color="success"
-        onClick={() => changeActive(active === 'menu' ? 'game' : 'menu')}
+        onClick={handlePlay}
       >
-        НАЧАТЬ ИГРУ
+        Продолжить
 
       </Button>
 
