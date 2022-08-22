@@ -3,6 +3,7 @@ import { FC, useRef } from 'react';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import { IconGroupProps } from './icon-group';
+import { useWordListContext } from '../../context/word-list-context';
 
 interface AudioGroupProps extends IconGroupProps {
   styles: {
@@ -11,15 +12,15 @@ interface AudioGroupProps extends IconGroupProps {
   };
 }
 
-const AudioGroup: FC<AudioGroupProps> = ({
-  paths,
-  currentTracks,
-  setCurrentTracks,
-  currentPlayer,
-  setCurrentPlayer,
-  styles,
-}) => {
+const AudioGroup: FC<AudioGroupProps> = ({ paths, styles }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const {
+    currentTracks, setCurrentTracks, currentPlayer, setCurrentPlayer,
+  } = context;
+
   const playAudio = (): void => {
     if (btnRef.current) {
       if (currentPlayer === paths[0]) {

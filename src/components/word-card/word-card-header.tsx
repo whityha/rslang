@@ -11,10 +11,6 @@ interface WordCardHeaderProps {
   transcription: string;
   translate: string;
   paths: string[];
-  currentTracks: NodeListOf<HTMLAudioElement> | null;
-  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
-  currentPlayer: string;
-  setCurrentPlayer: (value: string) => void;
 }
 
 const WordCardHeader: FC<WordCardHeaderProps> = ({
@@ -22,10 +18,6 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   transcription,
   translate,
   paths,
-  currentTracks,
-  setCurrentTracks,
-  currentPlayer,
-  setCurrentPlayer,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -71,13 +63,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
           )}
         </CardContent>
       </div>
-      <IconGroup
-        paths={paths}
-        currentTracks={currentTracks}
-        setCurrentTracks={setCurrentTracks}
-        currentPlayer={currentPlayer}
-        setCurrentPlayer={setCurrentPlayer}
-      />
+      <IconGroup paths={paths} />
     </Box>
   );
 };

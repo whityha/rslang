@@ -15,19 +15,9 @@ const styles = {
 
 export interface IconGroupProps {
   paths: string[];
-  currentTracks: NodeListOf<HTMLAudioElement> | null;
-  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
-  currentPlayer: string;
-  setCurrentPlayer: (value: string) => void;
 }
 
-const IconGroup: FC<IconGroupProps> = ({
-  paths,
-  currentTracks,
-  setCurrentTracks,
-  currentPlayer,
-  setCurrentPlayer,
-}) => {
+const IconGroup: FC<IconGroupProps> = ({ paths }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   return (
@@ -51,10 +41,6 @@ const IconGroup: FC<IconGroupProps> = ({
       </LightTooltip>
       <AudioGroup
         paths={paths}
-        currentTracks={currentTracks}
-        setCurrentTracks={setCurrentTracks}
-        currentPlayer={currentPlayer}
-        setCurrentPlayer={setCurrentPlayer}
         styles={styles}
       />
     </Box>

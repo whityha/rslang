@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Button, ButtonGroup, Grid } from '@mui/material';
 import WordCard from '../word-card/word-card';
 import { Word } from '../../types/word';
@@ -8,8 +8,6 @@ import { setWordsLoading } from '../../redux/words/slice';
 import Loading from '../loading/loading';
 
 const WordList: FC = () => {
-  const [currentTracks, setCurrentTracks] = useState<NodeListOf<HTMLAudioElement> | null>(null);
-  const [currentPlayer, setCurrentPlayer] = useState<string>('');
   const dispatch = useAppDispatch();
   const words = useWords();
 
@@ -38,14 +36,7 @@ const WordList: FC = () => {
           <Loading />
         ) : (
           words.data.map((word: Word) => (
-            <WordCard
-              key={word.id}
-              {...word}
-              currentTracks={currentTracks}
-              setCurrentTracks={setCurrentTracks}
-              currentPlayer={currentPlayer}
-              setCurrentPlayer={setCurrentPlayer}
-            />
+            <WordCard key={word.id} {...word} />
           ))
         )}
       </Grid>

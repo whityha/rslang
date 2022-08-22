@@ -10,14 +10,7 @@ import { getFilesRoot } from '../../inc/conf';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
 
-interface WordCardProps extends Word {
-  currentTracks: NodeListOf<HTMLAudioElement> | null;
-  setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
-  currentPlayer: string;
-  setCurrentPlayer: (value: string) => void;
-}
-
-const WordCard: FC<WordCardProps> = ({
+const WordCard: FC<Word> = ({
   word,
   image,
   transcription,
@@ -29,10 +22,6 @@ const WordCard: FC<WordCardProps> = ({
   audio,
   audioMeaning,
   audioExample,
-  currentTracks,
-  setCurrentTracks,
-  currentPlayer,
-  setCurrentPlayer,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
@@ -67,10 +56,6 @@ const WordCard: FC<WordCardProps> = ({
             word={word}
             transcription={transcription}
             translate={wordTranslate}
-            currentTracks={currentTracks}
-            setCurrentTracks={setCurrentTracks}
-            currentPlayer={currentPlayer}
-            setCurrentPlayer={setCurrentPlayer}
             paths={paths}
           />
           <TextContainer
