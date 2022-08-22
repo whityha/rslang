@@ -14,6 +14,8 @@ interface IWordListContext {
   setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
   currentPlayer: string;
   setCurrentPlayer: (value: string) => void;
+  activeBook: number;
+  setActiveBook: (value: number) => void;
 }
 
 interface WordListProviderProps {
@@ -28,6 +30,7 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
   const [showTranslation, setShowTranslation] = useState<boolean>(true);
   const [currentTracks, setCurrentTracks] = useState<NodeListOf<HTMLAudioElement> | null>(null);
   const [currentPlayer, setCurrentPlayer] = useState<string>('');
+  const [activeBook, setActiveBook] = useState<number>(0);
 
   const context: IWordListContext = useMemo(() => ({
     showTranslation,
@@ -36,7 +39,9 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
     setCurrentTracks,
     currentPlayer,
     setCurrentPlayer,
-  }), [showTranslation, currentTracks, currentPlayer]);
+    activeBook,
+    setActiveBook,
+  }), [showTranslation, currentTracks, currentPlayer, activeBook]);
 
   return (
     <WordListContext.Provider value={context}>

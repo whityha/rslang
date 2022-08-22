@@ -19,6 +19,7 @@ import TeamPage from './pages/team-page';
 import GamesPage from './pages/games';
 import Toast from './components/toast/toast';
 import ReduxConfirm from './components/confirm/redux-confirm';
+import DifficultWordsPages from './pages/difficult-words';
 
 const App: FC = () => (
   <ThemeProvider theme={theme}>
@@ -32,6 +33,7 @@ const App: FC = () => (
           <Route path="reg" element={<RegPage />} />
           <Route path="textbook" element={<TextBookPage />} />
           <Route path="dictionary" element={<DictionaryPage />} />
+          <Route path="difficult-words" element={<DifficultWordsPages />} />
           <Route path="team" element={<TeamPage />} />
           <Route path="games" element={<GamesPage />} />
           <Route path="games/sprint" element={<GameSprintPage />} />
