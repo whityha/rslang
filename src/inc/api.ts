@@ -1,4 +1,6 @@
 import { AxiosError, Method } from 'axios';
+import { getUID } from '../redux/auth/funcs';
+import { logout } from '../redux/auth/slice';
 import { store } from '../redux/store';
 import { toastError } from '../redux/toast/slice';
 import ax from './ax';
@@ -18,6 +20,7 @@ export default async function api(method: Method, url: string, data?: Object) {
       switch (code) {
         case 401:
           store.dispatch(toastError('Необходимо авторизоваться'));
+          store.dispatch(logout(true));
           break;
         case 403:
           store.dispatch(toastError('Недостаточно прав для выполнения данной операции!'));
@@ -34,10 +37,6 @@ export default async function api(method: Method, url: string, data?: Object) {
     }
     throw e;
   }
-}
-
-export function getUID() {
-  return store.getState().auth.userData.id;
 }
 
 export function getUserWords() {
