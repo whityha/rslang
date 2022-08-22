@@ -9,7 +9,7 @@ const tmpData = [
   { id: 4, title: 'Книга 4' },
   { id: 5, title: 'Книга 5' },
   { id: 6, title: 'Книга 6' },
-  { id: 7, title: 'Сложные' },
+  { id: 7, title: 'Учить' },
 ];
 
 const TextBook: FC = () => (

@@ -9,32 +9,9 @@ import {
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AuthBlock from '../components/auth/auth-block';
-
-const getTitle = (pathname: string): string => {
-  switch (pathname) {
-    case '/':
-      return 'Главная';
-    case '/textbook':
-      return 'Учебник';
-    case '/dictionary':
-      return 'Список слов';
-    case '/games':
-      return 'Игры';
-    case '/games/sprint':
-      return ' Спринт';
-    case '/games/call':
-      return 'Вызов';
-    case '/stat':
-      return 'Статистика';
-    case '/team':
-      return 'Наша команда';
-    case '/reg':
-      return 'Регистрация';
-    default:
-      return '';
-  }
-};
+import AuthBlock from '../../components/auth/auth-block';
+import SetupMenu from './setup-menu';
+import getTitle from './get-title';
 
 interface HeaderProps {
   setOpen: (value: boolean) => void;
@@ -45,16 +22,18 @@ const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
   const theme = useTheme();
   const matchesLG = useMediaQuery(theme.breakpoints.up('lg'));
   const matchesSM = useMediaQuery(theme.breakpoints.up('sm'));
+  const paths = ['/textbook', '/dictionary'];
 
   return (
     <AppBar position="static" elevation={0}>
       <Toolbar sx={{
         height: 70,
         bgcolor: '#ffffff',
-        justifyContent: !matchesSM ? 'space-between' : 'initial',
+        justifyContent: 'space-between',
       }}
       >
-        {!matchesLG && (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {!matchesLG && (
           <IconButton
             onClick={() => setOpen(true)}
             size="large"
@@ -62,17 +41,21 @@ const Header: FC<HeaderProps> = ({ setOpen }: HeaderProps) => {
             color="inherit"
             aria-label="menu"
             sx={{
-              mr: 2,
+              mr: matchesSM ? 2 : 0,
             }}
           >
             <MenuIcon sx={{ color: 'text.primary' }} />
           </IconButton>
-        )}
-        {matchesSM && (
-        <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: 'text.primary' }}>
-          {getTitle(pathname)}
-        </Typography>
-        )}
+          )}
+          {matchesSM && (
+          <Typography variant="h5" component="h1" sx={{ flexGrow: 1, color: 'text.primary', mr: 1 }}>
+            {getTitle(pathname)}
+          </Typography>
+          )}
+          {paths.includes(pathname) && (
+            <SetupMenu />
+          )}
+        </div>
         <AuthBlock />
       </Toolbar>
     </AppBar>

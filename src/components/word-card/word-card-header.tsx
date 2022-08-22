@@ -4,6 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box, CardContent, Typography } from '@mui/material';
 import IconGroup from './icon-group';
 import CardMarker from './card-marker';
+import { useWordListContext } from '../../context/word-list-context';
 
 interface WordCardHeaderProps {
   word: string;
@@ -14,7 +15,6 @@ interface WordCardHeaderProps {
   setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
   currentPlayer: string;
   setCurrentPlayer: (value: string) => void;
-  showTranslation: boolean;
 }
 
 const WordCardHeader: FC<WordCardHeaderProps> = ({
@@ -26,10 +26,13 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   setCurrentTracks,
   currentPlayer,
   setCurrentPlayer,
-  showTranslation,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const { showTranslation } = context;
 
   return (
     <Box
@@ -41,7 +44,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <CardMarker color="#959393" showTranslation={showTranslation} />
+        <CardMarker color="#959393" />
         <CardContent sx={{
           flex: '1 0 auto',
           '&:last-child': {

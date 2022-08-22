@@ -1,28 +1,12 @@
 import { FC } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import StarIcon from '@mui/icons-material/Star';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import Zoom from '@mui/material/Zoom';
 import AudioGroup from './audio-group';
-
-const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip
-    {...props}
-    classes={{ popper: className }}
-    TransitionComponent={Zoom}
-  />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.white,
-    color: 'rgba(0, 0, 0, 0.87)',
-    boxShadow: theme.shadows[3],
-    fontSize: 14,
-  },
-}));
+import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 
 const styles = {
   height: 35,
@@ -55,7 +39,7 @@ const IconGroup: FC<IconGroupProps> = ({
         ml: matches ? 'initial' : -1,
       }}
     >
-      <LightTooltip title="Добавить в сложные">
+      <LightTooltip title="Добавить в Учить">
         <IconButton>
           <StarIcon sx={styles} />
         </IconButton>

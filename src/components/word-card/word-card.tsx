@@ -11,7 +11,6 @@ import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
 
 interface WordCardProps extends Word {
-  showTranslation: boolean;
   currentTracks: NodeListOf<HTMLAudioElement> | null;
   setCurrentTracks: (value: NodeListOf<HTMLAudioElement> | null) => void;
   currentPlayer: string;
@@ -34,7 +33,6 @@ const WordCard: FC<WordCardProps> = ({
   setCurrentTracks,
   currentPlayer,
   setCurrentPlayer,
-  showTranslation,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
@@ -69,7 +67,6 @@ const WordCard: FC<WordCardProps> = ({
             word={word}
             transcription={transcription}
             translate={wordTranslate}
-            showTranslation={showTranslation}
             currentTracks={currentTracks}
             setCurrentTracks={setCurrentTracks}
             currentPlayer={currentPlayer}
@@ -79,12 +76,10 @@ const WordCard: FC<WordCardProps> = ({
           <TextContainer
             text={textMeaning}
             translate={textMeaningTranslate}
-            showTranslation={showTranslation}
           />
           <TextContainer
             text={textExample}
             translate={textExampleTranslate}
-            showTranslation={showTranslation}
           />
         </Box>
       </Card>
