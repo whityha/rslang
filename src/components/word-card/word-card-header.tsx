@@ -5,6 +5,7 @@ import { Box, CardContent, Typography } from '@mui/material';
 import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 import { useWordListContext } from '../../context/word-list-context';
+import bookCatalogData from '../book-catalog/book-catalog-data';
 
 interface WordCardHeaderProps {
   word: string;
@@ -24,7 +25,8 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   const context = useWordListContext();
 
   if (!context) return null;
-  const { showTranslation } = context;
+  const { showTranslation, activeBook } = context;
+  const book = bookCatalogData.find((item) => item.id === activeBook);
 
   return (
     <Box
@@ -36,7 +38,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <CardMarker color="#959393" />
+        <CardMarker color={book ? book.color : '#444f5a'} />
         <CardContent sx={{
           flex: '1 0 auto',
           '&:last-child': {

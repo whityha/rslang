@@ -12,7 +12,7 @@ const CardMarker: FC<CardMarkerProps> = ({ color }) => {
   const { showTranslation } = context;
 
   return (
-    <div style={{ width: 3, height: showTranslation ? 60 : 30, backgroundColor: color }} />
+    <div style={{ width: 4, height: showTranslation ? 60 : 30, backgroundColor: color }} />
   );
 };
 
