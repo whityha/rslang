@@ -36,6 +36,10 @@ export default async function api(method: Method, url: string, data?: Object) {
   }
 }
 
+export function getWordGroup(group: number, page: number = 0) {
+  return api('get', `/words/?page=${page}&group=${group}`);
+}
+
 export function getUID() {
   return store.getState().auth.userData.id;
 }

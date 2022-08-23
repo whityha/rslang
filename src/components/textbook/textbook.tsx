@@ -10,7 +10,13 @@ const TextBook: FC = () => {
   const matches = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <Grid container spacing={2} sx={{ flexDirection: matches ? 'row' : 'column-reverse' }}>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        position: 'relative',
+      }}
+    >
       <Grid item xs={matches ? 11 : 12}>
         <WordList />
       </Grid>

@@ -5,28 +5,43 @@ import { Paper, Typography } from '@mui/material';
 import bookCatalogData from './book-catalog-data';
 import BookCatalogButton from './book-catalog-button';
 import BookCatalogIconButton from './book-catalog-icon-button';
+import { useWordListContext } from '../../context/word-list-context';
+import getBookColor from '../../utils/get-book-color';
 
 const BookCatalog: FC = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const { activeBook } = context;
 
   return (
     <Paper
       sx={{
         position: matches ? 'sticky' : 'fixed',
-        top: matches ? 30 : 75,
-        left: matches ? 'initial' : '50%',
-        transform: matches ? 'initial' : 'translateX(-50%)',
+        top: matches ? 30 : 65,
+        right: matches ? 'auto' : 24,
         display: 'flex',
-        flexDirection: matches ? 'column' : 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 1,
+        gap: 0.5,
         bgcolor: 'transparent',
       }}
       elevation={0}
     >
-      { matches && <Typography sx={{ fontWeight: 700, textTransform: 'uppercase' }}>Книги</Typography>}
+      {matches && (
+        <Typography
+          sx={{
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            color: getBookColor(activeBook),
+          }}
+        >
+          Книги
+        </Typography>
+      )}
       {bookCatalogData.map(({ id, title, color }) => (
         title ? (
           <BookCatalogButton key={id} bookId={id} color={color}>

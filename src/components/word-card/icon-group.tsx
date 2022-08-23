@@ -63,14 +63,14 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
         title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
       >
         <IconButton onClick={toggleDifficultWord}>
-          <StarIcon sx={{ ...styles, color: isDifficult ? color : '' }} />
+          <StarIcon sx={{ ...styles, color: isDifficult ? color : '#c4c1c1' }} />
         </IconButton>
       </LightTooltip>
       <LightTooltip
         title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
       >
         <IconButton onClick={toggleStudiedWord}>
-          <LightbulbIcon sx={{ ...styles, color: isStudied ? color : '' }} />
+          <LightbulbIcon sx={{ ...styles, color: isStudied ? color : '#c4c1c1' }} />
         </IconButton>
       </LightTooltip>
       <AudioGroup

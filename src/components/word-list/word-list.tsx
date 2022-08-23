@@ -1,43 +1,41 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Grid, Pagination, Stack, useMediaQuery, useTheme,
 } from '@mui/material';
 import WordCard from '../word-card/word-card';
-import { Word } from '../../types/word';
-import { useAppDispatch, useWords } from '../../redux/hooks';
-import getAllWords from '../../redux/words/getall';
+import { Word, Words } from '../../types/word';
 import Loading from '../loading/loading';
+import { useWordListContext } from '../../context/word-list-context';
+import { getWordGroup } from '../../inc/api';
 
 const WordList: FC = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const dispatch = useAppDispatch();
-  const words = useWords();
+  const context = useWordListContext();
+  const [words, setWords] = useState<Words>([]);
+
+  if (!context) return null;
+  const { activeBook } = context;
 
   useEffect(() => {
-    dispatch(getAllWords());
-  }, [dispatch]);
+    const fetchData = async () => {
+      const { data } = await getWordGroup(activeBook, 2);
+      setWords(data);
+    };
+
+    fetchData();
+  }, [activeBook]);
+
+  if (!words) return <Loading />;
+
+  const data = words.sort((a, b) => a.word.localeCompare(b.word));
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-      <Stack
-        spacing={2}
-        sx={{
-          pt: matches ? 0 : 3,
-          pb: matches ? 5 : 3,
-          alignSelf: 'center',
-        }}
-      >
-        <Pagination size={matches ? 'large' : 'medium'} count={5} variant="outlined" color="primary" />
-      </Stack>
       <Grid container spacing={3}>
-        {words.isLoading ? (
-          <Loading />
-        ) : (
-          words.data.map((word: Word) => (
-            <WordCard key={word.id} {...word} />
-          ))
-        )}
+        {data.map((word: Word) => (
+          <WordCard key={word.id} {...word} />
+        ))}
       </Grid>
       <Stack spacing={2} sx={{ pt: matches ? 5 : 3, alignSelf: 'center' }}>
         <Pagination size={matches ? 'large' : 'medium'} count={5} variant="outlined" color="primary" />
