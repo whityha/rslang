@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { setAxiosToken } from '../../inc/ax';
+import { isJwtExpired } from '../../inc/jwt';
 import { authStorageKey } from '../../inc/storage-keys';
 import { AuthState } from '../../types/redux';
 import { User, UserRegResponse } from '../../types/user';
@@ -16,6 +17,7 @@ const emptyState: AuthState = {
   },
   isLoading: false,
   isLastOperationSuccess: false,
+  isLoginRequired: false,
 };
 
 const initialState = emptyState;
@@ -30,8 +32,10 @@ try {
     initialState.userData.token = js.token ?? '';
     initialState.userData.refreshToken = js.refreshToken ?? '';
     if (initialState.userData.id.length && initialState.userData.token.length) {
-      initialState.isAuth = true;
-      setAxiosToken(initialState.userData.token);
+      if (!isJwtExpired(initialState.userData.token)) {
+        initialState.isAuth = true;
+        setAxiosToken(initialState.userData.token);
+      }
     }
   }
 } catch (e) {
@@ -51,11 +55,14 @@ export const authSlice = createSlice({
     setUserData: (state, action: PayloadAction<UserRegResponse>) => {
       state.userData = { ...action.payload, token: '' };
     },
-    logout: (state) => {
+    logout: (state, action: PayloadAction<boolean | undefined>) => {
       state.isAuth = false;
-      state = emptyState;
       setAxiosToken(' ');
       localStorage.removeItem(authStorageKey);
+      if (action && action.payload) state.isLoginRequired = true;
+    },
+    setLoginRequired: (state, action: PayloadAction<boolean>) => {
+      state.isLoginRequired = action.payload;
     },
 
   },
@@ -63,7 +70,7 @@ export const authSlice = createSlice({
 });
 
 export const {
-  logout, setAuthLoading, setUserData, resetAuthSuccess,
+  logout, setAuthLoading, setUserData, resetAuthSuccess, setLoginRequired,
 } = authSlice.actions;
 
 export default authSlice.reducer;
