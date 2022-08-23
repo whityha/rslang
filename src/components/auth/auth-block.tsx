@@ -1,5 +1,6 @@
-import { Button } from '@mui/material';
 import { FC } from 'react';
+import { Button } from '@mui/material';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { logout } from '../../redux/auth/slice';
 import useAsk from '../../redux/confirm/use-ask';
@@ -25,7 +26,10 @@ const AuthBlock: FC = () => {
       {auth.isAuth
         ? (
           <>
-            <Button sx={styles}>
+            <Button
+              sx={styles}
+              startIcon={<AccountCircleOutlinedIcon />}
+            >
               {auth.userData!.name}
             </Button>
             <Button

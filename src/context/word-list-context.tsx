@@ -20,6 +20,8 @@ interface IWordListContext {
   setDifficult: (value: string[]) => void;
   studied: string[];
   setStudied: (value: string[]) => void;
+  page: number;
+  setPage: (value: number) => void;
 }
 
 interface WordListProviderProps {
@@ -37,6 +39,7 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
   const [activeBook, setActiveBook] = useState<number>(0);
   const [difficult, setDifficult] = useState<string[]>([]);
   const [studied, setStudied] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(0);
 
   const context: IWordListContext = useMemo(() => ({
     showTranslation,
@@ -51,7 +54,9 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
     setDifficult,
     studied,
     setStudied,
-  }), [showTranslation, currentTracks, currentPlayer, activeBook, difficult, studied]);
+    page,
+    setPage,
+  }), [showTranslation, currentTracks, currentPlayer, activeBook, difficult, studied, page]);
 
   return (
     <WordListContext.Provider value={context}>
