@@ -1,17 +1,15 @@
 import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Fab, Paper, Typography } from '@mui/material';
-import { useWordListContext } from '../../context/word-list-context';
+import { Paper, Typography } from '@mui/material';
 import bookCatalogData from './book-catalog-data';
+import BookCatalogButton from './book-catalog-button';
+import BookCatalogIconButton from './book-catalog-icon-button';
 
 const BookCatalog: FC = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const context = useWordListContext();
 
-  if (!context) return null;
-  const { activeBook, setActiveBook } = context;
   return (
     <Paper
       sx={{
@@ -30,23 +28,11 @@ const BookCatalog: FC = () => {
     >
       { matches && <Typography sx={{ fontWeight: 700, textTransform: 'uppercase' }}>Книги</Typography>}
       {bookCatalogData.map(({ id, title, color }) => (
-        <Fab
-          onClick={() => setActiveBook(id)}
-          key={id}
-          size={activeBook === id ? 'large' : 'medium'}
-          sx={{
-            color: '#ffffff',
-            fontSize: activeBook === id ? 24 : 16,
-            fontWeight: activeBook === id ? 700 : 500,
-            bgcolor: color,
-            '&:hover': {
-              bgcolor: color,
-              opacity: 0.8,
-            },
-          }}
-        >
-          {title}
-        </Fab>
+        title ? (
+          <BookCatalogButton key={id} bookId={id} color={color}>
+            {title}
+          </BookCatalogButton>
+        ) : <BookCatalogIconButton key={id} bookId={id} color={color} />
       ))}
     </Paper>
   );

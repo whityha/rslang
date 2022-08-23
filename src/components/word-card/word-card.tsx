@@ -11,6 +11,7 @@ import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
 
 const WordCard: FC<Word> = ({
+  id,
   word,
   image,
   transcription,
@@ -53,6 +54,7 @@ const WordCard: FC<Word> = ({
           }}
         >
           <WordCardHeader
+            id={id}
             word={word}
             transcription={transcription}
             translate={wordTranslate}

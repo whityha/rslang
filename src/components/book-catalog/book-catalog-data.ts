@@ -5,6 +5,7 @@ const bookCatalogData = [
   { id: 3, title: '4', color: '#5c6bc0' },
   { id: 4, title: '5', color: '#039be5' },
   { id: 5, title: '6', color: '#0097a7' },
+  { id: 6, title: '', color: '#00796b' },
 ];
 
 export default bookCatalogData;

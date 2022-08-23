@@ -9,10 +9,11 @@ interface AudioGroupProps extends IconGroupProps {
   styles: {
     height: number;
     width: number;
+    color: string;
   };
 }
 
-const AudioGroup: FC<AudioGroupProps> = ({ paths, styles }) => {
+const AudioGroup: FC<AudioGroupProps> = ({ id, paths, styles }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const context = useWordListContext();
 
@@ -23,7 +24,7 @@ const AudioGroup: FC<AudioGroupProps> = ({ paths, styles }) => {
 
   const playAudio = (): void => {
     if (btnRef.current) {
-      if (currentPlayer === paths[0]) {
+      if (currentPlayer === id) {
         setCurrentPlayer('');
         if (currentTracks) {
           currentTracks.forEach((track) => {
@@ -33,7 +34,7 @@ const AudioGroup: FC<AudioGroupProps> = ({ paths, styles }) => {
         }
         return;
       }
-      setCurrentPlayer(paths[0]);
+      setCurrentPlayer(id);
       const tracks = btnRef.current.querySelectorAll(
         'audio',
       ) as NodeListOf<HTMLAudioElement>;
@@ -62,7 +63,7 @@ const AudioGroup: FC<AudioGroupProps> = ({ paths, styles }) => {
   };
   return (
     <IconButton onClick={playAudio} ref={btnRef}>
-      {currentPlayer === paths[0] ? (
+      {currentPlayer === id ? (
         <StopCircleOutlinedIcon sx={styles} />
       ) : (
         <VolumeUpIcon sx={styles} />

@@ -7,19 +7,49 @@ import StarIcon from '@mui/icons-material/Star';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AudioGroup from './audio-group';
 import LightTooltip from '../light-tooltip.tsx/light-tooltip';
-
-const styles = {
-  height: 35,
-  width: 35,
-};
+import { useWordListContext } from '../../context/word-list-context';
+import getBookColor from '../../utils/get-book-color';
 
 export interface IconGroupProps {
+  id: string;
   paths: string[];
 }
 
-const IconGroup: FC<IconGroupProps> = ({ paths }) => {
+const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const context = useWordListContext();
+
+  const styles = {
+    height: 35,
+    width: 35,
+  };
+
+  if (!context) return null;
+  const {
+    activeBook, difficult, setDifficult, studied, setStudied,
+  } = context;
+
+  const toggleDifficultWord = (): void => {
+    if (difficult.includes(id)) {
+      setDifficult([...difficult.filter((wordId) => wordId !== id)]);
+    } else {
+      setDifficult([...difficult, id]);
+    }
+  };
+
+  const toggleStudiedWord = (): void => {
+    if (studied.includes(id)) {
+      setStudied([]);
+    } else {
+      setStudied([...studied, id]);
+    }
+  };
+
+  const isDifficult = difficult.includes(id);
+  const isStudied = studied.includes(id);
+  const color = getBookColor(activeBook);
+
   return (
     <Box
       sx={{
@@ -29,19 +59,24 @@ const IconGroup: FC<IconGroupProps> = ({ paths }) => {
         ml: matches ? 'initial' : -1,
       }}
     >
-      <LightTooltip title="Добавить в Сложные слова">
-        <IconButton>
-          <StarIcon sx={styles} />
+      <LightTooltip
+        title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
+      >
+        <IconButton onClick={toggleDifficultWord}>
+          <StarIcon sx={{ ...styles, color: isDifficult ? color : '' }} />
         </IconButton>
       </LightTooltip>
-      <LightTooltip title="Ещё не изучено">
-        <IconButton>
-          <LightbulbIcon sx={styles} />
+      <LightTooltip
+        title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
+      >
+        <IconButton onClick={toggleStudiedWord}>
+          <LightbulbIcon sx={{ ...styles, color: isStudied ? color : '' }} />
         </IconButton>
       </LightTooltip>
       <AudioGroup
+        id={id}
         paths={paths}
-        styles={styles}
+        styles={{ ...styles, color }}
       />
     </Box>
   );
