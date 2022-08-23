@@ -12,6 +12,7 @@ export interface AuthState {
   userData: User;
   isLoading: boolean;
   isLastOperationSuccess: boolean;
+  isLoginRequired: boolean;
 }
 
 export interface ToastState {
