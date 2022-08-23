@@ -29,7 +29,7 @@ const IconGroup: FC<IconGroupProps> = ({ paths }) => {
         ml: matches ? 'initial' : -1,
       }}
     >
-      <LightTooltip title="Добавить в Учить">
+      <LightTooltip title="Добавить в Сложные слова">
         <IconButton>
           <StarIcon sx={styles} />
         </IconButton>

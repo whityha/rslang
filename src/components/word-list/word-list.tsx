@@ -11,7 +11,7 @@ import Loading from '../loading/loading';
 
 const WordList: FC = () => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
   const dispatch = useAppDispatch();
   const words = useWords();
 
@@ -35,7 +35,14 @@ const WordList: FC = () => {
           set No Loading
         </Button>
       </ButtonGroup>
-      <Stack spacing={2} sx={{ pb: matches ? 5 : 3, alignSelf: 'center' }}>
+      <Stack
+        spacing={2}
+        sx={{
+          pt: matches ? 0 : 3,
+          pb: matches ? 5 : 3,
+          alignSelf: 'center',
+        }}
+      >
         <Pagination size={matches ? 'large' : 'medium'} count={5} variant="outlined" color="primary" />
       </Stack>
       <Grid container spacing={3}>
