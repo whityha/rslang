@@ -1,65 +1,29 @@
-import { FC, useEffect, useState } from 'react';
-import {
-  Button, ButtonGroup, Grid, Paper,
-} from '@mui/material';
-import { useAppDispatch, useWords } from '../../redux/hooks';
-import getAllWords from '../../redux/words/getall';
-import { setWordsLoading } from '../../redux/words/slice';
-import Loading from '../loading/loading';
+import { FC } from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Grid } from '@mui/material';
 import WordList from '../word-list/word-list';
+import BookCatalog from '../book-catalog/book-catalog';
 
 const TextBook: FC = () => {
-  const [showTranslation, setShowTranslation] = useState(true);
-  const dispatch = useAppDispatch();
-  const words = useWords();
-
-  useEffect(() => {
-    dispatch(getAllWords());
-  }, [dispatch]);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <>
-      <ButtonGroup sx={{ mb: 5 }} variant="outlined" aria-label="outlined button group">
-        <Button onClick={() => dispatch(getAllWords())}>reload</Button>
-        <Button onClick={() => dispatch(setWordsLoading(true))}>setLoading</Button>
-        <Button onClick={() => dispatch(setWordsLoading(false))}>
-          set No Loading
-        </Button>
-        <Button onClick={() => setShowTranslation(!showTranslation)}>
-          {showTranslation ? 'Скрыть перевод' : 'Показать перевод'}
-        </Button>
-      </ButtonGroup>
-      <Grid container spacing={3}>
-        <Grid item md={10} xs={9}>
-          {
-          words.isLoading
-            ? <Loading />
-            : <WordList words={words.data} showTranslation={showTranslation} />
-        }
-        </Grid>
-        <Grid item md={2} xs={3}>
-          <Paper
-            sx={{
-              position: 'sticky',
-              top: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 1,
-              minWidth: 120,
-            }}
-            elevation={0}
-          >
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 1</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 2</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 3</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 4</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 5</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Книга 6</Button>
-            <Button variant="outlined" sx={{ boxShadow: 1 }}>Сложные</Button>
-          </Paper>
-        </Grid>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        position: 'relative',
+      }}
+    >
+      <Grid item xs={matches ? 11 : 12}>
+        <WordList />
       </Grid>
-    </>
+      <Grid item xs={matches ? 1 : 12}>
+        <BookCatalog />
+      </Grid>
+    </Grid>
   );
 };
 

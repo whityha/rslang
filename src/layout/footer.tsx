@@ -14,12 +14,12 @@ const Footer: FC = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: 70,
+        height: matchesSM ? 70 : 100,
         padding: '0px 5% 0px 5%',
       }}
       className="footer"
     >
-      <Box component="a" href="https://rs.school/js/" width="100px">
+      <Box component="a" href="https://rs.school/js/" target="_blank" width="100px">
         <img alt="RSSchool" src={RSSChool} />
       </Box>
       <ButtonGroup
@@ -30,17 +30,17 @@ const Footer: FC = () => {
           height: { sm: '50%' },
         }}
       >
-        <Button href="https://github.com/memos77">
+        <Button href="https://github.com/memos77" target="_blank">
           <Typography variant="body2" textAlign="center" fontSize={matchesSM ? 'inherit' : '.7rem'}>
             Ihar Halavin
           </Typography>
         </Button>
-        <Button href="https://github.com/whityha">
+        <Button href="https://github.com/whityha" target="_blank">
           <Typography variant="body2" textAlign="center" fontSize={matchesSM ? 'inherit' : '.7rem'}>
             Pavel Khapaliuk
           </Typography>
         </Button>
-        <Button href="https://github.com/unclekoin">
+        <Button href="https://github.com/unclekoin" target="_blank">
           <Typography variant="body2" textAlign="center" fontSize={matchesSM ? 'inherit' : '.7rem'}>
             Pavel Koryakin
           </Typography>

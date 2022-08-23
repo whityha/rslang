@@ -1,6 +1,7 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
@@ -16,7 +17,7 @@ const buttonsData = [
     id: 2,
     text: 'Список слов',
     icon: <ReceiptLongOutlinedIcon />,
-    path: 'word-list',
+    path: 'dictionary',
   },
   {
     id: 3,
@@ -26,18 +27,24 @@ const buttonsData = [
   },
   {
     id: 4,
+    text: 'Сложные слова',
+    icon: <SchoolOutlinedIcon />,
+    path: 'difficult-words',
+  },
+  {
+    id: 5,
     text: 'Игры',
     icon: <CategoryOutlinedIcon />,
     path: 'games',
   },
   {
-    id: 5,
+    id: 6,
     text: 'Наша команда',
     icon: <GroupsOutlinedIcon />,
     path: 'team',
   },
   {
-    id: 6,
+    id: 7,
     text: 'Статистика',
     icon: <QueryStatsIcon />,
     path: 'stat',
