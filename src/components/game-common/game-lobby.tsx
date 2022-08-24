@@ -9,13 +9,16 @@ type Props = {
   title: string;
   description: string;
   GameEngine: PossibleGames
+  wordsCount: number
 }
 
-const GameLobby: FC<Props> = ({ title, description, GameEngine }) => {
+const GameLobby: FC<Props> = ({
+  title, description, GameEngine, wordsCount,
+}) => {
   const [words, setWords] = useState<Words>([]);
 
   async function levelSelectHandler(level: number) {
-    setWords(await getGameWords(level, 0, 5));
+    setWords(await getGameWords(level, 0, wordsCount));
   }
 
   const isPlay = () => words.length > 0;

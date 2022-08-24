@@ -9,6 +9,7 @@ const GameSprintMenu = () => {
       title={data ? data.title : ''}
       description={data ? data.description : ''}
       GameEngine={GameSprint}
+      wordsCount={data ? data.wordsCount : 10}
     />
   );
 };

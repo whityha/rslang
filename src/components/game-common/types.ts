@@ -25,4 +25,5 @@ export type GamesInfoProps = {
   title: string;
   description: string;
   path: string;
+  wordsCount: number
 }
