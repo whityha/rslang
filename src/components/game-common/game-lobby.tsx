@@ -16,7 +16,6 @@ const GameLobby: FC<Props> = ({ title, description, GameEngine }) => {
 
   async function levelSelectHandler(level: number) {
     setWords(await getGameWords(level, 0, 5));
-    console.log('Words for level', level, words);
   }
 
   const isPlay = () => words.length > 0;

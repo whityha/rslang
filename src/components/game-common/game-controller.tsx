@@ -11,10 +11,7 @@ type Props = {
 const GameController:FC<Props> = ({ GameEngine, words }) => {
   const [result, setResult] = useState<GameWordsResult | false>(false);
 
-  console.log(111, words);
-
   const onFinish = (gameResult: GameWordsResult) => {
-    console.log(gameResult);
     setResult(gameResult);
   };
 

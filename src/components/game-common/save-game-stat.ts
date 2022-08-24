@@ -1,5 +1,6 @@
 import { GameWordsResult } from './types';
 
 export default function saveGameStat(gameResult: GameWordsResult) {
-  console.log(gameResult);
+  // TODO: save game result to server
+  console.log('save', gameResult);
 }

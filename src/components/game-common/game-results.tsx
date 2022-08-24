@@ -1,19 +1,23 @@
 import { FC } from 'react';
+import { Word, Words } from '../../types/word';
 import { GameWordsResult } from './types';
 
 type Props = {
   result: GameWordsResult
 }
 
+const glue = (words: Words) => words.reduce((acc: string, curr: Word) => acc + curr.word, '');
+
 const GameResults: FC<Props> = ({ result }) => (
   <div>
+    <h2>Результаты</h2>
     <div>
       Good:
-      {result.goodWords.join()}
+      {glue(result.goodWords)}
     </div>
     <div>
       Bad:
-      {result.badWords.join()}
+      {glue(result.badWords)}
     </div>
   </div>
 );
