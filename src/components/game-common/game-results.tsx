@@ -6,7 +6,7 @@ type Props = {
   result: GameWordsResult
 }
 
-const glue = (words: Words) => words.reduce((acc: string, curr: Word) => acc + curr.word, '');
+const glue = (words: Words) => words.reduce((acc: string, curr: Word) => `${acc}, ${curr.word}`, '');
 
 const GameResults: FC<Props> = ({ result }) => (
   <div>

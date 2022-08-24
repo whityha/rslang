@@ -1,0 +1,54 @@
+.game-sprint {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#e66465, #9198e5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .sprint-wrapper {
+    width: 100%;
+    max-width: 500px;
+    padding: 5px;;
+    box-sizing: border-box;
+
+    .sprint-status {
+      display: flex;
+      justify-content: space-between;
+    }
+    .sprint-box { 
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+
+      .sprint-box__buttons {
+        display: flex;
+        width: 70%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .sprint-box__word {
+        font-size: 3em;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+      }
+
+      .sprint-box__translate {
+        font-size: 2em;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+      }
+
+    }
+  }
+}
