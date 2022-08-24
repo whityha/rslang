@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
+import GameSprintMenu from '../components/game-sprint/game-sprint-menu';
 
 const GameSprintPage: FC = () => (
-  <Typography variant="h2" sx={{ textAlign: 'center' }}>Спринт</Typography>
+  <GameSprintMenu />
 );
 export default GameSprintPage;
