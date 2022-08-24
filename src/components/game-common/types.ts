@@ -20,3 +20,9 @@ export type GameProps = {
 }
 
 export const emptyGameResult = { goodWords: [], badWords: [] };
+
+export type GamesInfoProps = {
+  title: string;
+  description: string;
+  path: string;
+}

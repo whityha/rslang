@@ -1,14 +1,16 @@
 import GameLobby from '../game-common/game-lobby';
+import gamesCardData from '../games-card/games-card-data';
 import GameSprint from './game-sprint';
 
-const GameSprintMenu = () => (
-  <GameLobby
-    title="Спринт"
-    description="Тренирует навык быстрого перевода с английского языка на русский.
-    Выбирайте соответствует ли перевод предложенному слову и получайте очки,
-    при правильном ответе."
-    GameEngine={GameSprint}
-  />
-);
+const GameSprintMenu = () => {
+  const data = gamesCardData.find(({ path }) => path === 'sprint');
+  return (
+    <GameLobby
+      title={data ? data.title : ''}
+      description={data ? data.description : ''}
+      GameEngine={GameSprint}
+    />
+  );
+};
 
 export default GameSprintMenu;
