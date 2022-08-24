@@ -39,7 +39,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <CardMarker color={getBookColor(activeBook)} />
+        <CardMarker color={getBookColor(activeBook.id)} />
         <CardContent sx={{
           flex: '1 0 auto',
           '&:last-child': {

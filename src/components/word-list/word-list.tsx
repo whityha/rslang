@@ -20,7 +20,7 @@ const WordList: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getWordGroup(activeBook, page);
+      const { data } = await getWordGroup(activeBook.id, page);
       setWords(data);
     };
 

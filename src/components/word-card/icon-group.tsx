@@ -48,7 +48,7 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
 
   const isDifficult = difficult.includes(id);
   const isStudied = studied.includes(id);
-  const color = getBookColor(activeBook);
+  const color = getBookColor(activeBook.id);
 
   return (
     <Box
