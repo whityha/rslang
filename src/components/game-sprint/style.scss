@@ -51,4 +51,14 @@
 
     }
   }
+
+
+  .emoji {
+    font-size: 2.2em;
+  }
+
+  .no-achieved {
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
 }
