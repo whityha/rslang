@@ -8,7 +8,6 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AudioGroup from './audio-group';
 import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 import { useWordListContext } from '../../context/word-list-context';
-import getBookColor from '../../utils/get-book-color';
 
 export interface IconGroupProps {
   id: string;
@@ -48,7 +47,6 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
 
   const isDifficult = difficult.includes(id);
   const isStudied = studied.includes(id);
-  const color = getBookColor(activeBook.id);
 
   return (
     <Box
@@ -63,20 +61,20 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
         title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
       >
         <IconButton onClick={toggleDifficultWord}>
-          <StarIcon sx={{ ...styles, color: isDifficult ? color : '#c4c1c1' }} />
+          <StarIcon sx={{ ...styles, color: isDifficult ? activeBook.color : '#c4c1c1' }} />
         </IconButton>
       </LightTooltip>
       <LightTooltip
         title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
       >
         <IconButton onClick={toggleStudiedWord}>
-          <LightbulbIcon sx={{ ...styles, color: isStudied ? color : '#c4c1c1' }} />
+          <LightbulbIcon sx={{ ...styles, color: isStudied ? activeBook.color : '#c4c1c1' }} />
         </IconButton>
       </LightTooltip>
       <AudioGroup
         id={id}
         paths={paths}
-        styles={{ ...styles, color }}
+        styles={{ ...styles, color: activeBook.color }}
       />
     </Box>
   );

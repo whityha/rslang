@@ -21,14 +21,14 @@ const ButtonMenu: FC<ButtonMenuProps> = ({ data, active, setActive }) => {
     if (!value.link) {
       setActive(value);
     } else {
-      navigate('/difficult');
+      navigate('/difficult-words');
     }
     handleClose();
   };
 
   return (
     <SpeedDial
-      ariaLabel=""
+      ariaLabel="button menu"
       icon={active.icon || active.title}
       onClose={handleClose}
       onOpen={handleOpen}

@@ -5,7 +5,6 @@ import { Box, CardContent, Typography } from '@mui/material';
 import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 import { useWordListContext } from '../../context/word-list-context';
-import getBookColor from '../../utils/get-book-color';
 
 interface WordCardHeaderProps {
   id: string;
@@ -39,7 +38,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <CardMarker color={getBookColor(activeBook.id)} />
+        <CardMarker color={activeBook.color} />
         <CardContent sx={{
           flex: '1 0 auto',
           '&:last-child': {
