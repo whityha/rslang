@@ -1,19 +1,29 @@
-import { FC } from 'react';
-import { GameProps, GameWordsResult } from '../game-common/types';
+import { FC, useState } from 'react';
+import { emptyGameResult, GameProps, GameWordsResult } from '../game-common/types';
 
 const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
-  const gameResult: GameWordsResult = { goodWords: [], badWords: [] };
+  const gameResult: GameWordsResult = emptyGameResult;
+  const [currentWord, setCurrentWord] = useState(0);
 
-  console.log(gameResult);
+  function addWord(good: boolean) {
+    const target = good ? gameResult.goodWords : gameResult.badWords;
+    target.push(words[currentWord]);
+    currentWord < words.length - 1 ? setCurrentWord(currentWord + 1) : onFinish(gameResult);
+  }
+
   return (
     <div className="game-sprint">
-      Игра. Всего слов:
-      {' '}
-      {words.length}
-      <button onClick={() => gameResult.goodWords.push(words[2])}>Good 2</button>
-      <button onClick={() => gameResult.goodWords.push(words[1])}>Good 1</button>
-      <button onClick={() => gameResult.badWords.push(words[0])}>Bad 0</button>
-      <button onClick={() => onFinish(gameResult)}>Конец</button>
+      <div>
+        Всего слов:
+        {' '}
+        {words.length}
+      </div>
+      <div>
+        {words[currentWord].word}
+        <button onClick={() => addWord(true)}>Good</button>
+        <button onClick={() => addWord(false)}>Bad</button>
+        <button onClick={() => onFinish(gameResult)}>Завершить</button>
+      </div>
 
     </div>
   );

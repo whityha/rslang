@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { Words } from '../../types/word';
 import GameController from './game-controller';
+import getGameWords from './get-game-words';
 import LevelSelector from './level-selector';
 import { PossibleGames } from './types';
 
@@ -11,25 +12,23 @@ type Props = {
 }
 
 const GameLobby: FC<Props> = ({ title, description, GameEngine }) => {
-  const [play, setPlay] = useState<boolean>(false);
+  const [words, setWords] = useState<Words>([]);
 
-  const words: Words = [];
+  async function levelSelectHandler(level: number) {
+    setWords(await getGameWords(level, 0, 5));
+    console.log('Words for level', level, words);
+  }
 
-  const levelSelectHandler = (level: number) => {
-    console.log(level);
-    // words = ....
-    // setPlay(words.length > 0);
-    setPlay(true);
-  };
+  const isPlay = () => words.length > 0;
 
-  return !play
+  return !isPlay()
     ? (
       <div className="game-info">
         <h2>{title}</h2>
         <p>
           {description}
         </p>
-        <LevelSelector onLevelSelect={levelSelectHandler} />
+        <LevelSelector onLevelSelect={(level) => levelSelectHandler(level)} />
 
       </div>
     )
