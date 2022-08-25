@@ -48,7 +48,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const randWord = () => Math.floor(Math.random() * (words.length));
 
   function getNextWord() {
-    const rand = randWord();
+    const rand = currentWord === words.length - 1 ? 0 : currentWord + 1;
     setCurrentWord(rand);
     const translate = (Math.random() > 0.3) ? rand : randWord();
     setCurrentTranslate(translate);
@@ -94,6 +94,14 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
     getNextWord();
   }, []);
 
+  function eArray(max: number): Array<number> {
+    const arr = [];
+    for (let i = 0; i < max; i += 1) {
+      arr.push(i);
+    }
+    return arr;
+  }
+
   return (
     <div className="game-sprint">
       <div className="sprint-wrapper">
@@ -103,10 +111,10 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
         </div>
         <div className="sprint-box">
           <div className="sprint-box__stars">
-            {[...Array(maxStars)].map((_v, i) => <Star stars={stars} n={i} />)}
+            {eArray(maxStars).map((v, i) => <Star stars={stars} n={i} key={`s${v}`} />)}
           </div>
           <div className="sprint-box__parrots">
-            {[...Array(maxParrots)].map((_v, i) => <Parrot parrots={parrots} n={i} />)}
+            {eArray(maxParrots).map((v, i) => <Parrot parrots={parrots} n={i} key={`p${v}`} />)}
           </div>
           <div className="sprint-box__word">
             {words[currentWord].word}
