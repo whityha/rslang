@@ -35,9 +35,11 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
       const gameResult = emptyGameResult;
 
       words.forEach(
-        (word, index) => ((goodW.has(index) && !badW.has(index))
-          ? gameResult.goodWords.push(word)
-          : gameResult.badWords.push(word)),
+        (word, index) => {
+          if (badW.has(index)) gameResult.badWords.push(word);
+          else
+          if (goodW.has(index)) { gameResult.goodWords.push(word); }
+        },
       );
       onFinish(gameResult);
     }
@@ -54,7 +56,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
     setCurrentTranslate(translate);
   }
 
-  function handleWord(good: boolean) {
+  const handleWord = (good: boolean) => {
     const success = (good && currentWord === currentTranslate)
     || (!good && currentWord !== currentTranslate);
 
@@ -88,7 +90,23 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
     // setGameResult(gameResult);
     // currentWord < words.length - 1 ? setCurrentWord(currentWord + 1) : setCurrentWord(0);
     getNextWord();
-  }
+  };
+
+  useEffect(() => {
+    console.log('effect');
+
+    const onKeypress = (e: KeyboardEvent) => {
+      console.log('press');
+      if (e.key === 'ArrowLeft') handleWord(true);
+      else if (e.key === 'ArrowRight') handleWord(false);
+    };
+
+    document.addEventListener('keydown', onKeypress);
+
+    return () => {
+      document.removeEventListener('keydown', onKeypress);
+    };
+  }, [goodW, badW, score, counter, currentTranslate, currentWord]);
 
   useEffect(() => {
     getNextWord();
@@ -122,9 +140,9 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
           </div>
           <div className="sprint-box__translate">{words[currentTranslate]?.wordTranslate}</div>
           <div className="sprint-box__buttons">
-            <Button variant="contained" color="success" onClick={() => handleWord(true)}>Верно</Button>
+            <Button variant="contained" color="success" onClick={() => handleWord(true)}>← Верно</Button>
             <button onClick={() => playWord(getFilesRoot() + words[currentWord].audio)} className="sprint-box__audio">🔊</button>
-            <Button variant="contained" color="error" onClick={() => handleWord(false)}>Не верно</Button>
+            <Button variant="contained" color="error" onClick={() => handleWord(false)}>Не верно →</Button>
           </div>
         </div>
       </div>

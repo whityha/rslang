@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 type StateType = HTMLAudioElement | false
 
-const usePlay = (url: string) => {
+const usePlay = (url: string = '') => {
   const [audio, setAudio] = useState<StateType>(url === '' ? false : new Audio(url));
 
   const play = (newUrl = '') => {
