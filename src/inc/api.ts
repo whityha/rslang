@@ -22,12 +22,6 @@ export default async function api(method: Method, url: string, data?: Object) {
           store.dispatch(toastError('Необходимо авторизоваться'));
           store.dispatch(logout(true));
           break;
-        case 403:
-          store.dispatch(toastError('Недостаточно прав для выполнения данной операции!'));
-          break;
-        case 404:
-          store.dispatch(toastError('Страница не найдена!'));
-          break;
         case 500:
           store.dispatch(toastError('Внутренняя ошибка сервера!'));
           break;
@@ -48,11 +42,37 @@ export function getUserWords() {
   return api('get', `/users/${id}/words/`);
 }
 
-// TODO: difficulty: string заменить на тип с ограниченным количеством значений
-export function addUserWord(wordId: string, difficulty: string, optional: Object = {}) {
+export enum Diff {
+  UNSET = 'unset',
+  STUDIED = 'studied',
+  HARD = 'hard',
+}
+
+export interface WordDTO {
+  difficulty?: Diff,
+}
+
+export interface WordBackInfo extends WordDTO {
+  id: string
+  wordId: string,
+}
+
+export async function setUserWord(
+  wordId: string,
+  difficulty: Diff,
+) {
   const id = getUID();
-  return api('post', `/users/${id}/words/${wordId}`, {
+  let method: Method = 'post';
+  const url = `/users/${id}/words/${wordId}`;
+  try {
+    const resp = await api('get', url);
+    method = 'put';
+    console.log('Слово есть в базе, делаем PUT', resp.data);
+  } catch (e) {
+    console.log('Делаем POST, так как слова нет в базе, либо ошибка при получении', e);
+    method = 'post';
+  }
+  return api(method, url, {
     difficulty,
-    optional,
   });
 }
