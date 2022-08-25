@@ -11,6 +11,7 @@ export default async function getGameWords(group = 0, page = 0, count = 10): Pro
       words.push(...resp.data.slice(0, count - words.length));
       nowPage -= 1;
     } while ((words.length < count) && (nowPage >= 0));
+    console.log(words.length);
     return words;
   } catch (err) {
     return [];

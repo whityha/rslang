@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+type StateType = HTMLAudioElement | false
+
 const usePlay = (url: string) => {
-  const [audio, setAudio] = useState(new Audio(url));
+  const [audio, setAudio] = useState<StateType>(url === '' ? false : new Audio(url));
 
   const play = (newUrl = '') => {
     if (newUrl !== '' && url !== newUrl) {
       const newAudion = new Audio(newUrl);
       newAudion.autoplay = true;
       setAudio(newAudion);
-    } else { audio.play(); }
+    } else if (audio !== false) audio.play();
   };
 
   return [play];
