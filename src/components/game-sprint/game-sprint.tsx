@@ -1,11 +1,12 @@
 import { Button } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { emptyGameResult, GameProps, GameWordsResult } from '../game-common/types';
+import Parrot from './parrot';
+import Star from './star';
 import './style.scss';
 
 const maxStars = 3;
 const maxParrots = 4;
-const birds = ['🐥', '🐦', '🐧', '🐤'];
 
 const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [gameResult, setGameResult] = useState<GameWordsResult>(emptyGameResult);
@@ -47,23 +48,6 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
     getNextWord();
   }, []);
 
-  function star() {
-    return <span className="emoji">⭐</span>;
-  }
-
-  function grayStar() {
-    return <span className="emoji no-achieved">⭐</span>;
-  }
-
-  function parrot(n: number) {
-    const addClass = n >= parrots ? 'emoji no-achieved' : 'emoji';
-    return (
-      <span className={addClass}>
-        {birds[n]}
-      </span>
-    );
-  }
-
   return (
     <div className="game-sprint">
       <div className="sprint-wrapper">
@@ -73,16 +57,19 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
         </div>
         <div className="sprint-box">
           <div className="sprint-box__stars">
-            {[...Array(stars)].map(() => star())}
-            {[...Array(maxStars - stars)].map(() => grayStar())}
+            {[...Array(maxStars)].map((_v, i) => <Star stars={stars} n={i} />)}
           </div>
           <div className="sprint-box__parrots">
-            {[...Array(maxParrots)].map((_v, i) => parrot(i))}
+            {[...Array(maxParrots)].map((_v, i) => <Parrot parrots={parrots} n={i} />)}
           </div>
-          <div className="sprint-box__word">{words[currentWord].word}</div>
+          <div className="sprint-box__word">
+            {words[currentWord].word}
+
+          </div>
           <div className="sprint-box__translate">{words[currentTranslate].wordTranslate}</div>
           <div className="sprint-box__buttons">
             <Button variant="contained" color="success" onClick={() => handleWord(true)}>Верно</Button>
+            <span className="sprint-box__audio">🔊</span>
             <Button variant="contained" color="error" onClick={() => handleWord(false)}>Не верно</Button>
           </div>
         </div>
