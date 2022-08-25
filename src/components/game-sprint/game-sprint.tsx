@@ -1,5 +1,7 @@
 import { Button } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
+import { getFilesRoot } from '../../inc/conf';
+import usePlay from '../../inc/use-play';
 import { emptyGameResult, GameProps, GameWordsResult } from '../game-common/types';
 import Parrot from './parrot';
 import Star from './star';
@@ -15,6 +17,9 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [parrots, setParrots] = useState(0);
   const [stars, setStars] = useState(0);
   const [currentTranslate, setCurrentTranslate] = useState(0);
+  const [playError] = usePlay('/sounds/error.wav');
+  const [playCorrect] = usePlay('/sounds/correct.wav');
+  const [playWord] = usePlay('');
 
   function getNextWord() {
     const randomId = (Math.random() < 0.5)
@@ -29,6 +34,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
 
     const target = success ? gameResult.goodWords : gameResult.badWords;
     if (success) {
+      playCorrect();
       setScore(score + 1);
       if (stars === maxStars) {
         setStars(0);
@@ -36,6 +42,8 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
       } else {
         setStars(stars + 1);
       }
+    } else {
+      playError();
     }
     target.push(words[currentWord]);
 
@@ -69,7 +77,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
           <div className="sprint-box__translate">{words[currentTranslate].wordTranslate}</div>
           <div className="sprint-box__buttons">
             <Button variant="contained" color="success" onClick={() => handleWord(true)}>Верно</Button>
-            <span className="sprint-box__audio">🔊</span>
+            <button onClick={() => playWord(getFilesRoot() + words[currentWord].audio)} className="sprint-box__audio">🔊</button>
             <Button variant="contained" color="error" onClick={() => handleWord(false)}>Не верно</Button>
           </div>
         </div>
