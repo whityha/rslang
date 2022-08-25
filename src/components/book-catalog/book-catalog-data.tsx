@@ -59,7 +59,7 @@ const bookCatalogData: CatalogItem[] = [
     id: 6,
     title: 'Сложные',
     subtitle: 'слова',
-    symbol: <SchoolOutlinedIcon />,
+    symbol: <SchoolOutlinedIcon fontSize="large" />,
     color: teal,
     path: '/difficult-words',
   },

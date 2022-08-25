@@ -29,29 +29,23 @@ const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
     <Paper
       onClick={clickHandler}
       sx={{
+        position: 'relative',
+        width: 220,
+        height: 70,
+        px: 3,
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
         flexGrow: 1,
-        minWidth: 140,
-        p: 0,
         bgcolor: basicColors.grey,
         cursor: 'pointer',
         overflow: 'hidden',
+        '&:hover .book-color': {
+          bgcolor: data.color ? data.color : active.color,
+        },
       }}
     >
-      <Box
-        component="span"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 1,
-          height: 1,
-          py: 2,
-          px: 1,
-        }}
-      >
+      <div>
         <Typography
           sx={{
             fontSize: 20,
@@ -68,32 +62,33 @@ const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
         >
           {data.subtitle}
         </Typography>
-      </Box>
+      </div>
       <Box
-        component="span"
         sx={{
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          width: 0.5,
-          height: 1,
-          py: 2,
-          px: 1,
-          overflow: 'hidden',
-          // TODO заменить серый цвет
-          bgcolor: data.id === active.id ? data.color : '#cccccc',
+          fontSize: 24,
+          fontWeight: 700,
+          color: basicColors.lightTextColor,
+          borderRadius: '50%',
+          zIndex: 100,
         }}
       >
-        <Typography
-          sx={{
-            fontSize: 20,
-            fontWeight: 700,
-            color: basicColors.lightTextColor,
-          }}
-        >
-          {data.symbol}
-        </Typography>
+        {data.symbol}
       </Box>
+      <Box
+        className="book-color"
+        sx={{
+          position: 'absolute',
+          top: -10,
+          right: -25,
+          width: 110,
+          height: 110,
+          borderRadius: 53,
+          transition: 'all 0.2s linear',
+          bgcolor: data.id === active.id && data.color ? data.color : '#cccccc',
+        }}
+      />
     </Paper>
   );
 };
