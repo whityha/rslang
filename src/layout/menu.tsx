@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { Paper } from '@mui/material';
 import ListMenu from '../components/list-menu/list-menu';
+import { useWordListContext } from '../context/word-list-context';
 
 const drawerWidth = 240;
 
@@ -51,9 +52,13 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Menu: FC = () => {
-  const [open, setOpen] = useState(false);
+  const context = useWordListContext();
+  const [open, setOpen] = useState(true);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
+
+  if (!context) return null;
+  const { activeBook } = context;
 
   const handleOpen = () => {
     setOpen((prevState) => !prevState);
@@ -64,7 +69,7 @@ const Menu: FC = () => {
         '& .MuiDrawer-paper': {
           borderWidth: 0,
           color: 'primary.contrastText',
-          bgcolor: 'primary.main',
+          bgcolor: activeBook.color,
         },
         display: !matches ? 'none' : 'initial',
       }}
@@ -80,7 +85,7 @@ const Menu: FC = () => {
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
           px: 3,
-          bgcolor: 'primary.main',
+          bgcolor: activeBook.color,
         }}
         elevation={0}
       >

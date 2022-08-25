@@ -4,6 +4,7 @@ import React, {
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import ListMenu from '../components/list-menu/list-menu';
+import { useWordListContext } from '../context/word-list-context';
 
 interface MobileMenuProps {
   openMenu: boolean;
@@ -11,11 +12,15 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu }: MobileMenuProps) => {
+  const context = useWordListContext();
   const [state, setState] = useState(false);
 
   useEffect(() => {
     setState(openMenu);
   }, [openMenu]);
+
+  if (!context) return null;
+  const { activeBook } = context;
 
   const toggleDrawer = () => (event: KeyboardEvent | MouseEvent) => {
     if (
@@ -37,7 +42,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ openMenu, setOpenMenu }: MobileMenuPr
           width: 240,
           display: 'flex',
           flexGrow: 1,
-          bgcolor: 'primary.main',
+          bgcolor: activeBook.color,
         }}
         role="presentation"
         onClick={toggleDrawer()}
