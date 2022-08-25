@@ -18,10 +18,10 @@ const ButtonMenu: FC<ButtonMenuProps> = ({ data, active, setActive }) => {
   const handleClose = () => setOpen(false);
 
   const clickHandler = (value: CatalogItem): void => {
-    if (!value.link) {
+    if (!value.path) {
       setActive(value);
     } else {
-      navigate('/difficult-words');
+      navigate(value.path);
     }
     handleClose();
   };
@@ -29,7 +29,7 @@ const ButtonMenu: FC<ButtonMenuProps> = ({ data, active, setActive }) => {
   return (
     <SpeedDial
       ariaLabel="button menu"
-      icon={active.icon || active.title}
+      icon={active.symbol}
       onClose={handleClose}
       onOpen={handleOpen}
       open={open}
@@ -52,7 +52,7 @@ const ButtonMenu: FC<ButtonMenuProps> = ({ data, active, setActive }) => {
       {data.map((item) => (
         <SpeedDialAction
           key={item.id}
-          icon={item.icon || item.title}
+          icon={item.symbol}
           tooltipTitle=""
           onClick={() => clickHandler(item)}
           sx={{

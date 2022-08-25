@@ -33,7 +33,6 @@ const WordList: FC = () => {
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-      {matches && <WordListPagination />}
       <Grid
         container
         spacing={3}
