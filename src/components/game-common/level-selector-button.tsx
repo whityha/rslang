@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { FC } from 'react';
 
 type Props = {
@@ -6,6 +7,6 @@ type Props = {
 }
 
 const LevelSelectorButton: FC<Props> = ({ level, onClick }) => (
-  <button onClick={onClick}>{level}</button>
+  <Button sx={{ m: 1 }} variant="contained" onClick={onClick}>{level}</Button>
 );
 export default LevelSelectorButton;

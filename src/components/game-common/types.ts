@@ -19,7 +19,7 @@ export type GameProps = {
   onFinish: (result: GameWordsResult) => void
 }
 
-export const emptyGameResult = { goodWords: [], badWords: [] };
+export const emptyGameResult: GameWordsResult = { goodWords: [], badWords: [] };
 
 export type GamesInfoProps = {
   title: string;

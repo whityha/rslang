@@ -11,6 +11,7 @@ const LevelSelector: FC<Props> = ({ onLevelSelect }) => {
 
   return (
     <>
+      <h2>Выберите уровень сложности</h2>
       {
     bookCatalogData.slice(0, 6).map((book) => (
       <LevelSelectorButton level={book} key={book} onClick={() => onLevelSelect(book - 1)} />

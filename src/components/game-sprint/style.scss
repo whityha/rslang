@@ -73,5 +73,12 @@
     cursor: pointer;
   }
 
+  .sprint-status__top-text {
+    transition: all 200ms;
+    font-weight: bold;
+    margin: 0.1em;
+    font-size: 2em;
+  }
+
 
 }
