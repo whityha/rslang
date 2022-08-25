@@ -23,13 +23,13 @@ const SetupMenu: FC = () => {
   };
 
   if (!context) return null;
-  const { showTranslation, setShowTranslation } = context;
+  const { showTranslation, setShowTranslation, activeBook } = context;
 
   return (
     <Box sx={{ flexGrow: 0 }}>
       <LightTooltip title="Открыть настройки">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <SettingsIcon />
+          <SettingsIcon sx={{ color: activeBook.color }} />
         </IconButton>
       </LightTooltip>
       <Menu
