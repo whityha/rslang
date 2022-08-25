@@ -3,26 +3,38 @@ import { FC, useRef } from 'react';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import { IconGroupProps } from './icon-group';
+import { useWordListContext } from '../../context/word-list-context';
 
 interface AudioGroupProps extends IconGroupProps {
   styles: {
     height: number;
     width: number;
+    color: string;
   };
 }
 
-const AudioGroup: FC<AudioGroupProps> = ({
-  paths,
-  currentTracks,
-  setCurrentTracks,
-  currentPlayer,
-  setCurrentPlayer,
-  styles,
-}) => {
+const AudioGroup: FC<AudioGroupProps> = ({ id, paths, styles }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const {
+    currentTracks, setCurrentTracks, currentPlayer, setCurrentPlayer,
+  } = context;
+
   const playAudio = (): void => {
     if (btnRef.current) {
-      setCurrentPlayer(paths[0]);
+      if (currentPlayer === id) {
+        setCurrentPlayer('');
+        if (currentTracks) {
+          currentTracks.forEach((track) => {
+            track.pause();
+            track.currentTime = 0;
+          });
+        }
+        return;
+      }
+      setCurrentPlayer(id);
       const tracks = btnRef.current.querySelectorAll(
         'audio',
       ) as NodeListOf<HTMLAudioElement>;
@@ -51,7 +63,7 @@ const AudioGroup: FC<AudioGroupProps> = ({
   };
   return (
     <IconButton onClick={playAudio} ref={btnRef}>
-      {currentPlayer === paths[0] ? (
+      {currentPlayer === id ? (
         <StopCircleOutlinedIcon sx={styles} />
       ) : (
         <VolumeUpIcon sx={styles} />

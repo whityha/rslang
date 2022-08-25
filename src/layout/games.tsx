@@ -5,7 +5,7 @@ import gamesCardData from '../components/games-card/games-card-data';
 
 const Games: FC = () => (
   <Grid container spacing={3}>
-    {gamesCardData.map((card) => <GamesCard key={card.id} {...card} />)}
+    {gamesCardData.map((card) => <GamesCard key={card.path} {...card} />)}
   </Grid>
 );
 

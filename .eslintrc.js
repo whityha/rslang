@@ -28,6 +28,8 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-undef': 'off',
     'no-unused-vars': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
     'jsx-a11y/media-has-caption': [
       2,
       {

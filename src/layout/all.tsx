@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
-import Header from './header';
+import Header from './header/header';
 import Footer from './footer';
 import Menu from './menu';
 import MobileMenu from './mobile-menu';

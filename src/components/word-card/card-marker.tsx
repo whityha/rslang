@@ -1,12 +1,19 @@
 import { FC } from 'react';
+import { useWordListContext } from '../../context/word-list-context';
 
 interface CardMarkerProps {
   color: string;
-  showTranslation: boolean;
 }
 
-const CardMarker: FC<CardMarkerProps> = ({ color, showTranslation }) => (
-  <div style={{ width: 3, height: showTranslation ? 60 : 40, backgroundColor: color }} />
-);
+const CardMarker: FC<CardMarkerProps> = ({ color }) => {
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const { showTranslation } = context;
+
+  return (
+    <div style={{ width: 4, height: showTranslation ? 60 : 30, backgroundColor: color }} />
+  );
+};
 
 export default CardMarker;
