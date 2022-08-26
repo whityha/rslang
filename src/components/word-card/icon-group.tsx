@@ -8,6 +8,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AudioGroup from './audio-group';
 import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 import { useWordListContext } from '../../context/word-list-context';
+import { Diff, setUserWord } from '../../inc/api';
 
 export interface IconGroupProps {
   id: string;
@@ -31,16 +32,20 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
 
   const toggleDifficultWord = (): void => {
     if (difficult.includes(id)) {
+      setUserWord(id, Diff.UNSET);
       setDifficult([...difficult.filter((wordId) => wordId !== id)]);
     } else {
+      setUserWord(id, Diff.HARD);
       setDifficult([...difficult, id]);
     }
   };
 
   const toggleStudiedWord = (): void => {
     if (studied.includes(id)) {
+      setUserWord(id, Diff.UNSET);
       setStudied([]);
     } else {
+      setUserWord(id, Diff.STUDIED);
       setStudied([...studied, id]);
     }
   };

@@ -8,7 +8,8 @@ export default async function getGameWords(group = 0, page = 0, count = 10): Pro
     do {
       // eslint-disable-next-line no-await-in-loop
       const resp = await getWordGroup(group, nowPage);
-      words.push(...resp.data.slice(0, count - words.length));
+      const serverWords = resp.data.sort(() => ((Math.random() > 0.5) ? 1 : -1));
+      words.push(...serverWords.slice(0, count - words.length));
       nowPage -= 1;
     } while ((words.length < count) && (nowPage >= 0));
     console.log(words.length);

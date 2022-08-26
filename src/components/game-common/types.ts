@@ -4,6 +4,7 @@ import GameSprint from '../game-sprint/game-sprint';
 export type GameWordsResult = {
   goodWords: Words;
   badWords: Words;
+  unusedWords?: Words;
 }
 
 export enum GameStatus {
