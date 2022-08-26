@@ -1,24 +1,37 @@
 import { FC } from 'react';
-import { Word, Words } from '../../types/word';
+import { Word } from '../../types/word';
+import GameResultsItem from './game-results-item';
 import { GameWordsResult } from './types';
+import './style.scss';
 
 type Props = {
   result: GameWordsResult
 }
 
-const glue = (words: Words) => words.reduce((acc: string, curr: Word) => `${acc}, ${curr.word}`, '');
-
 const GameResults: FC<Props> = ({ result }) => (
-  <div>
-    <h2>Результаты</h2>
+  <div className="res-window">
     <div>
-      Good:
-      {glue(result.goodWords)}
+      <div className="res-window__title darkred">
+        Ошибок —
+        {' '}
+        <strong>{result.badWords.length}</strong>
+      </div>
+      {
+        result.badWords.map((word: Word) => <GameResultsItem word={word} />)
+      }
+
+    </div>
+    <div className="res-window__title darkgreen">
+      Знаю —
+      {' '}
+      <strong>{result.goodWords.length}</strong>
     </div>
     <div>
-      Bad:
-      {glue(result.badWords)}
+      {
+        result.goodWords.map((word: Word) => <GameResultsItem word={word} />)
+      }
     </div>
+
   </div>
 );
 

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useWordListContext } from '../../context/word-list-context';
 import CategoryMenu from '../category-menu/category-menu';
-import bookCatalogData from './book-catalog-data';
+import gameCatalogData from './game-catalog-data';
 
-const BookCatalog: FC = () => {
+const GameCatalog: FC = () => {
   const context = useWordListContext();
 
   if (!context) return null;
@@ -11,12 +11,12 @@ const BookCatalog: FC = () => {
 
   return (
     <CategoryMenu
-      data={bookCatalogData}
+      data={gameCatalogData}
       active={activeBook}
+      title="Игры"
       setActive={setActiveBook}
-      title="Разделы учебника"
     />
   );
 };
 
-export default BookCatalog;
+export default GameCatalog;

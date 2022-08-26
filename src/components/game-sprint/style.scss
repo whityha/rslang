@@ -61,4 +61,24 @@
     filter: grayscale(100%);
     opacity: 0.5;
   }
+
+  .sprint-box__audio {
+
+    font-size: 2em;
+    opacity: 0.7;
+  }
+
+  .sprint-box__audio:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .sprint-status__top-text {
+    transition: all 200ms;
+    font-weight: bold;
+    margin: 0.1em;
+    font-size: 2em;
+  }
+
+
 }
