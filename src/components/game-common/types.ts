@@ -4,6 +4,7 @@ import GameSprint from '../game-sprint/game-sprint';
 export type GameWordsResult = {
   goodWords: Words;
   badWords: Words;
+  unusedWords?: Words;
 }
 
 export enum GameStatus {
@@ -18,8 +19,6 @@ export type GameProps = {
   words: Words,
   onFinish: (result: GameWordsResult) => void
 }
-
-export const emptyGameResult: GameWordsResult = { goodWords: [], badWords: [] };
 
 export type GamesInfoProps = {
   title: string;

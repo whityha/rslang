@@ -6,3 +6,5 @@ export function getFilesRoot(): string {
   const url = getBackendURL();
   return `${url}/`;
 }
+
+export const maxWordsPage = 29;
