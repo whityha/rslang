@@ -2,8 +2,8 @@ import { Box } from '@mui/material';
 import { useState } from 'react';
 import theme from '../../theme/theme';
 import { START_PAGE } from './constants.tsx/constants';
-import GameCallMenu from './menu/GameCallMenu';
-import GameCallPlay from './play/GameCallPlay';
+import GameCallMenu from './Menu/GameCallMenu';
+import GameCallPlay from './Play/GameCallPlay';
 import { TGameState } from './types';
 
 const GameCall = () => {
