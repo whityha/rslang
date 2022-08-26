@@ -60,14 +60,8 @@ const WordCard: FC<Word> = ({
             translate={wordTranslate}
             paths={paths}
           />
-          <TextContainer
-            text={textMeaning}
-            translate={textMeaningTranslate}
-          />
-          <TextContainer
-            text={textExample}
-            translate={textExampleTranslate}
-          />
+          <TextContainer text={textMeaning} translate={textMeaningTranslate} />
+          <TextContainer text={textExample} translate={textExampleTranslate} />
         </Box>
       </Card>
     </Grid>

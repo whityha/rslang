@@ -65,7 +65,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
           )}
         </CardContent>
       </div>
-      <IconGroup id={id} paths={paths} />
+      <IconGroup id={id} word={word} paths={paths} />
     </Box>
   );
 };

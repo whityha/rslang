@@ -2,18 +2,19 @@ import { IconButton } from '@mui/material';
 import { FC, useRef } from 'react';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
-import { IconGroupProps } from './icon-group';
+import { IconStyles } from './icon-group';
 import { useWordListContext } from '../../context/word-list-context';
 
-interface AudioGroupProps extends IconGroupProps {
-  styles: {
-    height: number;
-    width: number;
-    color: string;
-  };
+interface AudioGroupProps {
+  id: string;
+  paths: string[];
+  styles: IconStyles;
+  color: string;
 }
 
-const AudioGroup: FC<AudioGroupProps> = ({ id, paths, styles }) => {
+const AudioGroup: FC<AudioGroupProps> = ({
+  id, paths, styles, color,
+}) => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const context = useWordListContext();
 
@@ -64,9 +65,9 @@ const AudioGroup: FC<AudioGroupProps> = ({ id, paths, styles }) => {
   return (
     <IconButton onClick={playAudio} ref={btnRef}>
       {currentPlayer === id ? (
-        <StopCircleOutlinedIcon sx={styles} />
+        <StopCircleOutlinedIcon sx={{ ...styles, color }} />
       ) : (
-        <VolumeUpIcon sx={styles} />
+        <VolumeUpIcon sx={{ ...styles, color }} />
       )}
       {paths.map((path) => (
         <audio key={path} src={path}>
