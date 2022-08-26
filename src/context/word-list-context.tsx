@@ -9,6 +9,7 @@ import {
 } from 'react';
 import bookCatalogData from '../components/book-catalog/book-catalog-data';
 import { getHardWords } from '../inc/api';
+import { getUID } from '../redux/auth/funcs';
 import { CatalogItem } from '../types/catalog-item';
 import { Words } from '../types/word';
 import transformData from './transform-data';
@@ -49,9 +50,12 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getHardWords();
-      const data = response.paginatedResults.map((item) => transformData(item));
-      setDifficultWords(data);
+      const userId = getUID();
+      if (userId) {
+        const response = await getHardWords();
+        const data = response.paginatedResults.map((item) => transformData(item));
+        setDifficultWords(data);
+      }
     };
 
     fetchData();
