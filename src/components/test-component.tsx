@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import {
+/* import {
   Diff, getHardWords, getSavedWords, getUserWords, setUserWord,
 } from '../inc/api';
 import { getBackendURL } from '../inc/conf';
@@ -40,6 +40,8 @@ const TestComponent: FC = () => {
 
     </div>
   );
-};
+}; */
+
+const TestComponent: FC = () => (<> </>);
 
 export default TestComponent;

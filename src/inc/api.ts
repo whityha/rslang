@@ -68,7 +68,6 @@ export async function aggApi(filter: string) {
   const f = encodeURI(filter);
   try {
     const resp = await api('get', `/users/${id}/aggregatedWords?filter=${f}`);
-    console.log(resp.data[0]);
     return resp.data[0] as AggResponse;
   } catch (e) {
     console.log('Error in aggApi', e);
@@ -108,8 +107,9 @@ export interface WordBackInfo extends WordDTO {
 
 export async function setUserWord(
   wordId: string,
-  difficulty: Diff,
+  difficulty?: Diff,
   progress?: ProgressInfo,
+  addToProgress? : boolean, // При записи результатов игры добавляем в прогресс А НЕ ЗАТИРАЕМ ЕГО
 ) {
   const id = getUID();
   let method: Method = 'post';
@@ -117,7 +117,16 @@ export async function setUserWord(
   try {
     const resp = await api('get', url);
     // Если был прогресс и не завдавил аргументом, то сохраняем его из предыдущего состояния
-    if (progress === undefined && resp.data.optional) progress = resp.data.optional;
+    if (resp.data.optional) {
+      if (progress === undefined) progress = resp.data.optional; else if (addToProgress) {
+        progress.good += resp.data.optional.good;
+        progress.bad += resp.data.optional.bad;
+      }
+    }
+
+    // Не перезатираем старый уровень, если не задан
+    if (resp.data.difficulty && difficulty === undefined) difficulty = resp.data.difficulty;
+
     method = 'put';
     // console.log('Слово есть в базе, делаем PUT', resp.data);
   } catch (e) {
@@ -125,9 +134,8 @@ export async function setUserWord(
     method = 'post';
   }
 
-  const dto: WordDTO = {
-    difficulty,
-  };
+  const dto: WordDTO = {};
+  if (difficulty) dto.difficulty = difficulty;
 
   if (progress !== undefined) dto.optional = progress;
   return api(method, url, dto);

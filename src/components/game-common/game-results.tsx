@@ -17,7 +17,7 @@ const GameResults: FC<Props> = ({ result }) => (
         <strong>{result.badWords.length}</strong>
       </div>
       {
-        result.badWords.map((word: Word) => <GameResultsItem word={word} />)
+        result.badWords.map((word: Word) => <GameResultsItem key={word.id} word={word} />)
       }
 
     </div>
@@ -28,7 +28,7 @@ const GameResults: FC<Props> = ({ result }) => (
     </div>
     <div>
       {
-        result.goodWords.map((word: Word) => <GameResultsItem word={word} />)
+        result.goodWords.map((word: Word) => <GameResultsItem key={word.id} word={word} />)
       }
     </div>
 
