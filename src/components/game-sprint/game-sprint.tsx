@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { getFilesRoot } from '../../inc/conf';
 import usePlay from '../../inc/use-play';
-import { emptyGameResult, GameProps } from '../game-common/types';
+import { GameProps, GameWordsResult } from '../game-common/types';
 import Parrot from './parrot';
 import Star from './star';
 import './style.scss';
@@ -13,7 +13,6 @@ const maxStars = 3;
 const maxParrots = 4;
 
 const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
-  // const [gameResult, setGameResult] = useState<GameWordsResult>(emptyGameResult);
   const [currentWord, setCurrentWord] = useState(0);
   const [score, setScore] = useState(0);
   const [parrots, setParrots] = useState(0);
@@ -32,7 +31,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
     if (counter > 0) {
       timer.current = setInterval(() => setCounter(counter - 1), 1000);
     } else {
-      const gameResult = emptyGameResult;
+      const gameResult: GameWordsResult = { goodWords: [], badWords: [] };
 
       words.forEach(
         (word, index) => {
@@ -93,10 +92,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   };
 
   useEffect(() => {
-    console.log('effect');
-
     const onKeypress = (e: KeyboardEvent) => {
-      console.log('press');
       if (e.key === 'ArrowLeft') handleWord(true);
       else if (e.key === 'ArrowRight') handleWord(false);
     };
