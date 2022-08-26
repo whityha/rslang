@@ -7,20 +7,27 @@ import StarIcon from '@mui/icons-material/Star';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AudioGroup from './audio-group';
 import LightTooltip from '../light-tooltip.tsx/light-tooltip';
-import { useWordListContext } from '../../context/word-list-context';
+import { useWordListContext, IWordListContext } from '../../context/word-list-context';
 import { Diff, setUserWord } from '../../inc/api';
+import StatisticGroup from './statistic-group';
 
 export interface IconGroupProps {
   id: string;
+  word: string;
   paths: string[];
 }
 
-const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
+export interface IconStyles {
+  height: number;
+  width: number;
+}
+
+const IconGroup: FC<IconGroupProps> = ({ id, paths, word }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
-  const context = useWordListContext();
+  const context: IWordListContext | null = useWordListContext();
 
-  const styles = {
+  const styles: IconStyles = {
     height: 35,
     width: 35,
   };
@@ -76,10 +83,16 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths }) => {
           <LightbulbIcon sx={{ ...styles, color: isStudied ? activeBook.color : '#c4c1c1' }} />
         </IconButton>
       </LightTooltip>
+      <StatisticGroup
+        word={word}
+        styles={styles}
+        color={activeBook.color}
+      />
       <AudioGroup
         id={id}
         paths={paths}
-        styles={{ ...styles, color: activeBook.color }}
+        styles={styles}
+        color={activeBook.color}
       />
     </Box>
   );

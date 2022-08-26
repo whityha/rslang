@@ -9,7 +9,7 @@ import {
 import bookCatalogData from '../components/book-catalog/book-catalog-data';
 import { CatalogItem } from '../types/catalog-item';
 
-interface IWordListContext {
+export interface IWordListContext {
   showTranslation: boolean;
   setShowTranslation: (value: boolean) => void;
   currentTracks: NodeListOf<HTMLAudioElement> | null;
