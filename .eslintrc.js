@@ -30,6 +30,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
+    'no-underscore-dangle': 'off',
     'jsx-a11y/media-has-caption': [
       2,
       {

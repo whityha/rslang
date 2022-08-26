@@ -10,10 +10,10 @@ import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 import { useWordListContext, IWordListContext } from '../../context/word-list-context';
 import { Diff, setUserWord } from '../../inc/api';
 import StatisticGroup from './statistic-group';
+import { Word } from '../../types/word';
 
 export interface IconGroupProps {
-  id: string;
-  word: string;
+  data: Word;
   paths: string[];
 }
 
@@ -22,7 +22,8 @@ export interface IconStyles {
   width: number;
 }
 
-const IconGroup: FC<IconGroupProps> = ({ id, paths, word }) => {
+const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
+  const { id, word } = data;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const context: IWordListContext | null = useWordListContext();
@@ -34,16 +35,18 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths, word }) => {
 
   if (!context) return null;
   const {
-    activeBook, difficult, setDifficult, studied, setStudied,
+    activeBook, difficultWords, setDifficultWords, studied, setStudied,
   } = context;
 
+  const isDifficult = difficultWords && difficultWords.find((item) => item.id === id);
+
   const toggleDifficultWord = (): void => {
-    if (difficult.includes(id)) {
+    if (isDifficult) {
       setUserWord(id, Diff.UNSET);
-      setDifficult([...difficult.filter((wordId) => wordId !== id)]);
+      setDifficultWords([...difficultWords.filter((item) => item.id !== id)]);
     } else {
       setUserWord(id, Diff.HARD);
-      setDifficult([...difficult, id]);
+      setDifficultWords([...difficultWords, data]);
     }
   };
 
@@ -57,7 +60,6 @@ const IconGroup: FC<IconGroupProps> = ({ id, paths, word }) => {
     }
   };
 
-  const isDifficult = difficult.includes(id);
   const isStudied = studied.includes(id);
 
   return (

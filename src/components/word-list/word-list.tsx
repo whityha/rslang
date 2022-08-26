@@ -1,17 +1,13 @@
 import { FC, useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { Grid } from '@mui/material';
 import WordCard from '../word-card/word-card';
-import { Word, Words } from '../../types/word';
+import { Words } from '../../types/word';
 import Loading from '../loading/loading';
 import { useWordListContext } from '../../context/word-list-context';
 import { getWordGroup } from '../../inc/api';
 import WordListPagination from '../pagination/pagination';
+import WordListContainer from '../word-list-container/word-list-container';
 
 const WordList: FC = () => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const context = useWordListContext();
   const [words, setWords] = useState<Words>([]);
 
@@ -27,24 +23,17 @@ const WordList: FC = () => {
     fetchData();
   }, [activeBook, page]);
 
-  if (!words) return <Loading />;
+  if (!words.length) return <Loading />;
 
   const data = words.sort((a, b) => a.word.localeCompare(b.word));
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-      <Grid
-        container
-        spacing={3}
-        sx={{
-          pt: matches ? 5 : 3,
-          pb: matches ? 8 : 5,
-        }}
-      >
-        {data.map((word: Word) => (
+      <WordListContainer>
+        {data.map((word) => (
           <WordCard key={word.id} {...word} />
         ))}
-      </Grid>
+      </WordListContainer>
       <WordListPagination />
     </div>
   );
