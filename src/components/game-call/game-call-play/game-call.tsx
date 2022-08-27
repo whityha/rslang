@@ -4,7 +4,8 @@ import { GameProps, GameWordsResult } from '../../game-common/types';
 import CallPlayWords from './game-call-play';
 
 const GameCall: FC<GameProps> = ({ words, onFinish }) => {
-  const GAME_ARRAY = createRandomNumberArray(10, [0, words.length - 1])
+  const gameWordsCount = words.length;
+  const GAME_ARRAY = createRandomNumberArray(gameWordsCount, [0, words.length - 1])
     .map((wordIndex) => {
       const createRusArray = (idx: number): Array<string> => {
         const TRANSLATE_NUMBERS_ARRAY = createRandomNumberArray(
