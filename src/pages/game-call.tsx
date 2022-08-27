@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import GameCall from '../components/game-call/GameCall';
+import GameCallMenu from '../components/game-call/game-call-menu';
 
 const GameCallPage: FC = () => (
-  <GameCall />
+  <GameCallMenu />
 );
 export default GameCallPage;
