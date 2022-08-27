@@ -1,25 +1,20 @@
-import { FC, useEffect, useState } from 'react';
-import { AggWords, getHardWords } from '../../inc/api';
+import { FC } from 'react';
+import { useWordListContext } from '../../context/word-list-context';
+import WordCard from '../word-card/word-card';
+import WordListContainer from '../word-list-container/word-list-container';
 
 const DifficultWords: FC = () => {
-  const [words, setWords] = useState<AggWords>([]);
-  useEffect(() => {
-    getHardWords().then((res) => setWords(res.paginatedResults));
-  }, []);
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const { difficultWords } = context;
+
   return (
-    <>
-      {
-      words.map((word) => (
-        <p>
-          {word.word}
-          {' '}
-          -
-          {' '}
-          <small>{JSON.stringify(word)}</small>
-        </p>
-      ))
-    }
-    </>
+    <WordListContainer>
+      {difficultWords && difficultWords.map((word) => (
+        <WordCard key={word.id} {...word} />
+      ))}
+    </WordListContainer>
   );
 };
 

@@ -5,22 +5,18 @@ import { Box, CardContent, Typography } from '@mui/material';
 import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 import { useWordListContext } from '../../context/word-list-context';
+import { Word } from '../../types/word';
 
 interface WordCardHeaderProps {
-  id: string;
-  word: string;
-  transcription: string;
-  translate: string;
+  data: Word,
   paths: string[];
 }
 
 const WordCardHeader: FC<WordCardHeaderProps> = ({
-  id,
-  word,
-  transcription,
-  translate,
+  data,
   paths,
 }) => {
+  const { word, transcription, wordTranslate } = data;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const context = useWordListContext();
@@ -61,11 +57,11 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
           </Box>
 
           {showTranslation && (
-          <Typography component="div">{translate}</Typography>
+          <Typography component="div">{wordTranslate}</Typography>
           )}
         </CardContent>
       </div>
-      <IconGroup id={id} word={word} paths={paths} />
+      <IconGroup data={data} paths={paths} />
     </Box>
   );
 };

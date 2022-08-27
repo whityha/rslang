@@ -4,7 +4,7 @@ import DifficultWords from '../components/difficult-words/difficult-words';
 
 const DifficultWordsPages: FC = () => (
   <>
-    <Typography variant="h2">Сложные слова</Typography>
+    <Typography component="h1" variant="h5">Сложные слова</Typography>
     <DifficultWords />
   </>
 );

@@ -4,26 +4,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Grid, Card, Box } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
-import { Word } from '../../types/word';
 
 import { getFilesRoot } from '../../inc/conf';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
+import { Word } from '../../types/word';
 
-const WordCard: FC<Word> = ({
-  id,
-  word,
-  image,
-  transcription,
-  wordTranslate,
-  textExample,
-  textMeaning,
-  textMeaningTranslate,
-  textExampleTranslate,
-  audio,
-  audioMeaning,
-  audioExample,
-}) => {
+const WordCard: FC<Word> = (data) => {
+  const {
+    word,
+    image,
+    audio,
+    audioMeaning,
+    audioExample,
+    textMeaning,
+    textExample,
+    textMeaningTranslate,
+    textExampleTranslate,
+  } = data;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const url = getFilesRoot();
@@ -54,10 +52,7 @@ const WordCard: FC<Word> = ({
           }}
         >
           <WordCardHeader
-            id={id}
-            word={word}
-            transcription={transcription}
-            translate={wordTranslate}
+            data={data}
             paths={paths}
           />
           <TextContainer text={textMeaning} translate={textMeaningTranslate} />
