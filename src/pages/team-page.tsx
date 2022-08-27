@@ -1,6 +1,17 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
+import OurTeam from '../components/out-team/our-team';
+import theme from '../theme/theme';
 
-const TeamPage: FC = () => <Typography component="h1" variant="h2" sx={{ textAlign: 'center' }}>Наша команда</Typography>;
+const TeamPage: FC = () => {
+  const matchesSM = useMediaQuery(theme.breakpoints.up('sm'));
+
+  return (
+    <>
+      <Typography component="h1" variant={matchesSM ? 'h3' : 'h4'} pb={3} pl={2}>Над проектом работали:</Typography>
+      <OurTeam />
+    </>
+  );
+};
 
 export default TeamPage;
