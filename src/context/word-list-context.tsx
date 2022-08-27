@@ -9,7 +9,7 @@ import {
 } from 'react';
 import bookCatalogData from '../components/book-catalog/book-catalog-data';
 import { getHardWords } from '../inc/api';
-import { getUID } from '../redux/auth/funcs';
+import { useAuth } from '../redux/hooks';
 import { CatalogItem } from '../types/catalog-item';
 import { Words } from '../types/word';
 import transformData from './transform-data';
@@ -47,19 +47,21 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
   const [difficultWords, setDifficultWords] = useState<Words>([]);
   const [studied, setStudied] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
+  const { isAuth } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      const userId = getUID();
-      if (userId) {
+      if (isAuth) {
         const response = await getHardWords();
         const data = response.paginatedResults.map((item) => transformData(item));
         setDifficultWords(data);
+      } else {
+        setDifficultWords([]);
       }
     };
 
     fetchData();
-  }, []);
+  }, [isAuth]);
 
   const context: IWordListContext = useMemo(
     () => ({
