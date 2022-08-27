@@ -82,7 +82,7 @@ const CallPlayWords = ({ gameWords, finish }:
     }}
     >
       <Stack spacing={3} sx={{ alignItems: 'center' }}>
-        <Typography variant={matchesMD ? 'h4' : 'h6'}>Процент правильных ответов </Typography>
+        <Typography variant={matchesMD ? 'h4' : 'h5'} textAlign="center" p={2}>Процент правильных ответов </Typography>
         <Circus value={circusValue()} />
       </Stack>
       <Box
