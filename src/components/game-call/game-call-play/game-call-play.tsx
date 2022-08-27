@@ -52,7 +52,6 @@ const CallPlayWords = ({ gameWords, finish }:
 
   const playAudio = () => {
     if (audio.current) {
-      console.log('PLAY');
       audio.current.play();
     }
   };
@@ -93,24 +92,40 @@ const CallPlayWords = ({ gameWords, finish }:
           alignItems: 'center',
         }}
       >
-        <IconButton
-          onClick={playAudio}
+        <Box
           sx={{
-            alignContent: 'flex-start',
+            color: theme.palette.success.light,
           }}
         >
-          <VolumeUpTwoToneIcon sx={{
-            fontSize: '5rem',
-          }}
-          />
-          <audio
-            ref={audio}
-            key={path}
-            src={path}
+          <Typography
+            variant="body2"
+            textAlign="center"
           >
-            <track kind="captions" />
-          </audio>
-        </IconButton>
+            ПОВТОРИТЬ
+
+          </Typography>
+          <IconButton
+            onClick={playAudio}
+            sx={{
+              alignContent: 'flex-start',
+              display: 'flex',
+              flexDirection: 'column',
+              color: 'inherit',
+            }}
+          >
+            <VolumeUpTwoToneIcon sx={{
+              fontSize: '5rem',
+            }}
+            />
+            <audio
+              ref={audio}
+              key={path}
+              src={path}
+            >
+              <track kind="captions" />
+            </audio>
+          </IconButton>
+        </Box>
         <Stack
           spacing={3}
           direction={matchesMD ? 'row' : 'column'}
