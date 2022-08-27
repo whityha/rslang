@@ -61,6 +61,8 @@ const CallPlayWords = ({ gameWords, finish }:
     playAudio();
   }, [currentWord]);
 
+  const circusValue = () => (currentWord ? Math.ceil((goodWords.length / currentWord) * 100) : 0);
+
   if (gameWords.length === currentWord) {
     finish({
       goodWords,
@@ -81,7 +83,7 @@ const CallPlayWords = ({ gameWords, finish }:
     >
       <Stack spacing={3} sx={{ alignItems: 'center' }}>
         <Typography variant={matchesMD ? 'h4' : 'h6'}>Процент правильных ответов </Typography>
-        <Circus value={97} />
+        <Circus value={circusValue()} />
       </Stack>
       <Box
         display="flex"
