@@ -22,6 +22,9 @@ const theme = createTheme({
       primary: '#444f5a',
     },
   },
+  typography: {
+    fontFamily: 'Montserrat',
+  },
 });
 
 export const basicColors = {
