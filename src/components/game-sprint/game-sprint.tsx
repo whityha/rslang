@@ -24,14 +24,16 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [goodW, setGoodW] = useState<Set<number>>(new Set());
   const [badW, setBadW] = useState<Set<number>>(new Set());
 
-  const [counter, setCounter] = useState(60);
+  const [counter, setCounter] = useState(6);
   const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     if (counter > 0) {
       timer.current = setInterval(() => setCounter(counter - 1), 1000);
     } else {
-      const gameResult: GameWordsResult = { goodWords: [], badWords: [] };
+      const gameResult: GameWordsResult = {
+        goodWords: [], badWords: [], gameName: 'sprint', serie: 0,
+      };
 
       words.forEach(
         (word, index) => {

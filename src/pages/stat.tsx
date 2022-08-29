@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { FC } from 'react';
-import GeneralStatistics from '../components/statistics.tsx/statistics-block';
+import GeneralStatistics from '../components/statistics/statistics';
 import { useAuth } from '../redux/hooks';
 
 const StatPage: FC = () => {
@@ -16,11 +16,10 @@ const StatPage: FC = () => {
           flexDirection: 'column',
         }}
       >
-        <GeneralStatistics title="Сегодня" />
-        <GeneralStatistics title="За всё время" />
+        <GeneralStatistics />
       </Stack>
     );
   }
-  return <GeneralStatistics title="Ты не вошёл, но сегодня что то клацал" />;
+  return <div>Для просмотра статистики нужно авторизоваться</div>;
 };
 export default StatPage;
