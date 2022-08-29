@@ -66,6 +66,8 @@ const CallPlayWords = ({ gameWords, finish }:
     finish({
       goodWords,
       badWords,
+      gameName: 'call',
+      serie: 0,
     });
   }
 
