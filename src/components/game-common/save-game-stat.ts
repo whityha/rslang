@@ -11,15 +11,17 @@ export type GameStatData = {
   serie: number,
 }
 
-export type StatOptional = {
-  [key: string]: { // ключ - дата в формате YYYY-MM-DD
-    new: number,
-    good: number,
-    bad: number,
-    games: {
-      [key: string]: GameStatData // ключ -  GameName, ts не дает типизировать
-    }
+export type StatItem = { // ключ - дата в формате YYYY-MM-DD
+  new: number,
+  good: number,
+  bad: number,
+  games: {
+    [key: string]: GameStatData // ключ -  GameName, ts не дает типизировать
   }
+}
+
+export type StatOptional = {
+  [key: string]: StatItem
 }
 
 export type StatData = {
@@ -73,6 +75,8 @@ export default async function saveGameStat(gameResult: GameWordsResult) {
         statData.optional[date].games[gameResult.gameName].new += newWords;
         statData.optional[date].games[gameResult.gameName].good += gameResult.goodWords.length;
         statData.optional[date].games[gameResult.gameName].bad += gameResult.badWords.length;
+        // eslint-disable-next-line max-len
+        statData.optional[date].games[gameResult.gameName].serie = Math.max(gameResult.serie, statData.optional[date].games[gameResult.gameName].serie);
       } else {
         statData.optional[date].games[gameResult.gameName] = {
           new: newWords,

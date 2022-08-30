@@ -17,6 +17,8 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [score, setScore] = useState(0);
   const [parrots, setParrots] = useState(0);
   const [stars, setStars] = useState(0);
+  const [serie, setSerie] = useState(0);
+  const [maxSerie, setMaxSerie] = useState(0);
   const [currentTranslate, setCurrentTranslate] = useState(0);
   const [playError] = usePlay('/sounds/error.wav');
   const [playCorrect] = usePlay('/sounds/correct.wav');
@@ -24,7 +26,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [goodW, setGoodW] = useState<Set<number>>(new Set());
   const [badW, setBadW] = useState<Set<number>>(new Set());
 
-  const [counter, setCounter] = useState(6);
+  const [counter, setCounter] = useState(20);
   const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
       timer.current = setInterval(() => setCounter(counter - 1), 1000);
     } else {
       const gameResult: GameWordsResult = {
-        goodWords: [], badWords: [], gameName: 'sprint', serie: 0,
+        goodWords: [], badWords: [], gameName: 'sprint', serie: maxSerie,
       };
 
       words.forEach(
@@ -53,7 +55,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   function getNextWord() {
     const rand = currentWord === words.length - 1 ? 0 : currentWord + 1;
     setCurrentWord(rand);
-    const translate = (Math.random() > 0.3) ? rand : randWord();
+    const translate = (Math.random() > 0.6) ? rand : randWord();
     setCurrentTranslate(translate);
   }
 
@@ -63,6 +65,9 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
 
     // const target = success ? gameResult.goodWords : gameResult.badWords;
     if (success) {
+      const newSerie = serie + 1;
+      if (newSerie > maxSerie) setMaxSerie(newSerie);
+      setSerie(newSerie);
       playCorrect();
       if (!badW.has(currentWord)) {
         if (currentWord === currentTranslate) {
@@ -80,6 +85,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
         setStars(stars + 1);
       }
     } else {
+      setSerie(0);
       badW.add(currentWord);
       setBadW(new Set(badW));
       playError();

@@ -31,6 +31,7 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-underscore-dangle': 'off',
+    'react/require-default-props': 'off',
     'jsx-a11y/media-has-caption': [
       2,
       {
