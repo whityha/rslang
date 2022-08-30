@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { getStat } from '../../inc/api';
 import { StatOptional } from '../game-common/save-game-stat';
 import ChartNewWords from './chart-new-word';
-import ChartProgress from './chart-progress';
 import GeneralStatistics from './statistics-block';
 
 const Statistics = () => {
@@ -28,8 +27,7 @@ const Statistics = () => {
             </>
           )}
       </Box>
-      <ChartNewWords />
-      <ChartProgress />
+      <ChartNewWords stat={stat} />
     </>
   );
 };
