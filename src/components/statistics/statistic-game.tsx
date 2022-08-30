@@ -1,16 +1,22 @@
 import {
-  Box, Card, CardContent, CardMedia, List, ListItem, ListItemText, Typography,
+  Box, Card, CardContent, CardMedia, List, Typography,
 } from '@mui/material';
+import StatisticCardItem from './statistic-card-item';
 
 type TGameStatisticCard = {
     imageLink: string;
     name: string;
-    // TO DO NEW PROPERTIES
+    newWords: number;
+    percent: number;
+    maxSerie?: number;
+    studiedWords?: number;
 }
-const GameStatisticCard = ({ name, imageLink }: TGameStatisticCard) => (
+const GameStatisticCard = ({
+  name, imageLink, newWords, percent, maxSerie, studiedWords,
+}: TGameStatisticCard) => (
   <Card sx={{
     display: 'flex',
-    width: { xs: '100%', sm: '50%' },
+    width: '100%',
   }}
   >
     <CardMedia
@@ -35,21 +41,10 @@ const GameStatisticCard = ({ name, imageLink }: TGameStatisticCard) => (
       >
         <Typography variant="h6" component="p">{name}</Typography>
         <List disablePadding>
-          <ListItem disablePadding>
-            <ListItemText>
-              <Typography variant="body1">0 слов</Typography>
-            </ListItemText>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemText>
-              <Typography variant="body1">0 прогресс</Typography>
-            </ListItemText>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemText>
-              <Typography variant="body1">0 подряд</Typography>
-            </ListItemText>
-          </ListItem>
+          <StatisticCardItem title="Новых" value={newWords} />
+          <StatisticCardItem title="Изучено" value={studiedWords} />
+          <StatisticCardItem title="Правильно" value={`${percent}%`} />
+          <StatisticCardItem title="Подряд" value={maxSerie} />
         </List>
       </Box>
     </CardContent>

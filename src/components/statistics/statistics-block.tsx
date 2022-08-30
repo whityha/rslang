@@ -1,91 +1,66 @@
 import {
   Box,
-  Card,
-  CardContent,
-  CircularProgress,
+
   Grid,
   Typography,
 } from '@mui/material';
+import { FC } from 'react';
+import { StatItem } from '../game-common/save-game-stat';
+import gamesCardData from '../games-card/games-card-data';
 import GameStatisticCard from './statistic-game';
 
-const GeneralStatistics = ({ title }: {title: string}) => {
-  const value = 80;
-  const savannahImage = 'https://naked-science.ru/wp-content/uploads/2022/04/1440_SS_savanna_feat-1030x580-1.jpg';
-  const sprintImage = 'https://lalafemme.ca/wp-content/uploads/2016/10/run.jpg';
-  const minProgress = 30;
-  const maxProgress = 75;
+type Props = {
+  day: string;
+  stat: StatItem;
+}
 
-  const getColor = (valueAccurance: number): 'error' | 'warning' | 'success' => {
-    if (valueAccurance <= minProgress) return 'error';
-    if (valueAccurance > minProgress && valueAccurance < maxProgress) return 'warning';
-    return 'success';
-  };
+const getName = (name: string) => gamesCardData.find(({ path }) => path === name)?.title ?? 'Игра';
 
-  return (
-    <Box>
-      <Typography variant="h4" mb={5}>{title}</Typography>
-      <Grid
-        container
-        spacing={2}
-      >
-        <Grid xs={12} xl={4} item>
-          <Card sx={{
-            height: '100%',
+const GeneralStatistics: FC<Props> = ({ day, stat }) => (
+  <Box>
+    <Typography variant="h6">
+      Статистика за:
+      {' '}
+      {day}
+    </Typography>
+    <Grid
+      container
+      spacing={2}
+    >
+      <Grid item>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            columnGap: '1rem',
+            rowGap: '1rem',
+            mb: 2,
           }}
-          >
-            <CardContent sx={{
-              padding: '1em',
-              display: 'flex',
-              height: '100%',
-              justifyContent: 'space-around',
-              columnGap: '20px',
-              alignItems: 'center',
-            }}
-            >
+        >
+          <GameStatisticCard
+            name="Всего по словам"
+            imageLink="/img/words.jpg"
+            newWords={stat.new}
+            studiedWords={stat.good}
+            percent={Math.round((stat.good / (stat.good + stat.bad)) * 100)}
+          />
+          {
+                      Object.keys(stat.games).map((game) => (
+                        <GameStatisticCard
+                          name={getName(game)}
+                          imageLink={`/img/${game}.jpg`}
+                          newWords={stat.games[game].new}
+                          maxSerie={stat.games[game].serie}
+                          percent={Math.round((stat.good / (stat.good + stat.bad)) * 100)}
+                        />
+                      ))
 
-              <Box sx={{
-                position: 'relative',
-              }}
-              >
-                <Box sx={{
-                  position: 'absolute',
-                  left: '50%',
-                  bottom: '50%',
-                  transform: 'translate(-50%, +40%)',
-                }}
-                >
-                  <Typography
-                    variant="h6"
-                    width="50px"
-                    textAlign="center"
-                  >
-                    {value}
-                    %
-                  </Typography>
-                </Box>
-                <CircularProgress color={getColor(value)} size="100px" variant="determinate" value={value} thickness={5} />
-              </Box>
+          }
 
-              <Typography variant="body2">Сегодня мы выучили 10 слов</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} xl={8} item>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              columnGap: '1rem',
-              rowGap: '1rem',
-            }}
-          >
-            <GameStatisticCard name="Savannah" imageLink={savannahImage} />
-            <GameStatisticCard name="Sprint" imageLink={sprintImage} />
-          </Box>
-        </Grid>
+        </Box>
       </Grid>
-    </Box>
-  );
-};
+    </Grid>
+  </Box>
+);
 
 export default GeneralStatistics;

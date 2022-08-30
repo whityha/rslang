@@ -11,15 +11,17 @@ export type GameStatData = {
   serie: number,
 }
 
-export type StatOptional = {
-  [key: string]: { // ключ - дата в формате YYYY-MM-DD
-    new: number,
-    good: number,
-    bad: number,
-    games: {
-      [key: string]: GameStatData // ключ -  GameName, ts не дает типизировать
-    }
+export type StatItem = { // ключ - дата в формате YYYY-MM-DD
+  new: number,
+  good: number,
+  bad: number,
+  games: {
+    [key: string]: GameStatData // ключ -  GameName, ts не дает типизировать
   }
+}
+
+export type StatOptional = {
+  [key: string]: StatItem
 }
 
 export type StatData = {
