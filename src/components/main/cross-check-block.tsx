@@ -1,4 +1,7 @@
-import { List, ListItem, Typography } from '@mui/material';
+import {
+  List, ListItem, Typography, useMediaQuery,
+} from '@mui/material';
+import theme from '../../theme/theme';
 import { TCrossCheckData } from './constants';
 
 const ListItemBlock = ({ description }: { description: string }) => (
@@ -12,15 +15,18 @@ const ListItemBlock = ({ description }: { description: string }) => (
   </ListItem>
 );
 
-const CrossCheckBlock = ({ data }: {data: TCrossCheckData}) => (
-  <List sx={{
-    width: '45%',
-    marginTop: '2em',
-  }}
-  >
-    <Typography variant="h5" component="p" fontWeight={700}>{data.title}</Typography>
-    {data.listItems.map((description) => <ListItemBlock description={description} />)}
-  </List>
-);
+const CrossCheckBlock = ({ data }: {data: TCrossCheckData}) => {
+  const mediaSM = useMediaQuery(theme.breakpoints.up('sm'));
+  return (
+    <List sx={{
+      width: mediaSM ? '45%' : '100%',
+      marginTop: '2em',
+    }}
+    >
+      <Typography variant="h5" component="p" fontWeight={700}>{data.title}</Typography>
+      {data.listItems.map((description) => <ListItemBlock description={description} />)}
+    </List>
+  );
+};
 
 export default CrossCheckBlock;
