@@ -26,7 +26,7 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
   const [goodW, setGoodW] = useState<Set<number>>(new Set());
   const [badW, setBadW] = useState<Set<number>>(new Set());
 
-  const [counter, setCounter] = useState(20);
+  const [counter, setCounter] = useState(60);
   const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {

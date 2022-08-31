@@ -17,13 +17,13 @@ const DifficultWords: FC = () => {
         <WordListContainer>
           {
           difficultWords && (difficultWords.length === 0)
-            ? (<div>Вы еще не добавляли сложных слов</div>)
+            ? (<div>Вы еще не добавляли слов в этот раздел</div>)
             : difficultWords && difficultWords.map((word) => (
               <WordCard key={word.id} {...word} />
             ))
 }
         </WordListContainer>
-      ) : <div>Для доступа к сложным словам необходимо авторизоваться</div>
+      ) : <div>Для доступа к этому разделу необходимо авторизоваться</div>
 
   );
 };

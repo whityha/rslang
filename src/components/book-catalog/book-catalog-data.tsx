@@ -62,6 +62,7 @@ const bookCatalogData: CatalogItem[] = [
     symbol: <SchoolOutlinedIcon fontSize="large" />,
     color: teal,
     path: '/difficult-words',
+    onlyAuth: true,
   },
 ];
 
