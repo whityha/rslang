@@ -1,30 +1,45 @@
 import {
-  Box, Button, Card, CardActionArea, CardContent, CardMedia, Stack, Typography,
+  Box, Button, Card, CardActionArea, CardContent, CardMedia, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useWordListContext } from '../../context/word-list-context';
+import { useAuth } from '../../redux/hooks';
 import theme from '../../theme/theme';
 import Cards from './constants';
-
-const COLOR_MAIN = theme.palette.secondary.main;
-const COLOR_SECOND = theme.palette.secondary.dark;
+import CrosscheckInfo from './cross-check-info';
+import VidePresentation from './video-presentation';
 
 const Main: FC = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
+  const mediaMD = useMediaQuery(theme.breakpoints.up('md'));
+  const context = useWordListContext();
+
+  if (!context) return null;
+  const { activeBook } = context;
   const clickHandler = (path: string) => {
     navigate(path);
   };
 
   return (
     <Box>
-      <Stack spacing="5em" direction="row" justifyContent="space-between">
+      <Stack
+        spacing="5em"
+        direction={mediaMD ? 'row' : 'column'}
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{
+          textAlign: 'center',
+        }}
+      >
         <Box>
           <Typography
             variant="h1"
             component="h1"
             sx={{
               fontWeight: 'bold',
-              minWidth: '431px',
+              minWidth: mediaMD ? '431px' : 'auto',
             }}
           >
             RS Lang
@@ -60,25 +75,28 @@ const Main: FC = () => {
               fontWeight: 'bold',
             }}
           >
-            «JavaScript/Front-end. Stage 2 / 2022Q2»
+            «JavaScript/Front-end. Stage 2 / 2022Q1»
 
           </Typography>
         </Box>
       </Stack>
-      <Button
-        variant="contained"
-        sx={{
-          padding: '1.5em 2.5em',
-          borderRadius: '100px',
-          marginTop: '4em',
-          backgroundColor: COLOR_MAIN,
-          '&:hover': {
-            backgroundColor: COLOR_SECOND,
-          },
-        }}
-      >
-        <Typography>Зарегистрироваться</Typography>
-      </Button>
+      {!auth.isAuth ? (
+        <Button
+          variant="contained"
+          sx={{
+            display: 'block',
+            padding: '1.5em 2.5em',
+            borderRadius: '100px',
+            margin: mediaMD ? '4em 0 0 0' : '4em auto 0 auto',
+            background: activeBook.color,
+            '&: hover': {
+              background: activeBook.color,
+            },
+          }}
+        >
+          <Typography>Зарегистрироваться</Typography>
+        </Button>
+      ) : null}
       <Box
         display="flex"
         flexDirection="column"
@@ -86,17 +104,17 @@ const Main: FC = () => {
         mt={10}
       >
         <Typography
-          variant="h4"
+          variant={mediaMD ? 'h4' : 'h5'}
           component="p"
           sx={{
-            maxWidth: '50%',
+            maxWidth: mediaMD ? '50%' : 'auto',
             textAlign: 'center',
           }}
         >
-          В нашем приложении вы сможете воспользоваться следующими преимуществами:
+          Вы сможете воспользоваться следующими преимуществами данного приложения:
 
         </Typography>
-        <Stack direction="row" spacing={5} pt={7}>
+        <Stack direction={mediaMD ? 'row' : 'column'} spacing={5} pt={7}>
           {Cards.map(({
             title, description, icon, path,
           }) => (
@@ -104,12 +122,9 @@ const Main: FC = () => {
               key={title}
               sx={{
                 borderRadius: '25px',
-                width: '33%',
-                color: theme.palette.getContrastText(COLOR_MAIN),
-                backgroundColor: COLOR_MAIN,
-                '&:hover': {
-                  backgroundColor: COLOR_SECOND,
-                },
+                width: mediaMD ? '33%' : '250px',
+                color: theme.palette.getContrastText(activeBook.color),
+                background: activeBook.color,
               }}
             >
               <CardActionArea
@@ -151,19 +166,8 @@ const Main: FC = () => {
 
         </Stack>
       </Box>
-      <Box mt={15}>
-        <Typography variant="h5" component="p" textAlign="center" mb={4}>Наша видеопрезентация проекта:</Typography>
-        <Box sx={{
-          width: '400px',
-          height: '400px',
-          margin: '0em auto',
-          backgroundColor: theme.palette.grey[400],
-        }}
-        >
-          Заглушечка
-
-        </Box>
-      </Box>
+      <CrosscheckInfo />
+      <VidePresentation />
     </Box>
   );
 };
