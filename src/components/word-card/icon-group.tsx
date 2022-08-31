@@ -91,6 +91,7 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
         </LightTooltip>
         <StatisticGroup
           word={word}
+          id={id}
           styles={styles}
           color={activeBook.color}
         />
