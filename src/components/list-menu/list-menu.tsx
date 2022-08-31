@@ -1,22 +1,19 @@
 import { FC } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useAppDispatch, useAuth } from '../../redux/hooks';
+import { useAuth } from '../../redux/hooks';
 import buttonsData from './buttons-data';
-import { logout } from '../../redux/auth/slice';
 
 interface ListMenuProps {
   open: boolean;
 }
 
 const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
-  const dispatch = useAppDispatch();
   const auth = useAuth();
 
   const iconStyle = {
@@ -34,8 +31,9 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
     }}
     >
       {buttonsData.map(({
-        id, text, icon, path,
+        id, text, icon, path, onlyAuth,
       }) => (
+        (!onlyAuth || auth.isAuth) && (
         <ListItem disablePadding sx={{ display: 'block' }} key={id}>
           <NavLink className={({ isActive }) => (isActive ? 'active-menu-link' : undefined)} to={path}>
             <ListItemButton
@@ -54,30 +52,8 @@ const ListMenu: FC<ListMenuProps> = ({ open }: ListMenuProps) => {
             </ListItemButton>
           </NavLink>
         </ListItem>
+        )
       ))}
-      {auth.isAuth && (
-      <ListItem sx={{ display: 'block', mt: 'auto', p: 0 }}>
-        <Link to="reg">
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={iconStyle}
-            >
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText
-              onClick={() => dispatch(logout())}
-              primary="Выйти"
-              sx={{ opacity: open ? 1 : 0, color: 'primary.contrastText' }}
-            />
-          </ListItemButton>
-        </Link>
-      </ListItem>
-      )}
     </List>
   );
 };
