@@ -34,14 +34,15 @@ const GameSprint: FC<GameProps> = ({ words, onFinish }) => {
       timer.current = setInterval(() => setCounter(counter - 1), 1000);
     } else {
       const gameResult: GameWordsResult = {
-        goodWords: [], badWords: [], gameName: 'sprint', serie: maxSerie,
+        goodWords: [], badWords: [], unusedWords: [], gameName: 'sprint', serie: maxSerie,
       };
 
       words.forEach(
         (word, index) => {
           if (badW.has(index)) gameResult.badWords.push(word);
           else
-          if (goodW.has(index)) { gameResult.goodWords.push(word); }
+          if (goodW.has(index)) gameResult.goodWords.push(word);
+          else gameResult.unusedWords!.push(word);
         },
       );
       onFinish(gameResult);

@@ -35,7 +35,7 @@ const StatisticGroup: FC<StatisticGroupProps> = ({
   useEffect(() => {
     if (open) {
       getUserWord(id).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.optional) {
           setInfo(`Угадано: ${res.data.optional.good};   Ошибок: ${res.data.optional.bad}`);
         } else setInfo(noInfo);
