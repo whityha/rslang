@@ -9,15 +9,15 @@ const {
 const bookCatalogData: CatalogItem[] = [
   {
     id: 0,
-    title: 'Easy',
+    title: 'Легко',
     subtitle: '1-600',
-    symbol: 'A2',
+    symbol: 'A1',
     color: pink,
     path: '',
   },
   {
     id: 1,
-    title: 'Easy',
+    title: 'Легко',
     subtitle: '601-1200',
     symbol: 'A2',
     color: purple,
@@ -25,7 +25,7 @@ const bookCatalogData: CatalogItem[] = [
   },
   {
     id: 2,
-    title: 'Medium',
+    title: 'Нормально',
     subtitle: '1201-1800',
     symbol: 'B1',
     color: deepPurple,
@@ -33,7 +33,7 @@ const bookCatalogData: CatalogItem[] = [
   },
   {
     id: 3,
-    title: 'Medium',
+    title: 'Нормально',
     subtitle: '1801-2400',
     symbol: 'B2',
     color: indigo,
@@ -41,7 +41,7 @@ const bookCatalogData: CatalogItem[] = [
   },
   {
     id: 4,
-    title: 'Hard',
+    title: 'Сложно',
     subtitle: '2401-3000',
     symbol: 'B2',
     color: lightBlue,
@@ -49,7 +49,7 @@ const bookCatalogData: CatalogItem[] = [
   },
   {
     id: 5,
-    title: 'Hard',
+    title: 'Сложно',
     subtitle: '3001-3600',
     symbol: 'C1',
     color: cyan,
@@ -57,8 +57,8 @@ const bookCatalogData: CatalogItem[] = [
   },
   {
     id: 6,
-    title: 'Сложные',
-    subtitle: 'слова',
+    title: 'Сложные слова',
+    subtitle: 'Слова, отмеченные пользователем сложными',
     symbol: <SchoolOutlinedIcon fontSize="large" />,
     color: teal,
     path: '/difficult-words',
