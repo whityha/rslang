@@ -110,6 +110,11 @@ export function getUserWords() {
   return api('get', `/users/${id}/words/`);
 }
 
+export function getUserWord(wordId: string) {
+  const id = getUID();
+  return api('get', `/users/${id}/words/${wordId}`);
+}
+
 export interface WordBackInfo extends WordDTO {
   id: string
   wordId: string,

@@ -5,4 +5,5 @@ export interface CatalogItem {
   symbol: JSX.Element | string;
   color: string;
   path: string;
+  onlyAuth?: true;
 }

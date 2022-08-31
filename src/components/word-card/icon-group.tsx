@@ -11,6 +11,7 @@ import { useWordListContext, IWordListContext } from '../../context/word-list-co
 import { Diff, setUserWord } from '../../inc/api';
 import StatisticGroup from './statistic-group';
 import { Word } from '../../types/word';
+import { useAuth } from '../../redux/hooks';
 
 export interface IconGroupProps {
   data: Word;
@@ -27,6 +28,7 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const context: IWordListContext | null = useWordListContext();
+  const auth = useAuth();
 
   const styles: IconStyles = {
     height: 35,
@@ -71,25 +73,30 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
         ml: matches ? 'initial' : -1,
       }}
     >
-      <LightTooltip
-        title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
-      >
-        <IconButton onClick={toggleDifficultWord}>
-          <StarIcon sx={{ ...styles, color: isDifficult ? activeBook.color : '#c4c1c1' }} />
-        </IconButton>
-      </LightTooltip>
-      <LightTooltip
-        title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
-      >
-        <IconButton onClick={toggleStudiedWord}>
-          <LightbulbIcon sx={{ ...styles, color: isStudied ? activeBook.color : '#c4c1c1' }} />
-        </IconButton>
-      </LightTooltip>
-      <StatisticGroup
-        word={word}
-        styles={styles}
-        color={activeBook.color}
-      />
+      {auth.isAuth && (
+      <>
+        <LightTooltip
+          title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
+        >
+          <IconButton onClick={toggleDifficultWord}>
+            <StarIcon sx={{ ...styles, color: isDifficult ? activeBook.color : '#c4c1c1' }} />
+          </IconButton>
+        </LightTooltip>
+        <LightTooltip
+          title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
+        >
+          <IconButton onClick={toggleStudiedWord}>
+            <LightbulbIcon sx={{ ...styles, color: isStudied ? activeBook.color : '#c4c1c1' }} />
+          </IconButton>
+        </LightTooltip>
+        <StatisticGroup
+          word={word}
+          id={id}
+          styles={styles}
+          color={activeBook.color}
+        />
+      </>
+      )}
       <AudioGroup
         id={id}
         paths={paths}

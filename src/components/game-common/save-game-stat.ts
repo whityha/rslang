@@ -63,6 +63,12 @@ export default async function saveGameStat(gameResult: GameWordsResult) {
       setUserWord(word.id, newHard, { good: 0, bad: 1 }, true);
     });
 
+    gameResult.unusedWords?.forEach((word) => {
+      const uWord = findWord(userWords.data as UserWord[], word.id);
+      const newHard = uWord ? uWord.difficult : Diff.UNSET;
+      setUserWord(word.id, newHard, { good: 0, bad: 0 }, true);
+    });
+
     const uid = getUID();
     const statData = await getStat();
 
