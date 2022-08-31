@@ -32,6 +32,13 @@ const GameResults: FC<Props> = ({ result }) => (
       }
     </div>
 
+    <div className="res-window__info">
+      Максимально правильных ответов подряд:
+      {' '}
+      {result.serie}
+      {' '}
+    </div>
+
   </div>
 );
 

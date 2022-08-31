@@ -1,19 +1,18 @@
 import { Words } from '../../types/word';
+import GameCall from '../game-call/game-call-play/game-call';
 import GameSprint from '../game-sprint/game-sprint';
+
+export type GameName = 'sprint' | 'call';
 
 export type GameWordsResult = {
   goodWords: Words;
   badWords: Words;
   unusedWords?: Words;
+  gameName: GameName;
+  serie: number;
 }
 
-export enum GameStatus {
-  LOBBY,
-  PLAY,
-  FINISH
-}
-
-export type PossibleGames = typeof GameSprint // TODO: add | typeof GameCall
+export type PossibleGames = typeof GameSprint | typeof GameCall
 
 export type GameProps = {
   words: Words,

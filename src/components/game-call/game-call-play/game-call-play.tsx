@@ -20,6 +20,8 @@ const CallPlayWords = ({ gameWords, finish }:
   const [currentWord, setCurrentWord] = useState(0);
   const [goodWords, setGoodWords] = useState<Words>([]);
   const [badWords, setBadWords] = useState<Words>([]);
+  const [serie, setSerie] = useState(0);
+  const [maxSerie, setMaxSerie] = useState(0);
   const audio = useRef<HTMLAudioElement>(null);
   const url = getFilesRoot();
   const matchesMD = useMediaQuery(theme.breakpoints.up('md'));
@@ -27,9 +29,13 @@ const CallPlayWords = ({ gameWords, finish }:
   if (gameWords[currentWord]) path = url + gameWords[currentWord].word.audio;
 
   const changeGoodWords = (word: Word) => {
+    const newSerie = serie + 1;
+    if (newSerie > maxSerie) setMaxSerie(newSerie);
+    setSerie(newSerie);
     setGoodWords([...goodWords, word]);
   };
   const changeBadWords = (word: Word) => {
+    setSerie(0);
     setBadWords([...badWords, word]);
   };
 
@@ -66,6 +72,8 @@ const CallPlayWords = ({ gameWords, finish }:
     finish({
       goodWords,
       badWords,
+      gameName: 'call',
+      serie: maxSerie,
     });
   }
 

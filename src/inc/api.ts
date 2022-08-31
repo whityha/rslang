@@ -1,4 +1,5 @@
 import { AxiosError, Method } from 'axios';
+import { StatData } from '../components/game-common/save-game-stat';
 import { getUID } from '../redux/auth/funcs';
 import { logout } from '../redux/auth/slice';
 import { store } from '../redux/store';
@@ -20,6 +21,13 @@ export enum Diff {
 export type ProgressInfo = {
   good: number,
   bad: number,
+}
+
+export type UserWord = {
+  id: string;
+  wordId: string;
+  difficult: Diff;
+  optional?: ProgressInfo,
 }
 
 export interface WordDTO {
@@ -48,7 +56,9 @@ export default async function api(method: Method, url: string, data?: Object) {
           store.dispatch(toastError('Внутренняя ошибка сервера!'));
           break;
         default:
-          store.dispatch(toastError('Неизвестная ошибка!'));
+          if (code !== 404) {
+            store.dispatch(toastError('Неизвестная ошибка!'));
+          }
       }
     }
     throw e;
@@ -139,4 +149,25 @@ export async function setUserWord(
 
   if (progress !== undefined) dto.optional = progress;
   return api(method, url, dto);
+}
+
+export async function getStat() {
+  let statData: StatData;
+  try {
+    const uid = getUID();
+    const statRawData = await api('get', `/users/${uid}/statistics`);
+    const statSeverData = statRawData.data as StatData;
+    statData = {
+      learnedWords: statSeverData.learnedWords,
+      optional: statSeverData.optional,
+    };
+
+    statRawData.data as StatData;
+  } catch (reason) {
+    statData = {
+      learnedWords: 0,
+      optional: {},
+    };
+  }
+  return statData;
 }
