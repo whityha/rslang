@@ -80,7 +80,7 @@ export async function aggApi(filter: string) {
   const id = getUID();
   const f = encodeURI(filter);
   try {
-    const resp = await api('get', `/users/${id}/aggregatedWords?filter=${f}`);
+    const resp = await api('get', `/users/${id}/aggregatedWords?wordsPerPage=10000&filter=${f}`);
     return resp.data[0] as AggResponse;
   } catch (e) {
     console.log('Error in aggApi', e);

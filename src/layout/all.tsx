@@ -5,10 +5,13 @@ import Header from './header/header';
 import Footer from './footer';
 import Menu from './menu';
 import MobileMenu from './mobile-menu';
+import { useWords } from '../redux/hooks';
 
 const AllLayout: FC = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
   const { pathname } = useLocation();
+
+  const words = useWords();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -19,6 +22,7 @@ const AllLayout: FC = () => {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
+        backgroundColor: (pathname.includes('textbook') && words.allHard) ? 'lightgray' : 'white',
       }}
       >
         <Header setOpen={setOpenMobileMenu} />
