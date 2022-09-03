@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Diff } from '../../inc/api';
 import { maxWordsPage } from '../../inc/conf';
 import randNumber from '../../inc/rand-number';
 import { useAppDispatch, useWords } from '../../redux/hooks';
@@ -29,7 +30,9 @@ const GameLobby: FC<Props> = ({
 
   useEffect(() => {
     if (reduxWords.gamePrepared) {
-      setWords(reduxWords.data.slice(0, wordsCount));
+      setWords(reduxWords.data.filter((w) => w.userWord === undefined
+      || w.userWord.difficulty === undefined
+      || w.userWord.difficulty !== Diff.STUDIED).slice(0, wordsCount));
       dispatch(setGamePrepared(false));
     }
   }, []);
