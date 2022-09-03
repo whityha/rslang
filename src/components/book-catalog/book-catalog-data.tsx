@@ -12,7 +12,7 @@ const bookCatalogData: CatalogItem[] = [
     title: 'Легко',
     subtitle: '1-600',
     symbol: 'A1',
-    color: pink,
+    color: indigo,
     path: '',
   },
   {
@@ -36,7 +36,7 @@ const bookCatalogData: CatalogItem[] = [
     title: 'Нормально',
     subtitle: '1801-2400',
     symbol: 'B2',
-    color: indigo,
+    color: pink,
     path: '',
   },
   {

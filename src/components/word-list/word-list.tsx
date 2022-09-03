@@ -22,7 +22,10 @@ const WordList: FC = () => {
   if (words.isLoading) return <Loading />;
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+    <div style={{
+      position: 'relative', display: 'flex', flexDirection: 'column',
+    }}
+    >
       <WordListPagination />
       <WordListContainer>
         {words.data.map((word) => (

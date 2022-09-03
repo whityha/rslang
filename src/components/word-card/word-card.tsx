@@ -34,6 +34,7 @@ const WordCard: FC<AggWord> = (data) => {
           display: 'flex',
           boxShadow: 2,
           flexDirection: matches ? 'row' : 'column',
+          borderWidth: '1px',
         }}
       >
         <CardMedia

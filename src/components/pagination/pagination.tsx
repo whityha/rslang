@@ -1,5 +1,6 @@
 import { FC, ChangeEvent } from 'react';
 import {
+
   Pagination, Stack, useMediaQuery, useTheme,
 } from '@mui/material';
 import getAllWords from '../../redux/words/getall';
@@ -14,15 +15,17 @@ const WordListPagination: FC = () => {
   const handleChange = (_event: ChangeEvent<unknown>, value: number) => {
     dispatch(getAllWords({ page: value - 1 }));
   };
+
   return (
     <Stack spacing={2} sx={{ alignSelf: 'center' }}>
       <Pagination
+        color="primary"
         onChange={handleChange}
         size={matches ? 'large' : 'medium'}
         count={30}
         variant="outlined"
-        color="primary"
         page={words.page + 1}
+
       />
     </Stack>
   );
