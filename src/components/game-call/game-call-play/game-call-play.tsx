@@ -22,7 +22,15 @@ const CallPlayWords = ({ gameWords, finish }:
   const [badWords, setBadWords] = useState<Words>([]);
   const [serie, setSerie] = useState(0);
   const [maxSerie, setMaxSerie] = useState(0);
+  const [colors, setColors] = useState<string[]>([
+    theme.palette.primary.main,
+    theme.palette.primary.main,
+    theme.palette.primary.main,
+    theme.palette.primary.main,
+  ]);
+  const [isWaitResult, setWaitResult] = useState(false);
   const audio = useRef<HTMLAudioElement>(null);
+  const gameBox = useRef<HTMLDivElement>(null);
   const url = getFilesRoot();
   const matchesMD = useMediaQuery(theme.breakpoints.up('md'));
   let path;
@@ -40,8 +48,25 @@ const CallPlayWords = ({ gameWords, finish }:
   };
 
   const nextWord = () => {
+    setColors([
+      theme.palette.primary.main,
+      theme.palette.primary.main,
+      theme.palette.primary.main,
+      theme.palette.primary.main,
+    ]);
     const rand = currentWord + 1;
     setCurrentWord(rand);
+  };
+
+  const changeColor = (currentW: TGameWord, transl: string, allColors: string[], num: number) => {
+    const newColors = [...allColors];
+    if (currentW.word.wordTranslate === transl) {
+      newColors[num] = theme.palette.success.main;
+      setColors(newColors);
+    } else {
+      newColors[num] = theme.palette.error.main;
+      setColors(newColors);
+    }
   };
   const checkWord = (currentW: TGameWord, transl: string) => {
     if (currentW.word.wordTranslate === transl) {
@@ -51,20 +76,25 @@ const CallPlayWords = ({ gameWords, finish }:
     }
   };
 
-  const handleButton = (num: number) => {
-    checkWord(gameWords[currentWord], gameWords[currentWord].translates[num]);
-    nextWord();
-  };
-
   const playAudio = () => {
     if (audio.current) {
       audio.current.play();
     }
   };
 
-  useEffect(() => {
-    playAudio();
-  }, [currentWord]);
+  const handleButton = (num: number) => {
+    checkWord(gameWords[currentWord], gameWords[currentWord].translates[num]);
+    nextWord();
+  };
+
+  const clicker = (num: number) => {
+    setWaitResult(true);
+    changeColor(gameWords[currentWord], gameWords[currentWord].translates[num], colors, num);
+    setTimeout(() => {
+      handleButton(num);
+      setWaitResult(false);
+    }, 400);
+  };
 
   const circusValue = () => (currentWord ? Math.ceil((goodWords.length / currentWord) * 100) : 0);
 
@@ -76,17 +106,38 @@ const CallPlayWords = ({ gameWords, finish }:
       serie: maxSerie,
     });
   }
+  const keyPress = (e: KeyboardEvent) => {
+    if (!isWaitResult) {
+      if (e.code === 'Digit1') clicker(0);
+      else if (e.code === 'Digit2') clicker(1);
+      else if (e.code === 'Digit3') clicker(2);
+      else if (e.code === 'Digit4') clicker(3);
+      else if (e.code === 'Space') playAudio();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyPress);
+    return () => {
+      document.removeEventListener('keydown', keyPress);
+    };
+  }, [currentWord, isWaitResult]);
+  useEffect(() => {
+    playAudio();
+  }, [currentWord]);
 
   return (
-    <Box sx={{
-      bgcolor: theme.palette.grey.A200,
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      rowGap: '5em',
-    }}
+    <Box
+      ref={gameBox}
+      sx={{
+        bgcolor: theme.palette.grey.A200,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        rowGap: '5em',
+      }}
     >
       <Stack spacing={3} sx={{ alignItems: 'center' }}>
         <Typography variant={matchesMD ? 'h4' : 'h5'} textAlign="center" p={2}>Процент правильных ответов </Typography>
@@ -144,10 +195,10 @@ const CallPlayWords = ({ gameWords, finish }:
             if (gameWords[currentWord]) {
               return (
                 <ButtonWord
+                  color={colors[i]}
                   key={gameWords[i].word.id}
-                  currentTranslate={gameWords[currentWord].word.wordTranslate}
                   translate={gameWords[currentWord].translates[i]}
-                  handleButton={() => handleButton(i)}
+                  handleButton={() => clicker(i)}
                 />
               );
             }
