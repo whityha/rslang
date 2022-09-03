@@ -4,7 +4,7 @@ import {
 import VolumeUpTwoToneIcon from '@mui/icons-material/VolumeUpTwoTone';
 import { useEffect, useRef, useState } from 'react';
 import { TGameWord } from '../types';
-import Circus from './game-circus';
+import Circus from '../../game-common/game-circus';
 import theme from '../../../theme/theme';
 import { GameWordsResult } from '../../game-common/types';
 import { Word, Words } from '../../../types/word';

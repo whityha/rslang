@@ -2,7 +2,7 @@ import { Words } from '../../types/word';
 import GameCall from '../game-call/game-call-play/game-call';
 import GameSprint from '../game-sprint/game-sprint';
 
-export type GameName = 'sprint' | 'call';
+export type GameName = 'sprint' | 'call' | 'writer';
 
 export type GameWordsResult = {
   goodWords: Words;
