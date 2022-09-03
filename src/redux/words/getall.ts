@@ -18,7 +18,6 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
   const auth = isUserAuth();
 
   if (params.diff === undefined) {
-    console.log('page', params.page, 'group', params.group);
     if (params.page !== undefined) api.dispatch(setWordPage(+params.page));
     else params.page = store.getState().words.page.toString();
 

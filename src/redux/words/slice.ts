@@ -7,6 +7,7 @@ import {
 } from '../../inc/api';
 
 export const storageKey = 'words';
+export const solvedPagesKey = 'words';
 
 type StorageData = {
   page: number,
