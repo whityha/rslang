@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Paper, Typography } from '@mui/material';
 import { basicColors } from '../../theme/theme';
 import { CatalogItem } from '../../types/catalog-item';
+import { setGamePrepared } from '../../redux/words/slice';
+import { useAppDispatch } from '../../redux/hooks';
 
 interface CategoryMenuButtonProps {
   data: CatalogItem;
@@ -16,9 +18,11 @@ const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
   setActive,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const clickHandler = () => {
     if (data.path) {
+      dispatch(setGamePrepared(true));
       navigate(data.path);
     } else if (setActive) {
       setActive(data);

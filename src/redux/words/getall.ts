@@ -14,7 +14,6 @@ type AllWordsParams = { group?: string | number, page?: string | number, diff?: 
 // eslint-disable-next-line default-param-last
 export const getAllWords = createAsyncThunk('words/getall', async (params: AllWordsParams = {}, api) => {
   const auth = isUserAuth();
-  console.log('getall', store.getState().words.userWordsActual);
 
   if (params.diff === undefined) {
     const response: AxiosResponse<AggWords> = await ax.get(`/words?group=${params.group ?? ''}&page=${params.page ?? ''}`);
@@ -30,7 +29,6 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
       apiWords = response.data.map((w) => {
         const word = words.find((x) => x.wordId === w.id);
         w.userWord = word || {};
-        if (w.word === 'alcohol') console.log(w, word);
         return w;
       });
     }

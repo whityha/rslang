@@ -7,6 +7,7 @@ export interface WordsState {
   userWords: UserWord[];
   userWordsActual: boolean;
   isLoading: boolean;
+  gamePrepared: boolean;
 }
 
 export interface AuthState {

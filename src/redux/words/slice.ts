@@ -9,6 +9,7 @@ const initialState: WordsState = {
   userWords: [],
   userWordsActual: false,
   isLoading: false,
+  gamePrepared: false,
 };
 
 export const wordsSlice = createSlice({
@@ -24,6 +25,9 @@ export const wordsSlice = createSlice({
     setUserWords: (state, action: PayloadAction<UserWord[]>) => {
       state.userWords = action.payload;
       state.userWordsActual = true;
+    },
+    setGamePrepared: (state, action: PayloadAction<boolean>) => {
+      state.gamePrepared = action.payload;
     },
     needReloadUserWords: (state) => {
       state.userWordsActual = false;
@@ -43,7 +47,6 @@ export const wordsSlice = createSlice({
           }];
         }
         if (action.payload.diff) {
-          console.log('a', userWordIndex);
           if (userWordIndex >= 0) state.userWords[userWordIndex].difficulty = action.payload.diff;
           if (state.data[wordIndex].userWord) {
             state.data[wordIndex].userWord!.difficulty = action.payload.diff;
@@ -63,7 +66,8 @@ export const wordsSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  localWordsClear, setWordsLoading, setUserWords, needReloadUserWords, setWordExtra,
+  localWordsClear, setWordsLoading, setUserWords, needReloadUserWords,
+  setWordExtra, setGamePrepared,
 } = wordsSlice.actions;
 
 export default wordsSlice.reducer;
