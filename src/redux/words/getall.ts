@@ -7,7 +7,7 @@ import {
 import ax from '../../inc/ax';
 import { isUserAuth } from '../auth/funcs';
 import { store } from '../store';
-import { setUserWords } from './slice';
+import { setUserWords, setWordBook, setWordPage } from './slice';
 
 type AllWordsParams = { group?: string | number, page?: string | number, diff?: Diff }
 
@@ -16,6 +16,9 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
   const auth = isUserAuth();
 
   if (params.diff === undefined) {
+    console.log('page', params.page, 'group', params.group);
+    api.dispatch(setWordPage(params.page ? +params.page : 0));
+    api.dispatch(setWordBook(params.group ? +params.group : 0));
     const response: AxiosResponse<AggWords> = await ax.get(`/words?group=${params.group ?? ''}&page=${params.page ?? ''}`);
     let apiWords = response.data as AggWords;
 

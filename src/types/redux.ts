@@ -8,6 +8,8 @@ export interface WordsState {
   userWordsActual: boolean;
   isLoading: boolean;
   gamePrepared: boolean;
+  page: number;
+  activeBook: number;
 }
 
 export interface AuthState {

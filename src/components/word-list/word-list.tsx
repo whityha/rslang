@@ -13,10 +13,10 @@ const WordList: FC = () => {
   const dispatch = useAppDispatch();
 
   if (!context) return null;
-  const { activeBook, page } = context;
+  const { activeBook, page } = words;
 
   useEffect(() => {
-    dispatch(getAllWords({ group: activeBook.id, page }));
+    dispatch(getAllWords({ group: activeBook, page }));
   }, [activeBook, page, dispatch]);
 
   if (words.isLoading) return <Loading />;

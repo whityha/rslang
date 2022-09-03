@@ -18,8 +18,6 @@ export interface IWordListContext {
   setCurrentPlayer: (value: string) => void;
   activeBook: CatalogItem;
   setActiveBook: (value: CatalogItem) => void;
-  page: number;
-  setPage: (value: number) => void;
 }
 
 interface WordListProviderProps {
@@ -35,8 +33,6 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
   const [currentTracks, setCurrentTracks] = useState<NodeListOf<HTMLAudioElement> | null>(null);
   const [currentPlayer, setCurrentPlayer] = useState<string>('');
   const [activeBook, setActiveBook] = useState<CatalogItem>(bookCatalogData[0]);
-  const [studied, setStudied] = useState<string[]>([]);
-  const [page, setPage] = useState<number>(0);
 
   const context: IWordListContext = useMemo(
     () => ({
@@ -48,18 +44,12 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
       setCurrentPlayer,
       activeBook,
       setActiveBook,
-      studied,
-      setStudied,
-      page,
-      setPage,
     }),
     [
       showTranslation,
       currentTracks,
       currentPlayer,
       activeBook,
-      studied,
-      page,
     ],
   );
 

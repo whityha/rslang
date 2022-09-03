@@ -10,6 +10,8 @@ const initialState: WordsState = {
   userWordsActual: false,
   isLoading: false,
   gamePrepared: false,
+  page: 0,
+  activeBook: 0,
 };
 
 export const wordsSlice = createSlice({
@@ -29,9 +31,14 @@ export const wordsSlice = createSlice({
     setGamePrepared: (state, action: PayloadAction<boolean>) => {
       state.gamePrepared = action.payload;
     },
+    setWordPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+    setWordBook: (state, action: PayloadAction<number>) => {
+      state.activeBook = action.payload;
+    },
     needReloadUserWords: (state) => {
       state.userWordsActual = false;
-      console.log('needReloadUserWords');
     },
     setWordExtra:
     (state, action: PayloadAction<{id: string, diff?: Diff, optional?: ProgressInfo}>) => {
@@ -67,7 +74,7 @@ export const wordsSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   localWordsClear, setWordsLoading, setUserWords, needReloadUserWords,
-  setWordExtra, setGamePrepared,
+  setWordExtra, setGamePrepared, setWordPage, setWordBook,
 } = wordsSlice.actions;
 
 export default wordsSlice.reducer;

@@ -13,7 +13,6 @@ const GameController:FC<Props> = ({ GameEngine, words }) => {
   const [result, setResult] = useState<GameWordsResult | false>(false);
 
   const onFinish = (gameResult: GameWordsResult) => {
-    console.log(gameResult.badWords.length);
     setResult(gameResult);
     saveGameStat(gameResult);
   };
