@@ -73,7 +73,7 @@ const GameWriter: FC<GameProps> = ({ words, onFinish }) => {
     onFinish({
       goodWords,
       badWords,
-      gameName: 'call',
+      gameName: 'writer',
       serie: maxSerie,
     });
   }
