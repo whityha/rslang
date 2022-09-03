@@ -8,9 +8,9 @@ import CardMedia from '@mui/material/CardMedia';
 import { getFilesRoot } from '../../inc/conf';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
-import { Word } from '../../types/word';
+import { AggWord } from '../../inc/api';
 
-const WordCard: FC<Word> = (data) => {
+const WordCard: FC<AggWord> = (data) => {
   const {
     word,
     image,
@@ -34,6 +34,7 @@ const WordCard: FC<Word> = (data) => {
           display: 'flex',
           boxShadow: 2,
           flexDirection: matches ? 'row' : 'column',
+          borderWidth: '1px',
         }}
       >
         <CardMedia

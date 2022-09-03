@@ -1,4 +1,4 @@
-export type Word = {
+export interface Word {
   id: string;
   group: number;
   page: number;

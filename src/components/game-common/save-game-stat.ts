@@ -1,7 +1,9 @@
 import api, {
-  Diff, getStat, getUserWords, setUserWord, UserWord,
+  Diff, getStat, getUserWords, ProgressInfo, setUserWord, UserWord,
 } from '../../inc/api';
 import { getUID, isUserAuth } from '../../redux/auth/funcs';
+import { store } from '../../redux/store';
+import { needReloadUserWords } from '../../redux/words/slice';
 import { GameWordsResult } from './types';
 
 export type GameStatData = {
@@ -41,6 +43,20 @@ export function getStatDate(date?: string | number | Date) {
   return [year, month, day].join('-');
 }
 
+function suw(id: string, diff: Diff, optional: ProgressInfo, addToProgress: true) {
+  // const word = store.getState().words.data.find((w) => w.id === id);
+  setUserWord(id, diff, optional, addToProgress);
+  store.dispatch(needReloadUserWords());
+  /*
+  if (word) {
+    console.log('UPD', word);
+    word.userWord = {
+      difficulty: diff,
+      optional,
+    };
+  } */
+}
+
 export default async function saveGameStat(gameResult: GameWordsResult) {
   if (isUserAuth()) {
     let newWords = 0;
@@ -54,19 +70,19 @@ export default async function saveGameStat(gameResult: GameWordsResult) {
     const userWords = await getUserWords();
     gameResult.goodWords.forEach((word) => {
       findWord(userWords.data as UserWord[], word.id);
-      setUserWord(word.id, Diff.STUDIED, { good: 1, bad: 0 }, true);
+      suw(word.id, Diff.STUDIED, { good: 1, bad: 0 }, true);
     });
 
     gameResult.badWords.forEach((word) => {
       const uWord = findWord(userWords.data as UserWord[], word.id);
-      const newHard = uWord && (uWord.difficult === Diff.HARD) ? Diff.HARD : Diff.UNSET;
-      setUserWord(word.id, newHard, { good: 0, bad: 1 }, true);
+      const newHard = uWord && (uWord.difficulty === Diff.HARD) ? Diff.HARD : Diff.UNSET;
+      suw(word.id, newHard, { good: 0, bad: 1 }, true);
     });
 
     gameResult.unusedWords?.forEach((word) => {
       const uWord = findWord(userWords.data as UserWord[], word.id);
-      const newHard = uWord ? uWord.difficult : Diff.UNSET;
-      setUserWord(word.id, newHard, { good: 0, bad: 0 }, true);
+      const newHard = uWord ? uWord.difficulty : Diff.UNSET;
+      suw(word.id, newHard, { good: 0, bad: 0 }, true);
     });
 
     const uid = getUID();

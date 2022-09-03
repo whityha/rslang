@@ -6,6 +6,8 @@ import IconGroup from './icon-group';
 import CardMarker from './card-marker';
 import { useWordListContext } from '../../context/word-list-context';
 import { Word } from '../../types/word';
+import bookCatalogData from '../book-catalog/book-catalog-data';
+import { useWords } from '../../redux/hooks';
 
 interface WordCardHeaderProps {
   data: Word,
@@ -22,7 +24,9 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
   const context = useWordListContext();
 
   if (!context) return null;
-  const { showTranslation, activeBook } = context;
+  const { showTranslation } = context;
+
+  const words = useWords();
 
   return (
     <Box
@@ -34,7 +38,7 @@ const WordCardHeader: FC<WordCardHeaderProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <CardMarker color={activeBook.color} />
+        <CardMarker color={bookCatalogData[words.activeBook].color} />
         <CardContent sx={{
           flex: '1 0 auto',
           '&:last-child': {

@@ -3,25 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Paper, Typography } from '@mui/material';
 import { basicColors } from '../../theme/theme';
 import { CatalogItem } from '../../types/catalog-item';
+import { setGamePrepared } from '../../redux/words/slice';
+import { useAppDispatch, useWords } from '../../redux/hooks';
+import bookCatalogData from '../book-catalog/book-catalog-data';
+import getAllWords from '../../redux/words/getall';
 
 interface CategoryMenuButtonProps {
   data: CatalogItem;
-  active: CatalogItem;
-  setActive: (value: CatalogItem) => void;
 }
 
 const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
   data,
-  active,
-  setActive,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const words = useWords();
 
   const clickHandler = () => {
     if (data.path) {
+      dispatch(setGamePrepared(true));
       navigate(data.path);
-    } else if (setActive) {
-      setActive(data);
+    } else {
+      dispatch(getAllWords({ page: 0, group: data.id }));
     }
   };
 
@@ -41,7 +44,7 @@ const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
         cursor: 'pointer',
         overflow: 'hidden',
         '&:hover .book-color': {
-          bgcolor: data.color ? data.color : active.color,
+          bgcolor: data.color ? data.color : bookCatalogData[words.activeBook].color,
         },
       }}
     >
@@ -86,7 +89,7 @@ const CategoryMenuButton: FC<CategoryMenuButtonProps> = ({
           height: 110,
           borderRadius: 53,
           transition: 'all 0.2s linear',
-          bgcolor: data.id === active.id && data.color ? data.color : '#cccccc',
+          bgcolor: data.id === words.activeBook && data.color ? data.color : '#cccccc',
         }}
       />
     </Paper>

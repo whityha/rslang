@@ -1,5 +1,4 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
@@ -13,13 +12,6 @@ const buttonsData = [
     onlyAuth: false,
     icon: <HomeOutlinedIcon />,
     path: '/',
-  },
-  {
-    id: 2,
-    text: 'Список слов',
-    onlyAuth: false,
-    icon: <ReceiptLongOutlinedIcon />,
-    path: 'dictionary',
   },
   {
     id: 3,

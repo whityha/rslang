@@ -1,6 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { maxWordsPage } from '../../inc/conf';
 import randNumber from '../../inc/rand-number';
+import { useAppDispatch, useWords } from '../../redux/hooks';
+import { setGamePrepared } from '../../redux/words/slice';
 import { Words } from '../../types/word';
 import GameController from './game-controller';
 import getGameWords from './get-game-words';
@@ -18,10 +20,19 @@ const GameLobby: FC<Props> = ({
   title, description, GameEngine, wordsCount,
 }) => {
   const [words, setWords] = useState<Words>([]);
+  const reduxWords = useWords();
+  const dispatch = useAppDispatch();
 
   async function levelSelectHandler(level: number) {
     setWords(await getGameWords(level, randNumber(0, maxWordsPage), wordsCount));
   }
+
+  useEffect(() => {
+    if (reduxWords.gamePrepared) {
+      setWords(reduxWords.data.slice(0, wordsCount));
+      dispatch(setGamePrepared(false));
+    }
+  }, []);
 
   const isPlay = () => words.length > 0;
 

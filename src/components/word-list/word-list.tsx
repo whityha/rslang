@@ -1,36 +1,34 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import WordCard from '../word-card/word-card';
-import { Words } from '../../types/word';
 import Loading from '../loading/loading';
 import { useWordListContext } from '../../context/word-list-context';
-import { getWordGroup } from '../../inc/api';
 import WordListPagination from '../pagination/pagination';
 import WordListContainer from '../word-list-container/word-list-container';
+import { useAppDispatch, useWords } from '../../redux/hooks';
+import getAllWords from '../../redux/words/getall';
 
 const WordList: FC = () => {
   const context = useWordListContext();
-  const [words, setWords] = useState<Words>([]);
+  const words = useWords();
+  const dispatch = useAppDispatch();
 
   if (!context) return null;
-  const { activeBook, page } = context;
+  const { activeBook, page } = words;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getWordGroup(activeBook.id, page);
-      setWords(data);
-    };
+    dispatch(getAllWords({ group: activeBook, page }));
+  }, [activeBook, page, dispatch]);
 
-    fetchData();
-  }, [activeBook, page]);
-
-  if (!words.length) return <Loading />;
-
-  const data = words.sort((a, b) => a.word.localeCompare(b.word));
+  if (words.isLoading) return <Loading />;
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+    <div style={{
+      position: 'relative', display: 'flex', flexDirection: 'column',
+    }}
+    >
+      <WordListPagination />
       <WordListContainer>
-        {data.map((word) => (
+        {words.data.map((word) => (
           <WordCard key={word.id} {...word} />
         ))}
       </WordListContainer>

@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
+import { AggWords } from '../../inc/api';
 import { WordsState } from '../../types/redux';
-import { Words } from '../../types/word';
 import getAllWords from './getall';
 
 const wordsExtraReducers = (builder: ActionReducerMapBuilder<WordsState>) => {
@@ -8,7 +8,7 @@ const wordsExtraReducers = (builder: ActionReducerMapBuilder<WordsState>) => {
     state.isLoading = true;
   // eslint-disable-next-line no-sequences
   }),
-  builder.addCase(getAllWords.fulfilled, (state, action: PayloadAction<Words>) => {
+  builder.addCase(getAllWords.fulfilled, (state, action: PayloadAction<AggWords>) => {
     state.data = action.payload;
     state.isLoading = false;
   }),
