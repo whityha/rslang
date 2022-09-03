@@ -24,23 +24,33 @@ export const wordsSlice = createSlice({
     setUserWords: (state, action: PayloadAction<UserWord[]>) => {
       state.userWords = action.payload;
       state.userWordsActual = true;
-      console.log('uWords', state.userWords);
     },
     needReloadUserWords: (state) => {
       state.userWordsActual = false;
+      console.log('needReloadUserWords');
     },
     setWordExtra:
     (state, action: PayloadAction<{id: string, diff?: Diff, optional?: ProgressInfo}>) => {
       const wordIndex = state.data.findIndex((w) => w.id === action.payload.id);
       if (wordIndex >= 0) {
+        const userWordIndex = state.userWords.findIndex((w) => w.wordId === action.payload.id);
+        if (userWordIndex < 0) {
+          state.userWords = [...state.userWords, {
+            id: '',
+            wordId: action.payload.id,
+            difficulty: action.payload.diff || Diff.UNSET,
+            optional: action.payload.optional,
+          }];
+        }
         if (action.payload.diff) {
-          state.userWords[wordIndex].difficult = action.payload.diff;
+          console.log('a', userWordIndex);
+          if (userWordIndex >= 0) state.userWords[userWordIndex].difficulty = action.payload.diff;
           if (state.data[wordIndex].userWord) {
             state.data[wordIndex].userWord!.difficulty = action.payload.diff;
           }
         }
         if (action.payload.optional) {
-          state.userWords[wordIndex].optional = action.payload.optional;
+          if (userWordIndex >= 0) state.userWords[userWordIndex].optional = action.payload.optional;
           if (state.data[wordIndex].userWord) {
             state.data[wordIndex].userWord!.optional = action.payload.optional;
           }

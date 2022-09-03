@@ -26,7 +26,7 @@ export type ProgressInfo = {
 export type UserWord = {
   id: string;
   wordId: string;
-  difficult: Diff;
+  difficulty: Diff;
   optional?: ProgressInfo,
 }
 
