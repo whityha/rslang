@@ -5,6 +5,8 @@ import CallPlayWords from './game-call-play';
 
 const GameCall: FC<GameProps> = ({ words, onFinish }) => {
   const gameWordsCount = words.length;
+  if (gameWordsCount < 4) return <div>Недостаточно слов для игры</div>;
+
   const GAME_ARRAY = createRandomNumberArray(gameWordsCount, [0, words.length - 1])
     .map((wordIndex) => {
       const createRusArray = (idx: number): Array<string> => {
