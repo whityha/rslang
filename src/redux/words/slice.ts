@@ -4,6 +4,13 @@ import { WordsState } from '../../types/redux';
 import wordsExtraReducers from './extra';
 import { Diff, ProgressInfo, UserWord } from '../../inc/api';
 
+export const storageKey = 'words';
+
+type StorageData = {
+  page: number,
+  activeBook: number,
+}
+
 const initialState: WordsState = {
   data: [],
   userWords: [],
@@ -13,6 +20,28 @@ const initialState: WordsState = {
   page: 0,
   activeBook: 0,
 };
+
+export function savePageBookState(state: WordsState) {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({
+      page: state.page,
+      activeBook: state.activeBook,
+    }));
+  } catch (e) {
+    console.info('Problems with save local storage', e);
+  }
+}
+
+try {
+  const data = localStorage.getItem(storageKey);
+  if (data) {
+    const js = (JSON.parse(data) as StorageData);
+    initialState.page = js.page;
+    initialState.activeBook = js.activeBook;
+  }
+} catch (e) {
+  console.info('Problems with load local storage', e);
+}
 
 export const wordsSlice = createSlice({
   name: 'words',
@@ -33,9 +62,11 @@ export const wordsSlice = createSlice({
     },
     setWordPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
+      savePageBookState(state);
     },
     setWordBook: (state, action: PayloadAction<number>) => {
       state.activeBook = action.payload;
+      savePageBookState(state);
     },
     needReloadUserWords: (state) => {
       state.userWordsActual = false;
