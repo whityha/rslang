@@ -19,6 +19,7 @@ import GamesPage from './pages/games';
 import Toast from './components/toast/toast';
 import ReduxConfirm from './components/confirm/redux-confirm';
 import DifficultWordsPages from './pages/difficult-words';
+import GameWriterPage from './pages/game-writer';
 
 const App: FC = () => (
   <ThemeProvider theme={theme}>
@@ -36,6 +37,7 @@ const App: FC = () => (
           <Route path="games" element={<GamesPage />} />
           <Route path="games/sprint" element={<GameSprintPage />} />
           <Route path="games/call" element={<GameCallPage />} />
+          <Route path="games/writer" element={<GameWriterPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

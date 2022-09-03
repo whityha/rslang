@@ -12,6 +12,14 @@ const gameCatalogData: CatalogItem[] = [
     path: '/games/sprint',
   },
   {
+    id: 2,
+    title: 'Писатель',
+    subtitle: '',
+    symbol: <SmartToyOutlinedIcon fontSize="large" />,
+    color: '',
+    path: '/games/writer',
+  },
+  {
     id: 6,
     title: 'Вызов',
     subtitle: '',
