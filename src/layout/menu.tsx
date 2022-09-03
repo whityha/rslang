@@ -8,8 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { Paper } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import ListMenu from '../components/list-menu/list-menu';
-import { useWordListContext } from '../context/word-list-context';
+
+import { useWords } from '../redux/hooks';
+import bookCatalogData from '../components/book-catalog/book-catalog-data';
 
 const drawerWidth = 240;
 
@@ -52,24 +55,27 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Menu: FC = () => {
-  const context = useWordListContext();
   const [open, setOpen] = useState(true);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
+  const words = useWords();
+  const { pathname } = useLocation();
 
-  if (!context) return null;
-  const { activeBook } = context;
+  const { activeBook } = words;
 
   const handleOpen = () => {
     setOpen((prevState) => !prevState);
   };
+
+  const getColor = () => bookCatalogData[!pathname.includes('textbook') ? 0 : activeBook].color;
+
   return (
     <Drawer
       sx={{
         '& .MuiDrawer-paper': {
           borderWidth: 0,
           color: 'primary.contrastText',
-          bgcolor: activeBook.color,
+          bgcolor: getColor(),
         },
         display: !matches ? 'none' : 'initial',
       }}
@@ -85,7 +91,7 @@ const Menu: FC = () => {
           justifyContent: open ? 'initial' : 'center',
           alignItems: 'center',
           px: 3,
-          bgcolor: activeBook.color,
+          bgcolor: getColor(),
         }}
         elevation={0}
       >
