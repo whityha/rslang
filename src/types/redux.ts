@@ -1,9 +1,11 @@
 import { AlertColor } from '@mui/material';
+import { AggWords, UserWord } from '../inc/api';
 import { User } from './user';
-import { Words } from './word';
 
 export interface WordsState {
-  data: Words;
+  data: AggWords;
+  userWords: UserWord[];
+  userWordsActual: boolean;
   isLoading: boolean;
 }
 

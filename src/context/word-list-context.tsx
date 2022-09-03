@@ -3,16 +3,11 @@ import {
   FC,
   ReactNode,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
 import bookCatalogData from '../components/book-catalog/book-catalog-data';
-import { getHardWords } from '../inc/api';
-import { useAuth } from '../redux/hooks';
 import { CatalogItem } from '../types/catalog-item';
-import { Words } from '../types/word';
-import transformData from './transform-data';
 
 export interface IWordListContext {
   showTranslation: boolean;
@@ -23,10 +18,6 @@ export interface IWordListContext {
   setCurrentPlayer: (value: string) => void;
   activeBook: CatalogItem;
   setActiveBook: (value: CatalogItem) => void;
-  difficultWords: Words;
-  setDifficultWords: (value: Words) => void;
-  studied: string[];
-  setStudied: (value: string[]) => void;
   page: number;
   setPage: (value: number) => void;
 }
@@ -44,24 +35,8 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
   const [currentTracks, setCurrentTracks] = useState<NodeListOf<HTMLAudioElement> | null>(null);
   const [currentPlayer, setCurrentPlayer] = useState<string>('');
   const [activeBook, setActiveBook] = useState<CatalogItem>(bookCatalogData[0]);
-  const [difficultWords, setDifficultWords] = useState<Words>([]);
   const [studied, setStudied] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
-  const { isAuth } = useAuth();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isAuth) {
-        const response = await getHardWords();
-        const data = response.paginatedResults.map((item) => transformData(item));
-        setDifficultWords(data);
-      } else {
-        setDifficultWords([]);
-      }
-    };
-
-    fetchData();
-  }, [isAuth]);
 
   const context: IWordListContext = useMemo(
     () => ({
@@ -73,8 +48,6 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
       setCurrentPlayer,
       activeBook,
       setActiveBook,
-      difficultWords,
-      setDifficultWords,
       studied,
       setStudied,
       page,
@@ -85,7 +58,6 @@ const WordListProvider: FC<WordListProviderProps> = ({ children }) => {
       currentTracks,
       currentPlayer,
       activeBook,
-      difficultWords,
       studied,
       page,
     ],

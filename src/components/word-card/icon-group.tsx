@@ -8,13 +8,12 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import AudioGroup from './audio-group';
 import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 import { useWordListContext, IWordListContext } from '../../context/word-list-context';
-import { Diff, setUserWord } from '../../inc/api';
+import { AggWord, Diff, setUserWord } from '../../inc/api';
 import StatisticGroup from './statistic-group';
-import { Word } from '../../types/word';
 import { useAuth } from '../../redux/hooks';
 
 export interface IconGroupProps {
-  data: Word;
+  data: AggWord;
   paths: string[];
 }
 
@@ -37,32 +36,35 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
 
   if (!context) return null;
   const {
-    activeBook, difficultWords, setDifficultWords, studied, setStudied,
+    activeBook,
   } = context;
 
-  const isDifficult = difficultWords && difficultWords.find((item) => item.id === id);
+  const isDifficult = () => data.userWord
+  && data.userWord.difficulty
+  && (data.userWord.difficulty === Diff.HARD);
+  const isStudied = () => data.userWord
+  && data.userWord.difficulty
+  && (data.userWord.difficulty === Diff.STUDIED);
 
   const toggleDifficultWord = (): void => {
-    if (isDifficult) {
+    if (isDifficult()) {
       setUserWord(id, Diff.UNSET);
-      setDifficultWords([...difficultWords.filter((item) => item.id !== id)]);
+      // setDifficultWords([...difficultWords.filter((item) => item.id !== id)]);
     } else {
       setUserWord(id, Diff.HARD);
-      setDifficultWords([...difficultWords, data]);
+      // setDifficultWords([...difficultWords, data]);
     }
   };
 
   const toggleStudiedWord = (): void => {
-    if (studied.includes(id)) {
+    if (isStudied()) {
       setUserWord(id, Diff.UNSET);
-      setStudied([]);
+      // setStudied([]);
     } else {
       setUserWord(id, Diff.STUDIED);
-      setStudied([...studied, id]);
+      // setStudied([...studied, id]);
     }
   };
-
-  const isStudied = studied.includes(id);
 
   return (
     <Box
@@ -76,17 +78,17 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
       {auth.isAuth && (
       <>
         <LightTooltip
-          title={isDifficult ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
+          title={isDifficult() ? 'Удалить из Сложных слов' : 'Добавить в Сложные слова'}
         >
           <IconButton onClick={toggleDifficultWord}>
-            <StarIcon sx={{ ...styles, color: isDifficult ? activeBook.color : '#c4c1c1' }} />
+            <StarIcon sx={{ ...styles, color: isDifficult() ? activeBook.color : '#c4c1c1' }} />
           </IconButton>
         </LightTooltip>
         <LightTooltip
-          title={isStudied ? 'Отметить как неизученное' : 'Отметить как изученное'}
+          title={isStudied() ? 'Отметить как неизученное' : 'Отметить как изученное'}
         >
           <IconButton onClick={toggleStudiedWord}>
-            <LightbulbIcon sx={{ ...styles, color: isStudied ? activeBook.color : '#c4c1c1' }} />
+            <LightbulbIcon sx={{ ...styles, color: isStudied() ? activeBook.color : '#c4c1c1' }} />
           </IconButton>
         </LightTooltip>
         <StatisticGroup

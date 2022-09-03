@@ -65,7 +65,10 @@ export default async function api(method: Method, url: string, data?: Object) {
   }
 }
 
-export type AggWord = Word & WordDTO & {_id: string};
+export interface AggWord extends Word {
+  _id?: string;
+  userWord?: WordDTO;
+}
 export type AggWords = Array<AggWord>;
 export type AggTotalCount = Array<number>;
 export type AggResponse = {

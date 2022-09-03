@@ -1,7 +1,7 @@
 import { AggWord } from '../inc/api';
 
-const transformData = (data: AggWord) => ({
-  id: data._id,
+const transformData = (data: AggWord): AggWord => ({
+  id: data._id!,
   group: data.group,
   page: data.page,
   word: data.word,
@@ -15,6 +15,7 @@ const transformData = (data: AggWord) => ({
   wordTranslate: data.wordTranslate,
   textMeaningTranslate: data.textMeaningTranslate,
   textExampleTranslate: data.textExampleTranslate,
+  userWord: data.userWord,
 });
 
 export default transformData;
