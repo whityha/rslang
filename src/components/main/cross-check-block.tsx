@@ -23,7 +23,7 @@ const CrossCheckBlock = ({ data }: {data: TCrossCheckData}) => {
       marginTop: '2em',
     }}
     >
-      <Typography variant="h5" component="p" fontWeight={700}>{data.title}</Typography>
+      <Typography variant="h5" component="p" fontWeight={700} mb={1}>{data.title}</Typography>
       {data.listItems.map((description) => <ListItemBlock description={description} />)}
     </List>
   );
