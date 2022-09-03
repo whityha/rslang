@@ -6,23 +6,23 @@ const imageKoryakin = require('../../assets/photos/koryakin.jfif');
 
 const TEAMMATE_INFO: TTeammate[] = [
   {
-    name: 'Ihar Havalin',
+    name: 'Игорь Головин',
     photoSrc: imageIgar,
-    description: 'Do all',
+    description: 'Авторизация, игра "Спринт", общий функционал для игр и приложения.',
     role: 'Frontend Developer. Team Lead.',
     ghLink: 'https://github.com/memos77',
   },
   {
-    name: 'Pavel Khapaliuk',
+    name: 'Павел Хапалюк',
     photoSrc: imageKhapaliuk,
-    description: 'Do any thing',
+    description: 'Игры "Вызов" и "Писатель", дизайн главной и других элементов.',
     role: 'Frontend Developer',
     ghLink: 'https://github.com/whityha/',
   },
   {
-    name: 'Pavel Koryakin',
+    name: 'Павел Корякин',
     photoSrc: imageKoryakin,
-    description: 'Do any thing',
+    description: 'Общий дизайн сайта, адаптивность, меню, учебник, раздел сложных слов.',
     role: 'Frontend Developer',
     ghLink: 'https://github.com/unclekoin',
   },

@@ -1,10 +1,9 @@
 import {
-  Box, Button, Card, CardActionArea, CardContent, CardMedia, Stack, Typography, useMediaQuery,
+  Box, Card, CardActionArea, CardContent, CardMedia, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWordListContext } from '../../context/word-list-context';
-import { useAuth } from '../../redux/hooks';
 import theme from '../../theme/theme';
 import Cards from './constants';
 import CrosscheckInfo from './cross-check-info';
@@ -12,7 +11,6 @@ import VidePresentation from './video-presentation';
 
 const Main: FC = () => {
   const navigate = useNavigate();
-  const auth = useAuth();
   const mediaMD = useMediaQuery(theme.breakpoints.up('md'));
   const context = useWordListContext();
 
@@ -80,23 +78,7 @@ const Main: FC = () => {
           </Typography>
         </Box>
       </Stack>
-      {!auth.isAuth ? (
-        <Button
-          variant="contained"
-          sx={{
-            display: 'block',
-            padding: '1.5em 2.5em',
-            borderRadius: '100px',
-            margin: mediaMD ? '4em 0 0 0' : '4em auto 0 auto',
-            background: activeBook.color,
-            '&: hover': {
-              background: activeBook.color,
-            },
-          }}
-        >
-          <Typography>Зарегистрироваться</Typography>
-        </Button>
-      ) : null}
+
       <Box
         display="flex"
         flexDirection="column"

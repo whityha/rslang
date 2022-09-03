@@ -27,9 +27,9 @@ const Cards = [
   },
   {
     icon: <AutoStoriesOutlinedIcon sx={style} />,
-    title: 'Словарь',
+    title: 'Учебник',
     description: 'Более 3500 слов с примерами употребления, переводом, транскрипцией и произношением',
-    path: '/dictionary',
+    path: '/textbook',
   },
 ];
 

@@ -26,18 +26,15 @@ export const confirmSlice = createSlice({
       state.isDeclined = false;
       state.isConfirmed = false;
       state.visible = true;
-      console.log('prepareConfirm', action.payload);
     },
     closeConfirm(state: ConfirmState) {
       state.visible = false;
     },
     setConfirm: (state) => {
-      console.log('set confirmed');
       state.isConfirmed = true;
       state.visible = false;
     },
     setDecline: (state) => {
-      console.log('set decline');
       state.isDeclined = true;
       state.visible = false;
     },

@@ -12,8 +12,9 @@ const TeammateCard = ({
          sx={{
            display: 'flex',
            minHeight: '150px',
-           minWidth: { sm: '450px', xs: '250px' },
-           width: '40%',
+           maxWidth: '600px',
+           minWidth: { md: '500px', xs: '320px' },
+           width: '90%',
            flexDirection: { xs: 'column', sm: 'row' },
          }}
        >
@@ -22,7 +23,8 @@ const TeammateCard = ({
            image={photoSrc}
            sx={{
              height: 'auto',
-             width: { xs: '100%', sm: '25%' },
+             minWidth: '150px',
+             width: { xs: '100%', sm: '50%' },
              padding: '1em',
              borderRadius: '20px',
            }}

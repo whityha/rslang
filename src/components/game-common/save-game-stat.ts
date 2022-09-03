@@ -44,17 +44,8 @@ export function getStatDate(date?: string | number | Date) {
 }
 
 function suw(id: string, diff: Diff, optional: ProgressInfo, addToProgress: true) {
-  // const word = store.getState().words.data.find((w) => w.id === id);
   setUserWord(id, diff, optional, addToProgress);
   store.dispatch(needReloadUserWords());
-  /*
-  if (word) {
-    console.log('UPD', word);
-    word.userWord = {
-      difficulty: diff,
-      optional,
-    };
-  } */
 }
 
 export default async function saveGameStat(gameResult: GameWordsResult) {
