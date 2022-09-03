@@ -10,7 +10,8 @@ import LightTooltip from '../light-tooltip.tsx/light-tooltip';
 import { useWordListContext, IWordListContext } from '../../context/word-list-context';
 import { AggWord, Diff, setUserWord } from '../../inc/api';
 import StatisticGroup from './statistic-group';
-import { useAuth } from '../../redux/hooks';
+import { useAppDispatch, useAuth } from '../../redux/hooks';
+import { setWordExtra } from '../../redux/words/slice';
 
 export interface IconGroupProps {
   data: AggWord;
@@ -28,6 +29,7 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const context: IWordListContext | null = useWordListContext();
   const auth = useAuth();
+  const dispatch = useAppDispatch();
 
   const styles: IconStyles = {
     height: 35,
@@ -49,9 +51,12 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
   const toggleDifficultWord = (): void => {
     if (isDifficult()) {
       setUserWord(id, Diff.UNSET);
+      dispatch(setWordExtra({ id, diff: Diff.UNSET }));
+
       // setDifficultWords([...difficultWords.filter((item) => item.id !== id)]);
     } else {
       setUserWord(id, Diff.HARD);
+      dispatch(setWordExtra({ id, diff: Diff.HARD }));
       // setDifficultWords([...difficultWords, data]);
     }
   };
@@ -59,9 +64,11 @@ const IconGroup: FC<IconGroupProps> = ({ data, paths }) => {
   const toggleStudiedWord = (): void => {
     if (isStudied()) {
       setUserWord(id, Diff.UNSET);
+      dispatch(setWordExtra({ id, diff: Diff.UNSET }));
       // setStudied([]);
     } else {
       setUserWord(id, Diff.STUDIED);
+      dispatch(setWordExtra({ id, diff: Diff.STUDIED }));
       // setStudied([...studied, id]);
     }
   };

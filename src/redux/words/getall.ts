@@ -28,9 +28,7 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
       }
       apiWords = response.data.map((w) => {
         const word = words.find((x) => x.wordId === w.id);
-        if (word) {
-          w.userWord = word;
-        }
+        if (word) w.userWord = word;
         return w;
       });
     }

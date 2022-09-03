@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { WordsState } from '../../types/redux';
 import wordsExtraReducers from './extra';
-import { UserWord } from '../../inc/api';
+import { Diff, ProgressInfo, UserWord } from '../../inc/api';
 
 const initialState: WordsState = {
   data: [],
@@ -29,13 +29,31 @@ export const wordsSlice = createSlice({
     needReloadUserWords: (state) => {
       state.userWordsActual = false;
     },
+    setWordExtra:
+    (state, action: PayloadAction<{id: string, diff?: Diff, optional?: ProgressInfo}>) => {
+      const wordIndex = state.data.findIndex((w) => w.id === action.payload.id);
+      if (wordIndex >= 0) {
+        if (action.payload.diff) {
+          state.userWords[wordIndex].difficult = action.payload.diff;
+          if (state.data[wordIndex].userWord) {
+            state.data[wordIndex].userWord!.difficulty = action.payload.diff;
+          }
+        }
+        if (action.payload.optional) {
+          state.userWords[wordIndex].optional = action.payload.optional;
+          if (state.data[wordIndex].userWord) {
+            state.data[wordIndex].userWord!.optional = action.payload.optional;
+          }
+        }
+      }
+    },
   },
   extraReducers: wordsExtraReducers,
 });
 
 // Action creators are generated for each case reducer function
 export const {
-  localWordsClear, setWordsLoading, setUserWords, needReloadUserWords,
+  localWordsClear, setWordsLoading, setUserWords, needReloadUserWords, setWordExtra,
 } = wordsSlice.actions;
 
 export default wordsSlice.reducer;

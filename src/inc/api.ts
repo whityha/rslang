@@ -156,6 +156,7 @@ export async function setUserWord(
   if (difficulty) dto.difficulty = difficulty;
 
   if (progress !== undefined) dto.optional = progress;
+
   return api(method, url, dto);
 }
 
