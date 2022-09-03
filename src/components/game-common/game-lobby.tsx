@@ -24,15 +24,18 @@ const GameLobby: FC<Props> = ({
   const reduxWords = useWords();
   const dispatch = useAppDispatch();
 
-  async function levelSelectHandler(level: number) {
-    setWords(await getGameWords(level, randNumber(0, maxWordsPage), wordsCount));
+  async function levelSelectHandler(level: number, page: number, prepared: Words = []) {
+    setWords(await getGameWords(level, page, wordsCount, prepared));
   }
 
   useEffect(() => {
     if (reduxWords.gamePrepared) {
-      setWords(reduxWords.data.filter((w) => w.userWord === undefined
+      const wrd = reduxWords.data.filter((w) => w.userWord === undefined
       || w.userWord.difficulty === undefined
-      || w.userWord.difficulty !== Diff.STUDIED).slice(0, wordsCount));
+      || w.userWord.difficulty !== Diff.STUDIED).slice(0, wordsCount);
+      if (wrd.length < wordsCount) {
+        levelSelectHandler(reduxWords.activeBook, reduxWords.page - 1, wrd);
+      } else setWords(wrd);
       dispatch(setGamePrepared(false));
     }
   }, []);
@@ -46,7 +49,10 @@ const GameLobby: FC<Props> = ({
         <p>
           {description}
         </p>
-        <LevelSelector onLevelSelect={(level) => levelSelectHandler(level)} />
+        <LevelSelector onLevelSelect={
+          (level) => levelSelectHandler(level, randNumber(0, maxWordsPage))
+          }
+        />
 
       </div>
     )

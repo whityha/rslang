@@ -1,9 +1,15 @@
 import { Words } from '../../types/word';
 import { getWordGroup } from '../../inc/api';
 
-export default async function getGameWords(group = 0, page = 0, count = 10): Promise<Words> {
+export default async function getGameWords(
+  group = 0,
+  page = 0,
+  count = 10,
+  preparedWords: Words = [],
+): Promise<Words> {
   try {
-    const words: Words = [];
+    const words: Words = preparedWords;
+    count -= words.length;
     let nowPage = page;
     do {
       // eslint-disable-next-line no-await-in-loop
