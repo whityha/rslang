@@ -14,7 +14,6 @@ import StatPage from './pages/stat';
 import RegPage from './pages/reg';
 import LoginPage from './pages/login';
 import TextBookPage from './pages/textbook';
-import DictionaryPage from './pages/dictionary';
 import TeamPage from './pages/team-page';
 import GamesPage from './pages/games';
 import Toast from './components/toast/toast';
@@ -32,7 +31,6 @@ const App: FC = () => (
           <Route path="login" element={<LoginPage />} />
           <Route path="reg" element={<RegPage />} />
           <Route path="textbook" element={<TextBookPage />} />
-          <Route path="dictionary" element={<DictionaryPage />} />
           <Route path="difficult-words" element={<DifficultWordsPages />} />
           <Route path="team" element={<TeamPage />} />
           <Route path="games" element={<GamesPage />} />

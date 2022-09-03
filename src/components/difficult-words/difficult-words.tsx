@@ -7,25 +7,11 @@ import WordCard from '../word-card/word-card';
 import WordListContainer from '../word-list-container/word-list-container';
 
 const DifficultWords: FC = () => {
-  // const context = useWordListContext();
   const auth = useAuth();
-  // const [difficultWords, setDifficultWords] = useState<Words>([]);
   const words = useWords();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    /*
-    const fetchData = async () => {
-      if (auth.isAuth) {
-        const response = await getHardWords();
-        const data = response.paginatedResults.map((item) => transformData(item));
-        setDifficultWords(data);
-      } else {
-        setDifficultWords([]);
-      }
-    };
-    fetchData();
-    */
     dispatch(getAllWords({ diff: Diff.HARD }));
   }, [auth.isAuth]);
 
