@@ -10,6 +10,7 @@ export interface WordsState {
   gamePrepared: boolean;
   page: number;
   activeBook: number;
+  allHard: boolean;
 }
 
 export interface AuthState {

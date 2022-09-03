@@ -7,7 +7,9 @@ import {
 import ax from '../../inc/ax';
 import { isUserAuth } from '../auth/funcs';
 import { store } from '../store';
-import { setUserWords, setWordBook, setWordPage } from './slice';
+import {
+  isAllHardState, setHardState, setUserWords, setWordBook, setWordPage,
+} from './slice';
 
 type AllWordsParams = { group?: string | number, page?: string | number, diff?: Diff }
 
@@ -38,6 +40,7 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
         return w;
       });
     }
+    api.dispatch(setHardState(isAllHardState(apiWords)));
     return apiWords;
   }
   if (auth && params.diff) {
