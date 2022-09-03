@@ -8,7 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { getFilesRoot } from '../../inc/conf';
 import TextContainer from './text-container';
 import WordCardHeader from './word-card-header';
-import { AggWord } from '../../inc/api';
+import { AggWord, Diff } from '../../inc/api';
 
 const WordCard: FC<AggWord> = (data) => {
   const {
@@ -21,11 +21,21 @@ const WordCard: FC<AggWord> = (data) => {
     textExample,
     textMeaningTranslate,
     textExampleTranslate,
+    userWord,
   } = data;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const url = getFilesRoot();
   const paths = [audio, audioMeaning, audioExample].map((path) => url + path);
+
+  const getBG = () => {
+    let color = '#FFFFFF';
+    if (userWord?.difficulty) {
+      if (userWord?.difficulty === Diff.HARD) color = '#FFEEEE';
+      else if (userWord?.difficulty === Diff.STUDIED) color = '#EEFFEE';
+    }
+    return color;
+  };
 
   return (
     <Grid item xs={12}>
@@ -35,6 +45,7 @@ const WordCard: FC<AggWord> = (data) => {
           boxShadow: 2,
           flexDirection: matches ? 'row' : 'column',
           borderWidth: '1px',
+          backgroundColor: getBG(),
         }}
       >
         <CardMedia
