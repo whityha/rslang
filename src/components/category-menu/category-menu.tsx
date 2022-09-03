@@ -7,12 +7,10 @@ import { useAuth } from '../../redux/hooks';
 interface CategoryMenuProps {
   data: CatalogItem[];
   title: string;
-  active: CatalogItem;
-  setActive: (value: CatalogItem) => void;
 }
 
 const CategoryMenu: FC<CategoryMenuProps> = ({
-  data, title, active, setActive,
+  data, title,
 }) => {
   const auth = useAuth();
   return (
@@ -33,8 +31,6 @@ const CategoryMenu: FC<CategoryMenuProps> = ({
             <CategoryMenuButton
               key={item.id}
               data={item}
-              active={active}
-              setActive={setActive}
             />
           )
         ))}

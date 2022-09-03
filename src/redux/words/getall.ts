@@ -17,9 +17,12 @@ export const getAllWords = createAsyncThunk('words/getall', async (params: AllWo
 
   if (params.diff === undefined) {
     console.log('page', params.page, 'group', params.group);
-    api.dispatch(setWordPage(params.page ? +params.page : 0));
-    api.dispatch(setWordBook(params.group ? +params.group : 0));
-    const response: AxiosResponse<AggWords> = await ax.get(`/words?group=${params.group ?? ''}&page=${params.page ?? ''}`);
+    if (params.page !== undefined) api.dispatch(setWordPage(+params.page));
+    else params.page = store.getState().words.page.toString();
+
+    if (params.group !== undefined) api.dispatch(setWordBook(+params.group));
+    else params.group = store.getState().words.activeBook.toString();
+    const response: AxiosResponse<AggWords> = await ax.get(`/words?group=${params.group ?? '0'}&page=${params.page ?? '0'}`);
     let apiWords = response.data as AggWords;
 
     if (auth) {

@@ -23,6 +23,7 @@ const WordList: FC = () => {
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+      <WordListPagination />
       <WordListContainer>
         {words.data.map((word) => (
           <WordCard key={word.id} {...word} />
